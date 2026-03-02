@@ -64,8 +64,15 @@
 
     var modeText = dictionary[modeTextKey] || fallback[modeTextKey] || normalizedMode.toUpperCase();
     var modeLabel = dictionary.themeModeLabel || fallback.themeModeLabel || "Theme mode";
+    var modeIcon = "◐";
+    if (normalizedMode === "light") {
+      modeIcon = "☀";
+    }
+    if (normalizedMode === "dark") {
+      modeIcon = "🌙";
+    }
 
-    toggle.textContent = modeText;
+    toggle.textContent = modeIcon;
     toggle.setAttribute("aria-label", modeLabel + ": " + modeText);
     toggle.setAttribute("title", modeLabel + ": " + modeText);
   }
