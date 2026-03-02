@@ -314,9 +314,10 @@
       white-space: nowrap;
     }
     .brand img {
-      width: 34px;
-      height: 34px;
+      width: 36px;
+      height: 36px;
       object-fit: contain;
+      transform: translateY(1px);
     }
     .nav-links {
       display: flex;
@@ -919,11 +920,6 @@
       .site-nav .container {
         min-height: 62px;
       }
-      .brand {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.25rem;
-      }
       .nav-links {
         display: none;
       }
@@ -936,6 +932,13 @@
         grid-template-columns: 1fr;
       }
     }
+    @media (max-width: 390px) {
+      .brand {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -943,7 +946,7 @@
   <nav class="site-nav" id="nav-main" aria-label="Main">
     <div class="container">
       <a class="brand" href="#top">
-        <img id="img-logo" src="logo.png" alt="LW Technologies logo" width="34" height="34" fetchpriority="high" />
+        <img id="img-logo" src="logo.png" alt="LW Technologies logo" width="36" height="36" fetchpriority="high" />
         <span>LW Technologies</span>
       </a>
       <div class="nav-controls">
