@@ -1,0 +1,34 @@
+# LW Technologies
+
+> Engineering consulting company based in Geneva, Switzerland.
+
+## Summary
+LW Technologies SARL delivers engineering consulting and custom development in robotics, mechatronics, electronics, and mechanical design. The company operates from Geneva (Lancy), Switzerland and supports industrial and research projects requiring high-reliability systems.
+
+## Core Services
+- Robotic and mechatronic system development
+- Electronics design (including PCB, embedded systems, and control electronics)
+- Mechanical design and engineering for high-load and precision applications
+
+## Sector Experience
+- Industrial engineering
+- Medical engineering
+- Railway engineering
+- Space engineering
+
+## Company Facts
+- Legal name: LW Technologies SARL
+- Website: https://lwtechnologies.ch/
+- Contact email: contact@lwtech.ch
+- Address: Esplanade de Pont-Rouge 2, 1212 Lancy, Geneva, Switzerland
+- Primary service area: Switzerland
+
+## Official Media
+- Social preview image: https://lwtechnologies.ch/logo_rect.jpg
+- Logo: https://lwtechnologies.ch/logo_square.jpg
+
+## Language Notes
+This website supports English, French, Italian, and German content variants via on-page language switching.
+
+## Canonical Page
+- https://lwtechnologies.ch/

@@ -6,11 +6,17 @@
   <title id="meta-title">LW Technologies | Engineering Consulting in Robotics, Electronics & Mechanical Design</title>
   <meta id="meta-description" name="description" content="LW Technologies provides engineering consulting in robotics, mechatronics, electronics, and mechanical design from Geneva, with expertise in medical technology, railway, and space engineering.">
   <link rel="canonical" href="https://lwtechnologies.ch/" />
+  <link rel="alternate" type="text/markdown" href="https://lwtechnologies.ch/llms.txt" title="LW Technologies LLM context" />
   <meta name="robots" content="index, follow" />
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://lwtechnologies.ch/" />
   <meta id="meta-og-locale" property="og:locale" content="en_CH" />
+  <meta property="og:locale:alternate" content="fr_CH" />
+  <meta property="og:locale:alternate" content="it_CH" />
+  <meta property="og:locale:alternate" content="de_CH" />
   <meta property="og:site_name" content="LW Technologies" />
   <meta id="meta-og-title" property="og:title" content="LW Technologies | Engineering Consulting in Robotics, Electronics & Mechanical Design" />
   <meta id="meta-og-description" property="og:description" content="Engineering consulting in robotics, mechatronics, electronics, and mechanical design in Geneva." />
@@ -30,19 +36,71 @@
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "LW Technologies SARL",
-      "url": "https://lwtechnologies.ch/",
-      "logo": "https://lwtechnologies.ch/logo_square.jpg",
-      "email": "contact@lwtech.ch",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Esplanade de Pont-Rouge 2",
-        "postalCode": "1212",
-        "addressLocality": "Lancy",
-        "addressCountry": "CH"
-      },
-      "areaServed": "Switzerland"
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://lwtechnologies.ch/#organization",
+          "name": "LW Technologies SARL",
+          "url": "https://lwtechnologies.ch/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://lwtechnologies.ch/logo_rect.jpg",
+            "width": 1200,
+            "height": 630
+          },
+          "email": "contact@lwtech.ch",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Esplanade de Pont-Rouge 2",
+            "postalCode": "1212",
+            "addressLocality": "Lancy",
+            "addressCountry": "CH"
+          },
+          "areaServed": {
+            "@type": "Country",
+            "name": "Switzerland"
+          },
+          "knowsAbout": [
+            "Robotics",
+            "Mechatronics",
+            "Electronics design",
+            "Mechanical design",
+            "Embedded systems",
+            "Medical engineering",
+            "Railway engineering",
+            "Space engineering"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://lwtechnologies.ch/#website",
+          "url": "https://lwtechnologies.ch/",
+          "name": "LW Technologies",
+          "publisher": {
+            "@id": "https://lwtechnologies.ch/#organization"
+          },
+          "inLanguage": ["en", "fr", "it", "de"]
+        },
+        {
+          "@type": "ProfessionalService",
+          "@id": "https://lwtechnologies.ch/#service",
+          "name": "LW Technologies Engineering Consulting",
+          "url": "https://lwtechnologies.ch/",
+          "description": "Engineering consulting in robotics, mechatronics, electronics, and mechanical design from Geneva, Switzerland.",
+          "provider": {
+            "@id": "https://lwtechnologies.ch/#organization"
+          },
+          "serviceType": [
+            "Robotic and mechatronic systems",
+            "Electronics design",
+            "Mechanical design"
+          ],
+          "areaServed": {
+            "@type": "Country",
+            "name": "Switzerland"
+          }
+        }
+      ]
     }
   </script>
   <style>

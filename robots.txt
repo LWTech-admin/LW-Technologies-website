@@ -1,4 +1,14 @@
 User-agent: *
 Allow: /
 
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
 Sitemap: https://lwtechnologies.ch/sitemap.xml
+# LLM context: https://lwtechnologies.ch/llms.txt
