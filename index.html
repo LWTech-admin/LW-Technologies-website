@@ -3,10 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title id="meta-title">LW Technologies | Engineering Consulting in Robotics, Electronics & Mechanical Design</title>
-  <meta id="meta-description" name="description" content="LW Technologies provides engineering consulting in robotics, mechatronics, electronics, and mechanical design from Geneva, with expertise in medical technology, railway, and space engineering.">
+  <title id="meta-title">LW Technologies | Engineering Office in Geneva for Robotics, Electronics & Mechanical Design</title>
+  <meta id="meta-description" name="description" content="LW Technologies is an engineering office in Geneva (bureau d’ingénierie / bureau d’ingénieur) specialized in robotics, mechatronics, electronics, and mechanical design for industrial, medical, railway, and space projects.">
+  <meta name="keywords" content="engineering office geneva, engineering consultancy geneva, bureau d'ingénieur genève, bureau d’ingénierie genève, robotique genève, conception mécanique genève, electronics design geneva" />
   <meta name="color-scheme" content="dark light" />
   <link rel="canonical" href="https://lwtechnologies.ch/" />
+  <link rel="alternate" hreflang="x-default" href="https://lwtechnologies.ch/" />
+  <link rel="alternate" hreflang="en-CH" href="https://lwtechnologies.ch/?lang=en" />
+  <link rel="alternate" hreflang="fr-CH" href="https://lwtechnologies.ch/?lang=fr" />
+  <link rel="alternate" hreflang="it-CH" href="https://lwtechnologies.ch/?lang=it" />
+  <link rel="alternate" hreflang="de-CH" href="https://lwtechnologies.ch/?lang=de" />
   <link rel="alternate" type="text/markdown" href="https://lwtechnologies.ch/llms.txt" title="LW Technologies LLM context" />
   <meta name="robots" content="index, follow" />
   <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
@@ -19,8 +25,8 @@
   <meta property="og:locale:alternate" content="it_CH" />
   <meta property="og:locale:alternate" content="de_CH" />
   <meta property="og:site_name" content="LW Technologies" />
-  <meta id="meta-og-title" property="og:title" content="LW Technologies | Engineering Consulting in Robotics, Electronics & Mechanical Design" />
-  <meta id="meta-og-description" property="og:description" content="Engineering consulting in robotics, mechatronics, electronics, and mechanical design in Geneva." />
+  <meta id="meta-og-title" property="og:title" content="LW Technologies | Engineering Office in Geneva" />
+  <meta id="meta-og-description" property="og:description" content="Engineering office in Geneva (bureau d’ingénierie) for robotics, electronics, and mechanical design." />
   <meta property="og:image" content="https://lwtechnologies.ch/logo_rect.jpg" />
   <meta property="og:image:secure_url" content="https://lwtechnologies.ch/logo_rect.jpg" />
   <meta property="og:image:type" content="image/jpeg" />
@@ -29,8 +35,8 @@
   <meta id="meta-og-image-alt" property="og:image:alt" content="LW Technologies logo" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta id="meta-twitter-title" name="twitter:title" content="LW Technologies | Engineering Consulting in Robotics, Electronics & Mechanical Design" />
-  <meta id="meta-twitter-description" name="twitter:description" content="Engineering consulting in robotics, mechatronics, electronics, and mechanical design in Geneva." />
+  <meta id="meta-twitter-title" name="twitter:title" content="LW Technologies | Engineering Office in Geneva" />
+  <meta id="meta-twitter-description" name="twitter:description" content="Engineering office in Geneva (bureau d’ingénierie) for robotics, electronics, and mechanical design." />
   <meta name="twitter:image" content="https://lwtechnologies.ch/logo_rect.jpg" />
   <meta id="meta-twitter-image-alt" name="twitter:image:alt" content="LW Technologies logo" />
 
@@ -43,6 +49,7 @@
           "@id": "https://lwtechnologies.ch/#organization",
           "name": "LW Technologies SARL",
           "url": "https://lwtechnologies.ch/",
+          "description": "Engineering office in Geneva, Switzerland (bureau d’ingénierie / bureau d’ingénieur) specialized in robotics, mechatronics, electronics, and mechanical design.",
           "disambiguatingDescription": "LW Technologies SARL is an engineering consulting company in Geneva, Switzerland, and is not a locksmith business.",
           "logo": {
             "@type": "ImageObject",
@@ -88,19 +95,37 @@
           "@id": "https://lwtechnologies.ch/#service",
           "name": "LW Technologies Engineering Consulting",
           "url": "https://lwtechnologies.ch/",
-          "description": "Engineering consulting in robotics, mechatronics, electronics, and mechanical design from Geneva, Switzerland.",
+          "description": "Engineering office in Geneva, Switzerland (bureau d’ingénierie) providing robotics, mechatronics, electronics, and mechanical design services.",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Esplanade de Pont-Rouge 2",
+            "postalCode": "1212",
+            "addressLocality": "Lancy",
+            "addressRegion": "Geneva",
+            "addressCountry": "CH"
+          },
           "provider": {
             "@id": "https://lwtechnologies.ch/#organization"
           },
           "serviceType": [
+            "Engineering office in Geneva",
+            "Bureau d’ingénierie à Genève",
+            "Bureau d'ingénieur à Genève",
             "Robotic and mechatronic systems",
             "Electronics design",
             "Mechanical design"
           ],
-          "areaServed": {
-            "@type": "Country",
-            "name": "Switzerland"
-          }
+          "areaServed": [
+            {
+              "@type": "AdministrativeArea",
+              "name": "Geneva"
+            },
+            {
+              "@type": "Country",
+              "name": "Switzerland"
+            }
+          ],
+          "availableLanguage": ["en", "fr", "it", "de"]
         },
         {
           "@type": "FAQPage",
@@ -330,6 +355,16 @@
       padding: 0;
       transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
     }
+    .theme-toggle svg {
+      width: 16px;
+      height: 16px;
+      display: block;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
     .theme-toggle:hover {
       border-color: rgba(79, 216, 255, 0.45);
       box-shadow: 0 8px 20px rgba(79, 216, 255, 0.12);
@@ -340,32 +375,22 @@
       border: 1px solid rgba(255, 255, 255, 0.26);
       border-radius: 12px;
       background: rgba(255, 255, 255, 0.03);
-      min-width: 76px;
+      min-width: 56px;
     }
     .lang-trigger {
       display: inline-flex;
       width: 100%;
       align-items: center;
-      justify-content: space-between;
-      gap: 0.45rem;
+      justify-content: center;
+      gap: 0;
       background: transparent;
       color: #f0f6ff;
       border: 0;
       cursor: pointer;
-      padding: 0.38rem 0.62rem;
+      padding: 0.38rem 0.34rem;
       font-size: 0.78rem;
       letter-spacing: 0.04em;
       font-weight: 700;
-    }
-    .lang-caret {
-      font-size: 0.62rem;
-      color: var(--muted);
-      transform: translateY(1px);
-      transition: transform 0.2s ease;
-    }
-    .lang-switch.open .lang-caret,
-    .lang-switch:focus-within .lang-caret {
-      transform: rotate(180deg);
     }
     .lang-switch a {
       text-decoration: none;
@@ -383,7 +408,7 @@
       top: calc(100% + 0.42rem);
       right: 0;
       width: 100%;
-      min-width: 76px;
+      min-width: 56px;
       border: 1px solid rgba(255, 255, 255, 0.22);
       border-radius: 10px;
       background: rgba(8, 13, 28, 0.94);
@@ -932,7 +957,6 @@
         <div class="lang-switch" id="lang-switch" aria-label="Language switch">
           <button class="lang-trigger" id="lang-trigger" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="lang-menu">
             <span id="lang-current">EN</span>
-            <span class="lang-caret">▼</span>
           </button>
           <div class="lang-menu" id="lang-menu" role="menu">
             <a href="?lang=en" data-lang-switch="en" role="menuitem">EN</a>
@@ -949,10 +973,11 @@
     <div class="container hero-grid">
       <div>
         <span class="pill" id="hero-pill">Engineering on Demand</span>
-        <h1 id="hero-title">Advanced Robotics, Electronics, and Mechanical Innovation.</h1>
+        <h1 id="hero-title">Engineering Office in Geneva for Robotics, Electronics, and Mechanical Design.</h1>
         <p id="hero-desc">
-          LW Technologies delivers precision engineering solutions from Geneva, combining mechatronics,
-          embedded electronics, and mechanical design for high-reliability industrial and research systems.
+          LW Technologies is a Geneva engineering office delivering precision solutions by combining
+          mechatronics, embedded electronics, and mechanical design for high-reliability industrial and
+          research systems.
         </p>
         <div class="hero-actions">
           <a class="btn btn-primary" id="hero-cta-primary" href="#contact">Start a Project</a>
@@ -1105,7 +1130,7 @@
     </div>
   </footer>
 
-  <script src="lang-switch.js?v=20260302-7" defer></script>
+  <script src="lang-switch.js?v=20260302-8" defer></script>
 
 </body>
 </html>
