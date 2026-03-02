@@ -182,7 +182,7 @@
       navContact: "Contact",
       heroPill: "Engineering on Demand",
       heroTitle: "Advanced Robotics, Electronics, and Mechanical Innovation.",
-      heroDesc: "From Geneva, Switzerland, LW Technologies delivers precision engineering solutions by combining mechatronics, embedded electronics, and mechanical design for high-reliability industrial and research systems.",
+      heroDesc: "From Geneva, 🇨🇭 Switzerland, LW Technologies delivers precision engineering solutions by combining mechatronics, embedded electronics, and mechanical design for high-reliability industrial and research systems.",
       heroCtaPrimary: "Start a Project",
       heroCtaSecondary: "View Our Work",
       capPill: "Capabilities",
