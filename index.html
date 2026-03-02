@@ -19,12 +19,13 @@
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="LW Technologies logo" />
+  <meta id="meta-og-image-alt" property="og:image:alt" content="LW Technologies logo" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta id="meta-twitter-title" name="twitter:title" content="LW Technologies | Engineering Consulting in Robotics, Electronics & Mechanical Design" />
   <meta id="meta-twitter-description" name="twitter:description" content="Engineering consulting in robotics, mechatronics, electronics, and mechanical design in Geneva." />
   <meta name="twitter:image" content="https://lwtechnologies.ch/logo_rect.jpg" />
+  <meta id="meta-twitter-image-alt" name="twitter:image:alt" content="LW Technologies logo" />
 
   <script type="application/ld+json">
     {
@@ -432,7 +433,7 @@
   <nav class="site-nav" id="nav-main" aria-label="Main">
     <div class="container">
       <a class="brand" href="#top">
-        <img src="logo.png" alt="LW Technologies logo" width="34" height="34" fetchpriority="high" />
+        <img id="img-logo" src="logo.png" alt="LW Technologies logo" width="34" height="34" fetchpriority="high" />
         <span>LW Technologies</span>
       </a>
       <div class="nav-controls">
@@ -445,6 +446,8 @@
         <div class="lang-switch" aria-label="Language switch">
           <a href="#" data-lang-switch="en">EN</a>
           <a href="#" data-lang-switch="fr">FR</a>
+          <a href="#" data-lang-switch="it">IT</a>
+          <a href="#" data-lang-switch="de">DE</a>
         </div>
       </div>
     </div>
@@ -542,7 +545,7 @@
       </div>
       <div class="capabilities-grid">
         <article class="work-card">
-          <img src="vision-system.gif" alt="Autonomous machine vision system with Visual-SLAM and path planning" width="600" height="220" loading="lazy" decoding="async">
+          <img id="img-project-1" src="vision-system.gif" alt="Autonomous machine vision system with Visual-SLAM and path planning" width="600" height="220" loading="lazy" decoding="async">
           <div class="content">
             <h3 id="project-1-title">Autonomous Vision System</h3>
             <p id="project-1-desc">Visual-SLAM and path planning capabilities for mobile inspection robots.</p>
@@ -550,7 +553,7 @@
         </article>
 
         <article class="work-card">
-          <img src="driver.png" alt="Custom BLDC servo motor driver electronics" width="600" height="220" loading="lazy" decoding="async">
+          <img id="img-project-2" src="driver.png" alt="Custom BLDC servo motor driver electronics" width="600" height="220" loading="lazy" decoding="async">
           <div class="content">
             <h3 id="project-2-title">Custom BLDC Servo Drivers</h3>
             <p id="project-2-desc">High-performance motor drivers with precise torque, speed, and position control.</p>
@@ -558,7 +561,7 @@
         </article>
 
         <article class="work-card">
-          <img src="gantry3.png" alt="Custom medical mechanical system for radiotherapy actuation" width="600" height="220" loading="lazy" decoding="async">
+          <img id="img-project-3" src="gantry3.png" alt="Custom medical mechanical system for radiotherapy actuation" width="600" height="220" loading="lazy" decoding="async">
           <div class="content">
             <h3 id="project-3-title">Medical Mechanical System</h3>
             <p id="project-3-desc">Custom structure designed for a 15-ton payload with dedicated radiotherapy actuation.</p>

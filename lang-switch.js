@@ -28,7 +28,24 @@
   }
 
   function normalizeLanguage(lang) {
-    return lang === "fr" ? "fr" : "en";
+    if (lang === "fr" || lang === "it" || lang === "de") {
+      return lang;
+    }
+    return "en";
+  }
+
+  function detectLanguageFromBrowser() {
+    var browser = getBrowserLanguage();
+    if (browser.indexOf("fr") === 0) {
+      return "fr";
+    }
+    if (browser.indexOf("it") === 0) {
+      return "it";
+    }
+    if (browser.indexOf("de") === 0) {
+      return "de";
+    }
+    return "en";
   }
 
   var translations = {
@@ -78,6 +95,10 @@
       project2Desc: "High-performance motor drivers with precise torque, speed, and position control.",
       project3Title: "Medical Mechanical System",
       project3Desc: "Custom structure designed for a 15-ton payload with dedicated radiotherapy actuation.",
+      logoAlt: "LW Technologies logo",
+      project1Alt: "Autonomous machine vision system with Visual-SLAM and path planning",
+      project2Alt: "Custom BLDC servo motor driver electronics",
+      project3Alt: "Custom medical mechanical system for radiotherapy actuation",
       contactPill: "Contact",
       contactTitle: "Let’s build your next system.",
       contactDesc: "For project inquiries, use the form or contact us directly.",
@@ -141,6 +162,10 @@
       project2Desc: "Drivers moteur haute performance avec contrôle précis du couple, de la vitesse et de la position.",
       project3Title: "Système mécanique médical",
       project3Desc: "Structure sur mesure conçue pour une charge de 15 tonnes avec actionnement dédié à la radiothérapie.",
+      logoAlt: "Logo LW Technologies",
+      project1Alt: "Système de vision autonome avec Visual-SLAM et planification de trajectoire",
+      project2Alt: "Électronique de commande servo BLDC sur mesure",
+      project3Alt: "Système mécanique médical sur mesure pour actionnement en radiothérapie",
       contactPill: "Contact",
       contactTitle: "Construisons votre prochain système.",
       contactDesc: "Pour vos demandes de projet, utilisez le formulaire ou contactez-nous directement.",
@@ -157,6 +182,140 @@
       placeholderMessage: "Votre message",
       submit: "Envoyer le message",
       footerCopy: "© 2026 LW Technologies Sàrl | Tous droits réservés"
+    },
+    it: {
+      navAria: "Navigazione principale",
+      title: "LW Technologies | Consulenza ingegneristica in robotica, elettronica e progettazione meccanica",
+      description: "LW Technologies offre consulenza ingegneristica in robotica, meccatronica, elettronica e progettazione meccanica da Ginevra, con esperienza nei settori medicale, ferroviario e spaziale.",
+      ogLocale: "it_CH",
+      ogTitle: "LW Technologies | Consulenza ingegneristica in robotica, elettronica e progettazione meccanica",
+      ogDescription: "Consulenza ingegneristica in robotica, meccatronica, elettronica e progettazione meccanica a Ginevra.",
+      twitterTitle: "LW Technologies | Consulenza ingegneristica in robotica, elettronica e progettazione meccanica",
+      twitterDescription: "Consulenza ingegneristica in robotica, meccatronica, elettronica e progettazione meccanica a Ginevra.",
+      navAbout: "Chi siamo",
+      navServices: "Servizi",
+      navWork: "Progetti",
+      navContact: "Contatti",
+      heroPill: "Ingegneria su richiesta",
+      heroTitle: "Robotica avanzata, elettronica e innovazione meccanica.",
+      heroDesc: "LW Technologies fornisce soluzioni di ingegneria di precisione da Ginevra, combinando meccatronica, elettronica embedded e progettazione meccanica per sistemi industriali e di ricerca ad alta affidabilità.",
+      heroCtaPrimary: "Avvia un progetto",
+      heroCtaSecondary: "Scopri i nostri progetti",
+      capPill: "Competenze",
+      stat1Title: "Robotica",
+      stat1Desc: "Sistemi autonomi e meccatronici",
+      stat2Title: "Elettronica",
+      stat2Desc: "PCB su misura, driver e controllo embedded",
+      stat3Title: "Meccanica",
+      stat3Desc: "Strutture ad alto carico e progettazione di precisione",
+      stat4Title: "Multi-settore",
+      stat4Desc: "Industriale, medicale, ferroviario e spaziale",
+      aboutPill: "Chi siamo",
+      aboutTitle: "Progettato per sfide ingegneristiche complesse.",
+      aboutDesc: "In LW Technologies mettiamo a frutto la nostra esperienza nell’ingegneria industriale, medicale, ferroviaria e spaziale per offrire soluzioni innovative e su misura. Dallo sviluppo prodotto ai sistemi specializzati per industria e ricerca, ogni incarico è costruito in base alle vostre esigenze tecniche e operative.",
+      servicesPill: "Servizi",
+      servicesTitle: "Competenze chiave ed esecuzione.",
+      service1Title: "Sistemi robotici e meccatronici",
+      service1Desc: "Sviluppo di soluzioni robotiche e meccatroniche personalizzate, dal concept e prototipazione fino all’integrazione e al deployment.",
+      service2Title: "Progettazione elettronica",
+      service2Desc: "Progettazione e sviluppo di hardware elettronico, inclusi layout PCB, sistemi embedded e software di controllo su misura.",
+      service3Title: "Progettazione meccanica",
+      service3Desc: "Ingegneria di strutture, componenti e sistemi con focus su funzionalità, producibilità e durabilità, supportata da strumenti CAD e simulazione moderni.",
+      projectsPill: "Progetti",
+      projectsTitle: "Progetti selezionati.",
+      project1Title: "Sistema di visione autonoma",
+      project1Desc: "Funzionalità Visual-SLAM e pianificazione del percorso per robot mobili di ispezione.",
+      project2Title: "Driver servo BLDC personalizzati",
+      project2Desc: "Driver motore ad alte prestazioni con controllo preciso di coppia, velocità e posizione.",
+      project3Title: "Sistema meccanico medicale",
+      project3Desc: "Struttura personalizzata progettata per un carico di 15 tonnellate con attuazione dedicata alla radioterapia.",
+      logoAlt: "Logo LW Technologies",
+      project1Alt: "Sistema di visione autonoma con Visual-SLAM e pianificazione del percorso",
+      project2Alt: "Elettronica driver servo BLDC personalizzata",
+      project3Alt: "Sistema meccanico medicale personalizzato per attuazione radioterapica",
+      contactPill: "Contatti",
+      contactTitle: "Costruiamo il tuo prossimo sistema.",
+      contactDesc: "Per richieste di progetto, usa il modulo oppure contattaci direttamente.",
+      contactEmailLabel: "Email:",
+      contactAddressLabel: "Indirizzo:",
+      labelContactName: "Il tuo nome",
+      labelContactEmail: "La tua email",
+      labelContactSubject: "Oggetto",
+      labelContactMessage: "Il tuo messaggio",
+      labelContactCompany: "Azienda",
+      placeholderName: "Il tuo nome",
+      placeholderEmail: "La tua email",
+      placeholderSubject: "Oggetto (opzionale)",
+      placeholderMessage: "Il tuo messaggio",
+      submit: "Invia messaggio",
+      footerCopy: "© 2026 LW Technologies Sàrl | Tutti i diritti riservati"
+    },
+    de: {
+      navAria: "Hauptnavigation",
+      title: "LW Technologies | Engineering-Beratung in Robotik, Elektronik und mechanischer Konstruktion",
+      description: "LW Technologies bietet Engineering-Beratung in Robotik, Mechatronik, Elektronik und mechanischer Konstruktion aus Genf, mit Erfahrung in Medizintechnik, Bahntechnik und Raumfahrt.",
+      ogLocale: "de_CH",
+      ogTitle: "LW Technologies | Engineering-Beratung in Robotik, Elektronik und mechanischer Konstruktion",
+      ogDescription: "Engineering-Beratung in Robotik, Mechatronik, Elektronik und mechanischer Konstruktion in Genf.",
+      twitterTitle: "LW Technologies | Engineering-Beratung in Robotik, Elektronik und mechanischer Konstruktion",
+      twitterDescription: "Engineering-Beratung in Robotik, Mechatronik, Elektronik und mechanischer Konstruktion in Genf.",
+      navAbout: "Über uns",
+      navServices: "Leistungen",
+      navWork: "Projekte",
+      navContact: "Kontakt",
+      heroPill: "Engineering auf Abruf",
+      heroTitle: "Fortschrittliche Robotik, Elektronik und mechanische Innovation.",
+      heroDesc: "LW Technologies liefert präzise Engineering-Lösungen aus Genf und kombiniert Mechatronik, Embedded-Elektronik und mechanische Konstruktion für hochzuverlässige Industrie- und Forschungssysteme.",
+      heroCtaPrimary: "Projekt starten",
+      heroCtaSecondary: "Unsere Projekte ansehen",
+      capPill: "Kompetenzen",
+      stat1Title: "Robotik",
+      stat1Desc: "Autonome und mechatronische Systeme",
+      stat2Title: "Elektronik",
+      stat2Desc: "Individuelle PCB, Treiber und Embedded-Steuerung",
+      stat3Title: "Mechanik",
+      stat3Desc: "Hochlaststrukturen und Präzisionskonstruktion",
+      stat4Title: "Branchenübergreifend",
+      stat4Desc: "Industrie, Medizintechnik, Bahn und Raumfahrt",
+      aboutPill: "Über uns",
+      aboutTitle: "Entwickelt für komplexe Engineering-Herausforderungen.",
+      aboutDesc: "Bei LW Technologies nutzen wir unsere Erfahrung in Industrie-, Medizin-, Bahn- und Raumfahrtingenieurwesen, um innovative und maßgeschneiderte Lösungen zu liefern. Von der Produktentwicklung bis zu spezialisierten Systemen für Industrie und Forschung wird jedes Projekt auf Ihre technischen und operativen Anforderungen abgestimmt.",
+      servicesPill: "Leistungen",
+      servicesTitle: "Kernkompetenz und Umsetzung.",
+      service1Title: "Robotik- und mechatronische Systeme",
+      service1Desc: "Entwicklung kundenspezifischer Robotik- und Mechatroniklösungen – von Konzept und Prototyping bis Integration und Deployment.",
+      service2Title: "Elektronikentwicklung",
+      service2Desc: "Entwicklung elektronischer Hardware inklusive PCB-Layouts, Embedded-Systemen und maßgeschneiderter Steuerungssoftware.",
+      service3Title: "Mechanische Konstruktion",
+      service3Desc: "Engineering von Strukturen, Komponenten und Systemen mit Fokus auf Funktionalität, Fertigbarkeit und Langlebigkeit, unterstützt durch moderne CAD- und Simulationswerkzeuge.",
+      projectsPill: "Projekte",
+      projectsTitle: "Ausgewählte Projekte.",
+      project1Title: "Autonomes Vision-System",
+      project1Desc: "Visual-SLAM- und Pfadplanungsfunktionen für mobile Inspektionsroboter.",
+      project2Title: "Kundenspezifische BLDC-Servotreiber",
+      project2Desc: "Hochleistungs-Motortreiber mit präziser Drehmoment-, Geschwindigkeits- und Positionsregelung.",
+      project3Title: "Medizinisches mechanisches System",
+      project3Desc: "Kundenspezifische Struktur für 15 Tonnen Nutzlast mit spezieller Aktuierung für die Radiotherapie.",
+      logoAlt: "LW Technologies Logo",
+      project1Alt: "Autonomes maschinelles Vision-System mit Visual-SLAM und Pfadplanung",
+      project2Alt: "Kundenspezifische BLDC-Servotreiber-Elektronik",
+      project3Alt: "Kundenspezifisches medizinisches mechanisches System für Radiotherapie-Aktuierung",
+      contactPill: "Kontakt",
+      contactTitle: "Lassen Sie uns Ihr nächstes System bauen.",
+      contactDesc: "Für Projektanfragen nutzen Sie das Formular oder kontaktieren Sie uns direkt.",
+      contactEmailLabel: "E-Mail:",
+      contactAddressLabel: "Adresse:",
+      labelContactName: "Ihr Name",
+      labelContactEmail: "Ihre E-Mail",
+      labelContactSubject: "Betreff",
+      labelContactMessage: "Ihre Nachricht",
+      labelContactCompany: "Unternehmen",
+      placeholderName: "Ihr Name",
+      placeholderEmail: "Ihre E-Mail",
+      placeholderSubject: "Betreff (optional)",
+      placeholderMessage: "Ihre Nachricht",
+      submit: "Nachricht senden",
+      footerCopy: "© 2026 LW Technologies Sàrl | Alle Rechte vorbehalten"
     }
   };
 
@@ -226,6 +385,13 @@
     }
   }
 
+  function setAttributeById(id, attributeName, value) {
+    var node = document.getElementById(id);
+    if (node) {
+      node.setAttribute(attributeName, value);
+    }
+  }
+
   function applyLanguage(lang) {
     var selected = normalizeLanguage(lang);
     var current = translations[selected];
@@ -236,8 +402,15 @@
     setContentById("meta-og-locale", current.ogLocale);
     setContentById("meta-og-title", current.ogTitle);
     setContentById("meta-og-description", current.ogDescription);
+    setContentById("meta-og-image-alt", current.logoAlt);
     setContentById("meta-twitter-title", current.twitterTitle);
     setContentById("meta-twitter-description", current.twitterDescription);
+    setContentById("meta-twitter-image-alt", current.logoAlt);
+
+    setAttributeById("img-logo", "alt", current.logoAlt);
+    setAttributeById("img-project-1", "alt", current.project1Alt);
+    setAttributeById("img-project-2", "alt", current.project2Alt);
+    setAttributeById("img-project-3", "alt", current.project3Alt);
 
     var nav = document.getElementById("nav-main");
     if (nav) {
@@ -281,7 +454,7 @@
   }
 
   var stored = getStoredLanguage();
-  var initialLanguage = stored ? normalizeLanguage(stored) : (getBrowserLanguage().indexOf("fr") === 0 ? "fr" : "en");
+  var initialLanguage = stored ? normalizeLanguage(stored) : detectLanguageFromBrowser();
   applyLanguage(initialLanguage);
 
   var switchLinks = document.querySelectorAll("[data-lang-switch]");
