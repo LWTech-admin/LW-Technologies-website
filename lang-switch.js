@@ -498,6 +498,9 @@
       event.preventDefault();
       setStoredLanguage(linkLang);
       applyLanguage(linkLang);
+      if (document.activeElement && typeof document.activeElement.blur === "function") {
+        document.activeElement.blur();
+      }
       setLanguageDropdownState(false);
     });
   });
