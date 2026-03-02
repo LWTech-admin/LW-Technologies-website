@@ -392,6 +392,21 @@
     }
   }
 
+  function setLanguageDropdownState(isOpen) {
+    var root = document.getElementById("lang-switch");
+    var trigger = document.getElementById("lang-trigger");
+    if (!root || !trigger) {
+      return;
+    }
+    if (isOpen) {
+      root.classList.add("open");
+      trigger.setAttribute("aria-expanded", "true");
+    } else {
+      root.classList.remove("open");
+      trigger.setAttribute("aria-expanded", "false");
+    }
+  }
+
   function applyLanguage(lang) {
     var selected = normalizeLanguage(lang);
     var current = translations[selected];
@@ -451,6 +466,8 @@
         link.classList.remove("active");
       }
     });
+
+    setTextById("lang-current", selected.toUpperCase());
   }
 
   var stored = getStoredLanguage();
@@ -464,6 +481,28 @@
       event.preventDefault();
       setStoredLanguage(linkLang);
       applyLanguage(linkLang);
+      setLanguageDropdownState(false);
     });
   });
+
+  var languageRoot = document.getElementById("lang-switch");
+  var languageTrigger = document.getElementById("lang-trigger");
+  if (languageRoot && languageTrigger) {
+    languageTrigger.addEventListener("click", function () {
+      var isOpen = languageRoot.classList.contains("open");
+      setLanguageDropdownState(!isOpen);
+    });
+
+    document.addEventListener("click", function (event) {
+      if (!languageRoot.contains(event.target)) {
+        setLanguageDropdownState(false);
+      }
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") {
+        setLanguageDropdownState(false);
+      }
+    });
+  }
 })();

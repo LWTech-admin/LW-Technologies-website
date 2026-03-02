@@ -197,11 +197,36 @@
       gap: 1rem;
     }
     .lang-switch {
-      display: inline-flex;
+      position: relative;
+      display: inline-block;
       border: 1px solid rgba(255, 255, 255, 0.26);
-      border-radius: 999px;
-      overflow: hidden;
+      border-radius: 12px;
       background: rgba(255, 255, 255, 0.03);
+      min-width: 76px;
+    }
+    .lang-trigger {
+      display: inline-flex;
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.45rem;
+      background: transparent;
+      color: #f0f6ff;
+      border: 0;
+      cursor: pointer;
+      padding: 0.38rem 0.62rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      font-weight: 700;
+    }
+    .lang-caret {
+      font-size: 0.62rem;
+      color: var(--muted);
+      transform: translateY(1px);
+      transition: transform 0.2s ease;
+    }
+    .lang-switch.open .lang-caret {
+      transform: rotate(180deg);
     }
     .lang-switch a {
       text-decoration: none;
@@ -209,8 +234,33 @@
       font-size: 0.8rem;
       letter-spacing: 0.04em;
       font-weight: 700;
-      padding: 0.35rem 0.62rem;
+      padding: 0.42rem 0.62rem;
       transition: color 0.2s ease, background 0.2s ease;
+      display: block;
+      text-align: center;
+    }
+    .lang-menu {
+      position: absolute;
+      top: calc(100% + 0.42rem);
+      right: 0;
+      width: 100%;
+      min-width: 76px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 10px;
+      background: rgba(8, 13, 28, 0.94);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(-4px);
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      z-index: 30;
+    }
+    .lang-switch.open .lang-menu {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
     }
     .lang-switch a.active,
     .lang-switch a:hover {
@@ -439,6 +489,7 @@
       color: #a8b4d2;
     }
     .btn:focus-visible,
+    .lang-trigger:focus-visible,
     .nav-links a:focus-visible,
     form input:focus-visible,
     form textarea:focus-visible,
@@ -505,11 +556,17 @@
           <li><a id="nav-work" href="#work">Projects</a></li>
           <li><a id="nav-contact" href="#contact">Contact</a></li>
         </ul>
-        <div class="lang-switch" aria-label="Language switch">
-          <a href="#" data-lang-switch="en">EN</a>
-          <a href="#" data-lang-switch="fr">FR</a>
-          <a href="#" data-lang-switch="it">IT</a>
-          <a href="#" data-lang-switch="de">DE</a>
+        <div class="lang-switch" id="lang-switch" aria-label="Language switch">
+          <button class="lang-trigger" id="lang-trigger" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="lang-menu">
+            <span id="lang-current">EN</span>
+            <span class="lang-caret">▼</span>
+          </button>
+          <div class="lang-menu" id="lang-menu" role="menu">
+            <a href="#" data-lang-switch="en" role="menuitem">EN</a>
+            <a href="#" data-lang-switch="fr" role="menuitem">FR</a>
+            <a href="#" data-lang-switch="it" role="menuitem">IT</a>
+            <a href="#" data-lang-switch="de" role="menuitem">DE</a>
+          </div>
         </div>
       </div>
     </div>
