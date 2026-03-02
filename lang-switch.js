@@ -1,5 +1,7 @@
 (function () {
   var STORAGE_KEY = "lwtech_lang";
+  var THEME_STORAGE_KEY = "lwtech_theme";
+  var themeMode = "auto";
 
   function getStoredLanguage() {
     try {
@@ -15,6 +17,102 @@
     } catch (error) {
       return;
     }
+  }
+
+  function getStoredThemeMode() {
+    try {
+      var mode = localStorage.getItem(THEME_STORAGE_KEY);
+      if (mode === "light" || mode === "dark") {
+        return mode;
+      }
+      return "auto";
+    } catch (error) {
+      return "auto";
+    }
+  }
+
+  function setStoredThemeMode(mode) {
+    try {
+      if (mode === "light" || mode === "dark") {
+        localStorage.setItem(THEME_STORAGE_KEY, mode);
+        return;
+      }
+      localStorage.removeItem(THEME_STORAGE_KEY);
+    } catch (error) {
+      return;
+    }
+  }
+
+  function setThemeToggleUi(mode, lang) {
+    var toggle = document.getElementById("theme-toggle");
+    if (!toggle) {
+      return;
+    }
+
+    var selectedLanguage = normalizeLanguage(String(lang || document.documentElement.getAttribute("lang") || "en").toLowerCase());
+    var dictionary = translations[selectedLanguage] || translations.en;
+    var fallback = translations.en;
+    var normalizedMode = mode === "light" || mode === "dark" ? mode : "auto";
+
+    var modeTextKey = "themeAuto";
+    if (normalizedMode === "light") {
+      modeTextKey = "themeLight";
+    }
+    if (normalizedMode === "dark") {
+      modeTextKey = "themeDark";
+    }
+
+    var modeText = dictionary[modeTextKey] || fallback[modeTextKey] || normalizedMode.toUpperCase();
+    var modeLabel = dictionary.themeModeLabel || fallback.themeModeLabel || "Theme mode";
+
+    toggle.textContent = modeText;
+    toggle.setAttribute("aria-label", modeLabel + ": " + modeText);
+    toggle.setAttribute("title", modeLabel + ": " + modeText);
+  }
+
+  function isSystemLightMode() {
+    if (!window.matchMedia) {
+      return false;
+    }
+    return window.matchMedia("(prefers-color-scheme: light)").matches;
+  }
+
+  function updateLogoForTheme(mode) {
+    var logo = document.getElementById("img-logo");
+    if (!logo) {
+      return;
+    }
+
+    var normalizedMode = mode === "light" || mode === "dark" ? mode : "auto";
+    var effectiveMode = normalizedMode === "auto" ? (isSystemLightMode() ? "light" : "dark") : normalizedMode;
+
+    if (effectiveMode === "light") {
+      logo.setAttribute("src", "logo-black.png");
+      return;
+    }
+    logo.setAttribute("src", "logo.png");
+  }
+
+  function applyThemeMode(mode) {
+    var normalizedMode = mode === "light" || mode === "dark" ? mode : "auto";
+    themeMode = normalizedMode;
+    if (normalizedMode === "auto") {
+      document.documentElement.removeAttribute("data-theme");
+    } else {
+      document.documentElement.setAttribute("data-theme", normalizedMode);
+    }
+    setThemeToggleUi(normalizedMode);
+    updateLogoForTheme(normalizedMode);
+  }
+
+  function getNextThemeMode(mode) {
+    if (mode === "auto") {
+      return "light";
+    }
+    if (mode === "light") {
+      return "dark";
+    }
+    return "auto";
   }
 
   function getBrowserLanguage() {
@@ -128,7 +226,11 @@
       placeholderSubject: "Subject (optional)",
       placeholderMessage: "Your Message",
       submit: "Send Message",
-      footerCopy: "© 2026 LW Technologies Sàrl | All rights reserved"
+      footerCopy: "© 2026 LW Technologies Sàrl | All rights reserved",
+      themeModeLabel: "Theme mode",
+      themeAuto: "AUTO",
+      themeLight: "LIGHT",
+      themeDark: "DARK"
     },
     fr: {
       navAria: "Navigation principale",
@@ -196,7 +298,11 @@
       placeholderSubject: "Sujet (optionnel)",
       placeholderMessage: "Votre message",
       submit: "Envoyer le message",
-      footerCopy: "© 2026 LW Technologies Sàrl | Tous droits réservés"
+      footerCopy: "© 2026 LW Technologies Sàrl | Tous droits réservés",
+      themeModeLabel: "Mode de thème",
+      themeAuto: "AUTO",
+      themeLight: "CLAIR",
+      themeDark: "SOMBRE"
     },
     it: {
       navAria: "Navigazione principale",
@@ -264,7 +370,11 @@
       placeholderSubject: "Oggetto (opzionale)",
       placeholderMessage: "Il tuo messaggio",
       submit: "Invia messaggio",
-      footerCopy: "© 2026 LW Technologies Sàrl | Tutti i diritti riservati"
+      footerCopy: "© 2026 LW Technologies Sàrl | Tutti i diritti riservati",
+      themeModeLabel: "Modalità tema",
+      themeAuto: "AUTO",
+      themeLight: "CHIARO",
+      themeDark: "SCURO"
     },
     de: {
       navAria: "Hauptnavigation",
@@ -332,7 +442,11 @@
       placeholderSubject: "Betreff (optional)",
       placeholderMessage: "Ihre Nachricht",
       submit: "Nachricht senden",
-      footerCopy: "© 2026 LW Technologies Sàrl | Alle Rechte vorbehalten"
+      footerCopy: "© 2026 LW Technologies Sàrl | Alle Rechte vorbehalten",
+      themeModeLabel: "Themenmodus",
+      themeAuto: "AUTO",
+      themeLight: "HELL",
+      themeDark: "DUNKEL"
     }
   };
 
@@ -486,6 +600,7 @@
     });
 
     setTextById("lang-current", selected.toUpperCase());
+    setThemeToggleUi(themeMode, selected);
   }
 
   var stored = getStoredLanguage();
@@ -494,7 +609,35 @@
     setStoredLanguage(queryLanguage);
   }
   var initialLanguage = queryLanguage || (stored ? normalizeLanguage(stored) : detectLanguageFromBrowser());
+  themeMode = getStoredThemeMode();
   applyLanguage(initialLanguage);
+  applyThemeMode(themeMode);
+
+  var themeToggle = document.getElementById("theme-toggle");
+  if (themeToggle) {
+    themeToggle.addEventListener("click", function () {
+      themeMode = getNextThemeMode(themeMode);
+      setStoredThemeMode(themeMode);
+      applyThemeMode(themeMode);
+    });
+  }
+
+  if (window.matchMedia) {
+    var colorSchemeMedia = window.matchMedia("(prefers-color-scheme: light)");
+    if (typeof colorSchemeMedia.addEventListener === "function") {
+      colorSchemeMedia.addEventListener("change", function () {
+        if (themeMode === "auto") {
+          updateLogoForTheme("auto");
+        }
+      });
+    } else if (typeof colorSchemeMedia.addListener === "function") {
+      colorSchemeMedia.addListener(function () {
+        if (themeMode === "auto") {
+          updateLogoForTheme("auto");
+        }
+      });
+    }
+  }
 
   var switchLinks = document.querySelectorAll("[data-lang-switch]");
   switchLinks.forEach(function (link) {

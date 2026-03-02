@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title id="meta-title">LW Technologies | Engineering Consulting in Robotics, Electronics & Mechanical Design</title>
   <meta id="meta-description" name="description" content="LW Technologies provides engineering consulting in robotics, mechatronics, electronics, and mechanical design from Geneva, with expertise in medical technology, railway, and space engineering.">
+  <meta name="color-scheme" content="dark light" />
   <link rel="canonical" href="https://lwtechnologies.ch/" />
   <link rel="alternate" type="text/markdown" href="https://lwtechnologies.ch/llms.txt" title="LW Technologies LLM context" />
   <meta name="robots" content="index, follow" />
@@ -160,6 +161,7 @@
   </script>
   <style>
     :root {
+      color-scheme: dark;
       --bg-0: #05070d;
       --bg-1: #090f1f;
       --bg-2: #101a33;
@@ -308,6 +310,27 @@
       display: flex;
       align-items: center;
       gap: 1rem;
+    }
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 72px;
+      height: 34px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.26);
+      background: rgba(255, 255, 255, 0.03);
+      color: #f0f6ff;
+      cursor: pointer;
+      font-size: 0.74rem;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+      padding: 0 0.6rem;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+    .theme-toggle:hover {
+      border-color: rgba(79, 216, 255, 0.45);
+      box-shadow: 0 8px 20px rgba(79, 216, 255, 0.12);
     }
     .lang-switch {
       position: relative;
@@ -604,6 +627,7 @@
       color: #a8b4d2;
     }
     .btn:focus-visible,
+    .theme-toggle:focus-visible,
     .lang-trigger:focus-visible,
     .nav-links a:focus-visible,
     form input:focus-visible,
@@ -626,6 +650,232 @@
     }
     footer p {
       margin: 0.2rem 0;
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root:not([data-theme]) {
+        color-scheme: light;
+        --bg-0: #f7f9ff;
+        --bg-1: #eef3ff;
+        --bg-2: #e2ebff;
+        --line: rgba(8, 20, 43, 0.09);
+        --text: #13203b;
+        --muted: #445272;
+        --card: rgba(255, 255, 255, 0.74);
+        --glow-soft: 0 0 0 1px rgba(79, 216, 255, 0.2), 0 14px 34px rgba(66, 245, 185, 0.08);
+      }
+
+      html:not([data-theme]) body {
+        background:
+          radial-gradient(520px 280px at 22% 78%, rgba(255, 77, 103, 0.08), transparent 72%),
+          radial-gradient(400px 260px at 86% 66%, rgba(255, 77, 103, 0.07), transparent 72%),
+          radial-gradient(900px 500px at 8% -5%, rgba(79, 216, 255, 0.13), transparent 70%),
+          radial-gradient(800px 600px at 95% 2%, rgba(122, 123, 255, 0.12), transparent 68%),
+          linear-gradient(165deg, var(--bg-0) 0%, var(--bg-1) 45%, var(--bg-2) 100%);
+      }
+
+      html:not([data-theme]) body::after {
+        opacity: 0.24;
+      }
+
+      html:not([data-theme]) .site-nav {
+        background: rgba(255, 255, 255, 0.78);
+        border-bottom: 1px solid rgba(19, 32, 59, 0.14);
+      }
+
+      html:not([data-theme]) .nav-links a:hover {
+        color: #10284d;
+      }
+
+      html:not([data-theme]) .pill {
+        color: #123d5a;
+        background: rgba(79, 216, 255, 0.12);
+      }
+
+      html:not([data-theme]) .theme-toggle,
+      html:not([data-theme]) .lang-switch {
+        border-color: rgba(19, 32, 59, 0.2);
+        background: rgba(255, 255, 255, 0.6);
+      }
+
+      html:not([data-theme]) .theme-toggle,
+      html:not([data-theme]) .lang-trigger {
+        color: #13203b;
+      }
+
+      html:not([data-theme]) .lang-menu {
+        border-color: rgba(19, 32, 59, 0.2);
+        background: rgba(255, 255, 255, 0.96);
+        box-shadow: 0 12px 24px rgba(8, 20, 43, 0.12);
+      }
+
+      html:not([data-theme]) .lang-switch a.active,
+      html:not([data-theme]) .lang-switch a:hover {
+        color: #0f2f57;
+        background: linear-gradient(135deg, rgba(79, 216, 255, 0.18), rgba(122, 123, 255, 0.14));
+      }
+
+      html:not([data-theme]) .btn-secondary {
+        border-color: rgba(19, 32, 59, 0.24);
+        background: rgba(255, 255, 255, 0.62);
+        color: #13203b;
+      }
+
+      html:not([data-theme]) .btn-secondary:hover {
+        border-color: rgba(79, 216, 255, 0.48);
+      }
+
+      html:not([data-theme]) .hero-panel,
+      html:not([data-theme]) .card,
+      html:not([data-theme]) .work-card,
+      html:not([data-theme]) .contact-panel {
+        border-color: rgba(19, 32, 59, 0.14);
+        box-shadow: 0 14px 30px rgba(8, 20, 43, 0.09);
+      }
+
+      html:not([data-theme]) .stat {
+        border-color: rgba(19, 32, 59, 0.14);
+        background: rgba(255, 255, 255, 0.66);
+        box-shadow: inset 0 0 0 1px rgba(122, 123, 255, 0.1);
+      }
+
+      html:not([data-theme]) .stat strong {
+        color: #10315b;
+      }
+
+      html:not([data-theme]) .contact-info .meta {
+        color: #1d3156;
+      }
+
+      html:not([data-theme]) form input,
+      html:not([data-theme]) form textarea {
+        border-color: rgba(19, 32, 59, 0.2);
+        background: rgba(255, 255, 255, 0.86);
+        color: #13203b;
+      }
+
+      html:not([data-theme]) form input::placeholder,
+      html:not([data-theme]) form textarea::placeholder {
+        color: #68799b;
+      }
+
+      html:not([data-theme]) footer {
+        border-top: 1px solid rgba(19, 32, 59, 0.14);
+        background: rgba(255, 255, 255, 0.72);
+        color: #425277;
+      }
+    }
+
+    :root[data-theme="light"] {
+      color-scheme: light;
+      --bg-0: #f7f9ff;
+      --bg-1: #eef3ff;
+      --bg-2: #e2ebff;
+      --line: rgba(8, 20, 43, 0.09);
+      --text: #13203b;
+      --muted: #445272;
+      --card: rgba(255, 255, 255, 0.74);
+      --glow-soft: 0 0 0 1px rgba(79, 216, 255, 0.2), 0 14px 34px rgba(66, 245, 185, 0.08);
+    }
+
+    html[data-theme="light"] body {
+      background:
+        radial-gradient(520px 280px at 22% 78%, rgba(255, 77, 103, 0.08), transparent 72%),
+        radial-gradient(400px 260px at 86% 66%, rgba(255, 77, 103, 0.07), transparent 72%),
+        radial-gradient(900px 500px at 8% -5%, rgba(79, 216, 255, 0.13), transparent 70%),
+        radial-gradient(800px 600px at 95% 2%, rgba(122, 123, 255, 0.12), transparent 68%),
+        linear-gradient(165deg, var(--bg-0) 0%, var(--bg-1) 45%, var(--bg-2) 100%);
+    }
+
+    html[data-theme="light"] body::after {
+      opacity: 0.24;
+    }
+
+    html[data-theme="light"] .site-nav {
+      background: rgba(255, 255, 255, 0.78);
+      border-bottom: 1px solid rgba(19, 32, 59, 0.14);
+    }
+
+    html[data-theme="light"] .nav-links a:hover {
+      color: #10284d;
+    }
+
+    html[data-theme="light"] .pill {
+      color: #123d5a;
+      background: rgba(79, 216, 255, 0.12);
+    }
+
+    html[data-theme="light"] .theme-toggle,
+    html[data-theme="light"] .lang-switch {
+      border-color: rgba(19, 32, 59, 0.2);
+      background: rgba(255, 255, 255, 0.6);
+    }
+
+    html[data-theme="light"] .theme-toggle,
+    html[data-theme="light"] .lang-trigger {
+      color: #13203b;
+    }
+
+    html[data-theme="light"] .lang-menu {
+      border-color: rgba(19, 32, 59, 0.2);
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 12px 24px rgba(8, 20, 43, 0.12);
+    }
+
+    html[data-theme="light"] .lang-switch a.active,
+    html[data-theme="light"] .lang-switch a:hover {
+      color: #0f2f57;
+      background: linear-gradient(135deg, rgba(79, 216, 255, 0.18), rgba(122, 123, 255, 0.14));
+    }
+
+    html[data-theme="light"] .btn-secondary {
+      border-color: rgba(19, 32, 59, 0.24);
+      background: rgba(255, 255, 255, 0.62);
+      color: #13203b;
+    }
+
+    html[data-theme="light"] .btn-secondary:hover {
+      border-color: rgba(79, 216, 255, 0.48);
+    }
+
+    html[data-theme="light"] .hero-panel,
+    html[data-theme="light"] .card,
+    html[data-theme="light"] .work-card,
+    html[data-theme="light"] .contact-panel {
+      border-color: rgba(19, 32, 59, 0.14);
+      box-shadow: 0 14px 30px rgba(8, 20, 43, 0.09);
+    }
+
+    html[data-theme="light"] .stat {
+      border-color: rgba(19, 32, 59, 0.14);
+      background: rgba(255, 255, 255, 0.66);
+      box-shadow: inset 0 0 0 1px rgba(122, 123, 255, 0.1);
+    }
+
+    html[data-theme="light"] .stat strong {
+      color: #10315b;
+    }
+
+    html[data-theme="light"] .contact-info .meta {
+      color: #1d3156;
+    }
+
+    html[data-theme="light"] form input,
+    html[data-theme="light"] form textarea {
+      border-color: rgba(19, 32, 59, 0.2);
+      background: rgba(255, 255, 255, 0.86);
+      color: #13203b;
+    }
+
+    html[data-theme="light"] form input::placeholder,
+    html[data-theme="light"] form textarea::placeholder {
+      color: #68799b;
+    }
+
+    html[data-theme="light"] footer {
+      border-top: 1px solid rgba(19, 32, 59, 0.14);
+      background: rgba(255, 255, 255, 0.72);
+      color: #425277;
     }
 
     @media (max-width: 960px) {
@@ -671,6 +921,7 @@
           <li><a id="nav-work" href="#work">Projects</a></li>
           <li><a id="nav-contact" href="#contact">Contact</a></li>
         </ul>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Theme mode: auto" title="Theme mode: auto">AUTO</button>
         <div class="lang-switch" id="lang-switch" aria-label="Language switch">
           <button class="lang-trigger" id="lang-trigger" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="lang-menu">
             <span id="lang-current">EN</span>
@@ -847,7 +1098,7 @@
     </div>
   </footer>
 
-  <script src="lang-switch.js?v=20260302-3" defer></script>
+  <script src="lang-switch.js?v=20260302-6" defer></script>
 
 </body>
 </html>
