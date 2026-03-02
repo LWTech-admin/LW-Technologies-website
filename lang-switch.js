@@ -64,15 +64,15 @@
 
     var modeText = dictionary[modeTextKey] || fallback[modeTextKey] || normalizedMode.toUpperCase();
     var modeLabel = dictionary.themeModeLabel || fallback.themeModeLabel || "Theme mode";
-    var modeIcon = "◐";
+    var modeIconSvg = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8"></circle><path d="M12 4v16"></path></svg>';
     if (normalizedMode === "light") {
-      modeIcon = "☀";
+      modeIconSvg = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2"></circle><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"></path></svg>';
     }
     if (normalizedMode === "dark") {
-      modeIcon = "🌙";
+      modeIconSvg = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.6 14.3A8.5 8.5 0 1 1 9.7 3.4a7.1 7.1 0 1 0 10.9 10.9z"></path></svg>';
     }
 
-    toggle.textContent = modeIcon;
+    toggle.innerHTML = modeIconSvg;
     toggle.setAttribute("aria-label", modeLabel + ": " + modeText);
     toggle.setAttribute("title", modeLabel + ": " + modeText);
   }
@@ -169,20 +169,20 @@
   var translations = {
     en: {
       navAria: "Main",
-      title: "LW Technologies | Engineering Consulting in Robotics, Electronics & Mechanical Design",
-      description: "LW Technologies is a Geneva, Switzerland engineering consultancy specialized in robotics, mechatronics, electronics, and mechanical design, with expertise in medical technology, railway, and space engineering.",
+      title: "LW Technologies | Engineering Office in Geneva for Robotics, Electronics & Mechanical Design",
+      description: "LW Technologies is an engineering office in Geneva (bureau d’ingénierie / bureau d’ingénieur) specialized in robotics, mechatronics, electronics, and mechanical design for industrial, medical, railway, and space projects.",
       ogLocale: "en_CH",
-      ogTitle: "LW Technologies | Engineering Consulting in Robotics, Electronics & Mechanical Design",
-      ogDescription: "Engineering consulting in robotics, mechatronics, electronics, and mechanical design in Geneva, Switzerland.",
-      twitterTitle: "LW Technologies | Engineering Consulting in Robotics, Electronics & Mechanical Design",
-      twitterDescription: "Engineering consulting in robotics, mechatronics, electronics, and mechanical design in Geneva, Switzerland.",
+      ogTitle: "LW Technologies | Engineering Office in Geneva",
+      ogDescription: "Engineering office in Geneva (bureau d’ingénierie) for robotics, electronics, and mechanical design.",
+      twitterTitle: "LW Technologies | Engineering Office in Geneva",
+      twitterDescription: "Engineering office in Geneva (bureau d’ingénierie) for robotics, electronics, and mechanical design.",
       navAbout: "About",
       navServices: "Services",
       navWork: "Projects",
       navContact: "Contact",
       heroPill: "Engineering on Demand",
-      heroTitle: "Advanced Robotics, Electronics, and Mechanical Innovation.",
-      heroDesc: "From Geneva, Switzerland, LW Technologies delivers precision engineering solutions by combining mechatronics, embedded electronics, and mechanical design for high-reliability industrial and research systems.",
+      heroTitle: "Engineering Office in Geneva for Robotics, Electronics, and Mechanical Design.",
+      heroDesc: "LW Technologies is a Geneva engineering office delivering precision solutions by combining mechatronics, embedded electronics, and mechanical design for high-reliability industrial and research systems.",
       heroCtaPrimary: "Start a Project",
       heroCtaSecondary: "View Our Work",
       capPill: "Capabilities",
@@ -241,20 +241,20 @@
     },
     fr: {
       navAria: "Navigation principale",
-      title: "LW Technologies | Conseil en ingénierie robotique, électronique et conception mécanique",
-      description: "LW Technologies est un bureau d’ingénierie basé à Genève, Suisse, spécialisé en robotique, mécatronique, électronique et conception mécanique, avec une expertise en technologies médicales, ferroviaires et spatiales.",
+      title: "LW Technologies | Bureau d’ingénieur à Genève : robotique, électronique et mécanique",
+      description: "LW Technologies est un bureau d’ingénierie (bureau d’ingénieur) à Genève, Suisse, spécialisé en robotique, mécatronique, électronique et conception mécanique pour des projets industriels, médicaux, ferroviaires et spatiaux.",
       ogLocale: "fr_CH",
-      ogTitle: "LW Technologies | Conseil en ingénierie robotique, électronique et conception mécanique",
-      ogDescription: "Conseil en ingénierie robotique, mécatronique, électronique et conception mécanique à Genève, Suisse.",
-      twitterTitle: "LW Technologies | Conseil en ingénierie robotique, électronique et conception mécanique",
-      twitterDescription: "Conseil en ingénierie robotique, mécatronique, électronique et conception mécanique à Genève, Suisse.",
+      ogTitle: "LW Technologies | Bureau d’ingénierie à Genève",
+      ogDescription: "Bureau d’ingénierie à Genève pour la robotique, l’électronique et la conception mécanique.",
+      twitterTitle: "LW Technologies | Bureau d’ingénierie à Genève",
+      twitterDescription: "Bureau d’ingénierie à Genève pour la robotique, l’électronique et la conception mécanique.",
       navAbout: "À propos",
       navServices: "Services",
       navWork: "Projets",
       navContact: "Contact",
       heroPill: "Ingénierie sur demande",
-      heroTitle: "Robotique avancée, électronique et innovation mécanique.",
-      heroDesc: "Depuis Genève, Suisse, LW Technologies fournit des solutions d’ingénierie de précision en combinant mécatronique, électronique embarquée et conception mécanique pour des systèmes industriels et de recherche à haute fiabilité.",
+      heroTitle: "Bureau d’ingénierie à Genève : robotique, électronique et conception mécanique.",
+      heroDesc: "LW Technologies est un bureau d’ingénieur à Genève qui fournit des solutions de précision en combinant mécatronique, électronique embarquée et conception mécanique pour des systèmes industriels et de recherche à haute fiabilité.",
       heroCtaPrimary: "Démarrer un projet",
       heroCtaSecondary: "Voir nos projets",
       capPill: "Compétences",
