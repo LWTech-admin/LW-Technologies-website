@@ -48,23 +48,36 @@
     return "en";
   }
 
+  function getLanguageFromQuery() {
+    try {
+      var params = new URLSearchParams(window.location.search);
+      var lang = params.get("lang");
+      if (!lang) {
+        return null;
+      }
+      return normalizeLanguage(String(lang).toLowerCase());
+    } catch (error) {
+      return null;
+    }
+  }
+
   var translations = {
     en: {
       navAria: "Main",
       title: "LW Technologies | Engineering Consulting in Robotics, Electronics & Mechanical Design",
-      description: "LW Technologies provides engineering consulting in robotics, mechatronics, electronics, and mechanical design from Geneva, with expertise in medical technology, railway, and space engineering.",
+      description: "LW Technologies is a Geneva, Switzerland engineering consultancy specialized in robotics, mechatronics, electronics, and mechanical design, with expertise in medical technology, railway, and space engineering.",
       ogLocale: "en_CH",
       ogTitle: "LW Technologies | Engineering Consulting in Robotics, Electronics & Mechanical Design",
-      ogDescription: "Engineering consulting in robotics, mechatronics, electronics, and mechanical design in Geneva.",
+      ogDescription: "Engineering consulting in robotics, mechatronics, electronics, and mechanical design in Geneva, Switzerland.",
       twitterTitle: "LW Technologies | Engineering Consulting in Robotics, Electronics & Mechanical Design",
-      twitterDescription: "Engineering consulting in robotics, mechatronics, electronics, and mechanical design in Geneva.",
+      twitterDescription: "Engineering consulting in robotics, mechatronics, electronics, and mechanical design in Geneva, Switzerland.",
       navAbout: "About",
       navServices: "Services",
       navWork: "Projects",
       navContact: "Contact",
       heroPill: "Engineering on Demand",
       heroTitle: "Advanced Robotics, Electronics, and Mechanical Innovation.",
-      heroDesc: "LW Technologies delivers precision engineering solutions from Geneva, combining mechatronics, embedded electronics, and mechanical design for high-reliability industrial and research systems.",
+      heroDesc: "From Geneva, Switzerland, LW Technologies delivers precision engineering solutions by combining mechatronics, embedded electronics, and mechanical design for high-reliability industrial and research systems.",
       heroCtaPrimary: "Start a Project",
       heroCtaSecondary: "View Our Work",
       capPill: "Capabilities",
@@ -78,7 +91,7 @@
       stat4Desc: "Industrial, Medical, railway, and space engineering",
       aboutPill: "About",
       aboutTitle: "Built for complex engineering challenges.",
-      aboutDesc: "At LW Technologies, we draw on our background in industrial, medical, railway, and space engineering to deliver innovative, tailor-made solutions. From product development to specialized systems for industry and research, each engagement is designed around your technical and operational requirements.",
+      aboutDesc: "Based in Geneva, Switzerland, LW Technologies draws on its background in industrial, medical, railway, and space engineering to deliver innovative, tailor-made solutions. From product development to specialized systems for industry and research, each engagement is designed around your technical and operational requirements.",
       servicesPill: "Services",
       servicesTitle: "Core expertise and execution.",
       service1Title: "Robotic & Mechatronic Systems",
@@ -119,19 +132,19 @@
     fr: {
       navAria: "Navigation principale",
       title: "LW Technologies | Conseil en ingénierie robotique, électronique et conception mécanique",
-      description: "LW Technologies propose du conseil en ingénierie robotique, mécatronique, électronique et conception mécanique depuis Genève, avec une expertise en technologies médicales, ferroviaires et spatiales.",
+      description: "LW Technologies est un bureau d’ingénierie basé à Genève, Suisse, spécialisé en robotique, mécatronique, électronique et conception mécanique, avec une expertise en technologies médicales, ferroviaires et spatiales.",
       ogLocale: "fr_CH",
       ogTitle: "LW Technologies | Conseil en ingénierie robotique, électronique et conception mécanique",
-      ogDescription: "Conseil en ingénierie robotique, mécatronique, électronique et conception mécanique à Genève.",
+      ogDescription: "Conseil en ingénierie robotique, mécatronique, électronique et conception mécanique à Genève, Suisse.",
       twitterTitle: "LW Technologies | Conseil en ingénierie robotique, électronique et conception mécanique",
-      twitterDescription: "Conseil en ingénierie robotique, mécatronique, électronique et conception mécanique à Genève.",
+      twitterDescription: "Conseil en ingénierie robotique, mécatronique, électronique et conception mécanique à Genève, Suisse.",
       navAbout: "À propos",
       navServices: "Services",
       navWork: "Projets",
       navContact: "Contact",
       heroPill: "Ingénierie sur demande",
       heroTitle: "Robotique avancée, électronique et innovation mécanique.",
-      heroDesc: "LW Technologies fournit des solutions d’ingénierie de précision depuis Genève, en combinant mécatronique, électronique embarquée et conception mécanique pour des systèmes industriels et de recherche à haute fiabilité.",
+      heroDesc: "Depuis Genève, Suisse, LW Technologies fournit des solutions d’ingénierie de précision en combinant mécatronique, électronique embarquée et conception mécanique pour des systèmes industriels et de recherche à haute fiabilité.",
       heroCtaPrimary: "Démarrer un projet",
       heroCtaSecondary: "Voir nos projets",
       capPill: "Compétences",
@@ -145,7 +158,7 @@
       stat4Desc: "Industrie, médical, ferroviaire et spatial",
       aboutPill: "À propos",
       aboutTitle: "Conçu pour les défis d’ingénierie complexes.",
-      aboutDesc: "Chez LW Technologies, nous nous appuyons sur notre expérience en ingénierie industrielle, médicale, ferroviaire et spatiale pour proposer des solutions innovantes et sur mesure. Du développement produit aux systèmes spécialisés pour l’industrie et la recherche, chaque mission est construite selon vos exigences techniques et opérationnelles.",
+      aboutDesc: "Basée à Genève, Suisse, LW Technologies s’appuie sur son expérience en ingénierie industrielle, médicale, ferroviaire et spatiale pour proposer des solutions innovantes et sur mesure. Du développement produit aux systèmes spécialisés pour l’industrie et la recherche, chaque mission est construite selon vos exigences techniques et opérationnelles.",
       servicesPill: "Services",
       servicesTitle: "Expertise clé et exécution.",
       service1Title: "Systèmes robotiques & mécatroniques",
@@ -186,19 +199,19 @@
     it: {
       navAria: "Navigazione principale",
       title: "LW Technologies | Consulenza ingegneristica in robotica, elettronica e progettazione meccanica",
-      description: "LW Technologies offre consulenza ingegneristica in robotica, meccatronica, elettronica e progettazione meccanica da Ginevra, con esperienza nei settori medicale, ferroviario e spaziale.",
+      description: "LW Technologies è una società di consulenza ingegneristica con sede a Ginevra, Svizzera, specializzata in robotica, meccatronica, elettronica e progettazione meccanica, con esperienza nei settori medicale, ferroviario e spaziale.",
       ogLocale: "it_CH",
       ogTitle: "LW Technologies | Consulenza ingegneristica in robotica, elettronica e progettazione meccanica",
-      ogDescription: "Consulenza ingegneristica in robotica, meccatronica, elettronica e progettazione meccanica a Ginevra.",
+      ogDescription: "Consulenza ingegneristica in robotica, meccatronica, elettronica e progettazione meccanica a Ginevra, Svizzera.",
       twitterTitle: "LW Technologies | Consulenza ingegneristica in robotica, elettronica e progettazione meccanica",
-      twitterDescription: "Consulenza ingegneristica in robotica, meccatronica, elettronica e progettazione meccanica a Ginevra.",
+      twitterDescription: "Consulenza ingegneristica in robotica, meccatronica, elettronica e progettazione meccanica a Ginevra, Svizzera.",
       navAbout: "Chi siamo",
       navServices: "Servizi",
       navWork: "Progetti",
       navContact: "Contatti",
       heroPill: "Ingegneria su richiesta",
       heroTitle: "Robotica avanzata, elettronica e innovazione meccanica.",
-      heroDesc: "LW Technologies fornisce soluzioni di ingegneria di precisione da Ginevra, combinando meccatronica, elettronica embedded e progettazione meccanica per sistemi industriali e di ricerca ad alta affidabilità.",
+      heroDesc: "Da Ginevra, Svizzera, LW Technologies fornisce soluzioni di ingegneria di precisione combinando meccatronica, elettronica embedded e progettazione meccanica per sistemi industriali e di ricerca ad alta affidabilità.",
       heroCtaPrimary: "Avvia un progetto",
       heroCtaSecondary: "Scopri i nostri progetti",
       capPill: "Competenze",
@@ -212,7 +225,7 @@
       stat4Desc: "Industriale, medicale, ferroviario e spaziale",
       aboutPill: "Chi siamo",
       aboutTitle: "Progettato per sfide ingegneristiche complesse.",
-      aboutDesc: "In LW Technologies mettiamo a frutto la nostra esperienza nell’ingegneria industriale, medicale, ferroviaria e spaziale per offrire soluzioni innovative e su misura. Dallo sviluppo prodotto ai sistemi specializzati per industria e ricerca, ogni incarico è costruito in base alle vostre esigenze tecniche e operative.",
+      aboutDesc: "Con sede a Ginevra, Svizzera, LW Technologies valorizza la propria esperienza nell’ingegneria industriale, medicale, ferroviaria e spaziale per offrire soluzioni innovative e su misura. Dallo sviluppo prodotto ai sistemi specializzati per industria e ricerca, ogni incarico è costruito in base alle vostre esigenze tecniche e operative.",
       servicesPill: "Servizi",
       servicesTitle: "Competenze chiave ed esecuzione.",
       service1Title: "Sistemi robotici e meccatronici",
@@ -253,19 +266,19 @@
     de: {
       navAria: "Hauptnavigation",
       title: "LW Technologies | Engineering-Beratung in Robotik, Elektronik und mechanischer Konstruktion",
-      description: "LW Technologies bietet Engineering-Beratung in Robotik, Mechatronik, Elektronik und mechanischer Konstruktion aus Genf, mit Erfahrung in Medizintechnik, Bahntechnik und Raumfahrt.",
+      description: "LW Technologies ist ein Engineering-Beratungsunternehmen mit Sitz in Genf, Schweiz, spezialisiert auf Robotik, Mechatronik, Elektronik und mechanische Konstruktion, mit Erfahrung in Medizintechnik, Bahntechnik und Raumfahrt.",
       ogLocale: "de_CH",
       ogTitle: "LW Technologies | Engineering-Beratung in Robotik, Elektronik und mechanischer Konstruktion",
-      ogDescription: "Engineering-Beratung in Robotik, Mechatronik, Elektronik und mechanischer Konstruktion in Genf.",
+      ogDescription: "Engineering-Beratung in Robotik, Mechatronik, Elektronik und mechanischer Konstruktion in Genf, Schweiz.",
       twitterTitle: "LW Technologies | Engineering-Beratung in Robotik, Elektronik und mechanischer Konstruktion",
-      twitterDescription: "Engineering-Beratung in Robotik, Mechatronik, Elektronik und mechanischer Konstruktion in Genf.",
+      twitterDescription: "Engineering-Beratung in Robotik, Mechatronik, Elektronik und mechanischer Konstruktion in Genf, Schweiz.",
       navAbout: "Über uns",
       navServices: "Leistungen",
       navWork: "Projekte",
       navContact: "Kontakt",
       heroPill: "Engineering auf Abruf",
       heroTitle: "Fortschrittliche Robotik, Elektronik und mechanische Innovation.",
-      heroDesc: "LW Technologies liefert präzise Engineering-Lösungen aus Genf und kombiniert Mechatronik, Embedded-Elektronik und mechanische Konstruktion für hochzuverlässige Industrie- und Forschungssysteme.",
+      heroDesc: "Von Genf, Schweiz aus liefert LW Technologies präzise Engineering-Lösungen und kombiniert Mechatronik, Embedded-Elektronik und mechanische Konstruktion für hochzuverlässige Industrie- und Forschungssysteme.",
       heroCtaPrimary: "Projekt starten",
       heroCtaSecondary: "Unsere Projekte ansehen",
       capPill: "Kompetenzen",
@@ -279,7 +292,7 @@
       stat4Desc: "Industrie, Medizintechnik, Bahn und Raumfahrt",
       aboutPill: "Über uns",
       aboutTitle: "Entwickelt für komplexe Engineering-Herausforderungen.",
-      aboutDesc: "Bei LW Technologies nutzen wir unsere Erfahrung in Industrie-, Medizin-, Bahn- und Raumfahrtingenieurwesen, um innovative und maßgeschneiderte Lösungen zu liefern. Von der Produktentwicklung bis zu spezialisierten Systemen für Industrie und Forschung wird jedes Projekt auf Ihre technischen und operativen Anforderungen abgestimmt.",
+      aboutDesc: "Mit Sitz in Genf, Schweiz, nutzt LW Technologies seine Erfahrung im Industrie-, Medizin-, Bahn- und Raumfahrtingenieurwesen, um innovative und maßgeschneiderte Lösungen zu liefern. Von der Produktentwicklung bis zu spezialisierten Systemen für Industrie und Forschung wird jedes Projekt auf Ihre technischen und operativen Anforderungen abgestimmt.",
       servicesPill: "Leistungen",
       servicesTitle: "Kernkompetenz und Umsetzung.",
       service1Title: "Robotik- und mechatronische Systeme",
@@ -471,7 +484,11 @@
   }
 
   var stored = getStoredLanguage();
-  var initialLanguage = stored ? normalizeLanguage(stored) : detectLanguageFromBrowser();
+  var queryLanguage = getLanguageFromQuery();
+  if (queryLanguage) {
+    setStoredLanguage(queryLanguage);
+  }
+  var initialLanguage = queryLanguage || (stored ? normalizeLanguage(stored) : detectLanguageFromBrowser());
   applyLanguage(initialLanguage);
 
   var switchLinks = document.querySelectorAll("[data-lang-switch]");

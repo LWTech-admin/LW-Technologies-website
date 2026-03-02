@@ -225,7 +225,8 @@
       transform: translateY(1px);
       transition: transform 0.2s ease;
     }
-    .lang-switch.open .lang-caret {
+    .lang-switch.open .lang-caret,
+    .lang-switch:focus-within .lang-caret {
       transform: rotate(180deg);
     }
     .lang-switch a {
@@ -257,7 +258,8 @@
       transition: opacity 0.2s ease, transform 0.2s ease;
       z-index: 30;
     }
-    .lang-switch.open .lang-menu {
+    .lang-switch.open .lang-menu,
+    .lang-switch:focus-within .lang-menu {
       opacity: 1;
       transform: translateY(0);
       pointer-events: auto;
@@ -562,10 +564,10 @@
             <span class="lang-caret">▼</span>
           </button>
           <div class="lang-menu" id="lang-menu" role="menu">
-            <a href="#" data-lang-switch="en" role="menuitem">EN</a>
-            <a href="#" data-lang-switch="fr" role="menuitem">FR</a>
-            <a href="#" data-lang-switch="it" role="menuitem">IT</a>
-            <a href="#" data-lang-switch="de" role="menuitem">DE</a>
+            <a href="?lang=en" data-lang-switch="en" role="menuitem">EN</a>
+            <a href="?lang=fr" data-lang-switch="fr" role="menuitem">FR</a>
+            <a href="?lang=it" data-lang-switch="it" role="menuitem">IT</a>
+            <a href="?lang=de" data-lang-switch="de" role="menuitem">DE</a>
           </div>
         </div>
       </div>
@@ -732,7 +734,7 @@
     </div>
   </footer>
 
-  <script src="lang-switch.js?v=20260302-2" defer></script>
+  <script src="lang-switch.js?v=20260302-3" defer></script>
 
 </body>
 </html>
