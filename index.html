@@ -9,6 +9,63 @@
   <meta name="geo.region" content="CH-GE" />
   <meta name="geo.placename" content="Geneva" />
   <meta name="color-scheme" content="dark light" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-S06YB8KGYX"></script>
+  <script>
+    var LWTECH_CONSENT_KEY = "lwtech_analytics_consent";
+    var LWTECH_GA_MEASUREMENT_ID = "G-S06YB8KGYX";
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('consent', 'default', {
+      analytics_storage: 'denied',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied'
+    });
+
+    function lwtechEnableAnalytics() {
+      gtag('consent', 'update', {
+        analytics_storage: 'granted'
+      });
+      gtag('config', LWTECH_GA_MEASUREMENT_ID, {
+        anonymize_ip: true
+      });
+    }
+
+    function lwtechDisableAnalytics() {
+      gtag('consent', 'update', {
+        analytics_storage: 'denied',
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied'
+      });
+    }
+
+    try {
+      var storedConsent = localStorage.getItem(LWTECH_CONSENT_KEY);
+      if (storedConsent === 'granted') {
+        lwtechEnableAnalytics();
+      } else {
+        lwtechDisableAnalytics();
+      }
+    } catch (error) {
+      lwtechDisableAnalytics();
+    }
+
+    window.lwtechSetAnalyticsConsent = function (decision) {
+      var normalized = decision === 'granted' ? 'granted' : 'denied';
+      try {
+        localStorage.setItem(LWTECH_CONSENT_KEY, normalized);
+      } catch (error) {
+      }
+      if (normalized === 'granted') {
+        lwtechEnableAnalytics();
+      } else {
+        lwtechDisableAnalytics();
+      }
+    };
+  </script>
   <link rel="canonical" href="https://lwtechnologies.ch/" />
   <link rel="alternate" hreflang="x-default" href="https://lwtechnologies.ch/" />
   <link rel="alternate" hreflang="en-CH" href="https://lwtechnologies.ch/?lang=en" />
@@ -567,6 +624,34 @@
     section {
       padding: 2.1rem 0;
     }
+    #privacy {
+      padding-top: 0.66rem;
+      padding-bottom: 0.2rem;
+    }
+    #privacy .section-head {
+      margin-bottom: 0.22rem;
+    }
+    #privacy h2 {
+      margin: 0;
+      font-size: clamp(0.92rem, 1.05vw, 1rem);
+      color: var(--muted);
+      letter-spacing: 0;
+      font-weight: 600;
+    }
+    #privacy p {
+      margin: 0 0 0.22rem;
+      color: var(--muted);
+      font-size: 0.8rem;
+      line-height: 1.45;
+      max-width: none;
+    }
+    #privacy p:last-child {
+      margin-bottom: 0;
+    }
+    #privacy-policy-note {
+      font-size: 0.72rem;
+      opacity: 0.9;
+    }
     .section-head {
       margin-bottom: 1.2rem;
     }
@@ -702,6 +787,53 @@
     footer p {
       margin: 0.2rem 0;
     }
+    .consent-banner {
+      position: fixed;
+      left: 0.85rem;
+      right: 0.85rem;
+      bottom: 0.85rem;
+      z-index: 60;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      background: rgba(8, 13, 28, 0.96);
+      color: #dfe9ff;
+      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.34);
+      padding: 0.54rem 0.65rem;
+      display: none;
+    }
+    .consent-banner.show {
+      display: block;
+    }
+    .consent-banner p {
+      margin: 0;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    .consent-banner a {
+      color: #cbe9ff;
+      text-decoration: underline;
+    }
+    .consent-actions {
+      margin-top: 0.42rem;
+      display: flex;
+      gap: 0.38rem;
+      flex-wrap: wrap;
+    }
+    .consent-actions button {
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      background: rgba(255, 255, 255, 0.04);
+      color: #f2f7ff;
+      border-radius: 10px;
+      padding: 0.32rem 0.54rem;
+      font: inherit;
+      font-size: 0.78rem;
+      cursor: pointer;
+    }
+    .consent-actions .accept {
+      border-color: rgba(79, 216, 255, 0.42);
+      background: rgba(79, 216, 255, 0.14);
+      color: #dff7ff;
+    }
 
     @media (prefers-color-scheme: light) {
       :root:not([data-theme]) {
@@ -815,6 +947,24 @@
         background: rgba(255, 255, 255, 0.72);
         color: #425277;
       }
+      html:not([data-theme]) .consent-banner {
+        border-color: rgba(19, 32, 59, 0.2);
+        background: rgba(255, 255, 255, 0.97);
+        color: #1d3156;
+      }
+      html:not([data-theme]) .consent-banner a {
+        color: #1b4f8b;
+      }
+      html:not([data-theme]) .consent-actions button {
+        border-color: rgba(19, 32, 59, 0.24);
+        background: rgba(255, 255, 255, 0.86);
+        color: #13203b;
+      }
+      html:not([data-theme]) .consent-actions .accept {
+        border-color: rgba(79, 216, 255, 0.48);
+        background: rgba(79, 216, 255, 0.2);
+        color: #0f2f57;
+      }
     }
 
     :root[data-theme="light"] {
@@ -927,6 +1077,24 @@
       border-top: 1px solid rgba(19, 32, 59, 0.14);
       background: rgba(255, 255, 255, 0.72);
       color: #425277;
+    }
+    html[data-theme="light"] .consent-banner {
+      border-color: rgba(19, 32, 59, 0.2);
+      background: rgba(255, 255, 255, 0.97);
+      color: #1d3156;
+    }
+    html[data-theme="light"] .consent-banner a {
+      color: #1b4f8b;
+    }
+    html[data-theme="light"] .consent-actions button {
+      border-color: rgba(19, 32, 59, 0.24);
+      background: rgba(255, 255, 255, 0.86);
+      color: #13203b;
+    }
+    html[data-theme="light"] .consent-actions .accept {
+      border-color: rgba(79, 216, 255, 0.48);
+      background: rgba(79, 216, 255, 0.2);
+      color: #0f2f57;
     }
 
     @media (max-width: 960px) {
@@ -1149,14 +1317,73 @@
     </div>
   </section>
 
+  <section id="privacy">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="privacy-title">Privacy & Analytics</h2>
+      </div>
+      <p id="privacy-desc">This website uses Google Analytics to measure traffic, such as visits, pages viewed, device type (mobile/desktop), browser, and approximate location (city/country).</p>
+      <p id="privacy-owner">Analytics reports are accessible only to the website owner through a protected Google account. No direct personal contact information is collected through analytics alone.</p>
+      <p id="privacy-policy-note">Read the full policy at <a href="privacy.html">Privacy Policy</a>.</p>
+    </div>
+  </section>
+
+  <div class="consent-banner" id="consent-banner" role="dialog" aria-live="polite" aria-label="Cookie and analytics preferences">
+    <p>
+      <span id="consent-text">We use analytics cookies only with your consent. See our</span>
+      <a id="consent-policy-link" href="privacy.html">Privacy Policy</a>.
+    </p>
+    <div class="consent-actions">
+      <button class="accept" id="consent-accept" type="button">Accept cookies</button>
+      <button id="consent-reject" type="button">Reject</button>
+    </div>
+  </div>
+
   <footer>
     <div class="container">
       <p id="footer-copy">© 2026 LW Technologies Sàrl | All rights reserved</p>
+      <p><a id="privacy-link" href="privacy.html">Privacy & Analytics</a></p>
       <p>Esplanade de Pont-Rouge 2, 1212 Lancy, Switzerland</p>
     </div>
   </footer>
 
-  <script src="lang-switch.js?v=20260302-8" defer></script>
+  <script>
+    (function () {
+      var banner = document.getElementById("consent-banner");
+      var accept = document.getElementById("consent-accept");
+      var reject = document.getElementById("consent-reject");
+      if (!banner || !accept || !reject) {
+        return;
+      }
+
+      var decision = null;
+      try {
+        decision = localStorage.getItem("lwtech_analytics_consent");
+      } catch (error) {
+        decision = null;
+      }
+
+      if (decision !== "granted" && decision !== "denied") {
+        banner.classList.add("show");
+      }
+
+      accept.addEventListener("click", function () {
+        if (typeof window.lwtechSetAnalyticsConsent === "function") {
+          window.lwtechSetAnalyticsConsent("granted");
+        }
+        banner.classList.remove("show");
+      });
+
+      reject.addEventListener("click", function () {
+        if (typeof window.lwtechSetAnalyticsConsent === "function") {
+          window.lwtechSetAnalyticsConsent("denied");
+        }
+        banner.classList.remove("show");
+      });
+    })();
+  </script>
+
+  <script src="lang-switch.js?v=20260304-10" defer></script>
 
 </body>
 </html>
