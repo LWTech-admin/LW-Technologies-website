@@ -64,12 +64,12 @@
 
     var modeText = dictionary[modeTextKey] || fallback[modeTextKey] || normalizedMode.toUpperCase();
     var modeLabel = dictionary.themeModeLabel || fallback.themeModeLabel || "Theme mode";
-    var modeIconSvg = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8"></circle><path d="M12 4v16"></path></svg>';
+    var modeIconSvg = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 4A8 8 0 0 0 12 20L12 4Z" style="fill:#ffffff;stroke:none"></path><circle cx="12" cy="12" r="8"></circle><path d="M12 4v16"></path></svg>';
     if (normalizedMode === "light") {
-      modeIconSvg = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2"></circle><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"></path></svg>';
+      modeIconSvg = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2" style="fill:#ff8a3d;stroke:#ff8a3d"></circle><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1" style="stroke:#ff8a3d"></path></svg>';
     }
     if (normalizedMode === "dark") {
-      modeIconSvg = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.6 14.3A8.5 8.5 0 1 1 9.7 3.4a7.1 7.1 0 1 0 10.9 10.9z"></path></svg>';
+      modeIconSvg = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.6 14.3A8.5 8.5 0 1 1 9.7 3.4a7.1 7.1 0 1 0 10.9 10.9z" style="fill:#ffd34d;stroke:#ffd34d"></path></svg>';
     }
 
     toggle.innerHTML = modeIconSvg;
