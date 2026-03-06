@@ -691,44 +691,10 @@
       color: var(--muted);
       font-size: 0.95rem;
     }
-    .card .inline-link {
-      display: inline-flex;
-      margin-top: 0.72rem;
-      font-weight: 700;
-      color: #d9f6ff;
-      text-decoration: none;
-      border-bottom: 1px solid rgba(79, 216, 255, 0.45);
-      padding-bottom: 0.1rem;
-    }
-    .card .inline-link:hover {
-      color: #ffffff;
-      border-bottom-color: rgba(79, 216, 255, 0.75);
-    }
-    .card p + p {
-      margin-top: 0.45rem;
-    }
-    .proof-grid,
-    .process-grid,
-    .testimonials-grid {
+    .process-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 1rem;
-    }
-    .proof-grid .card strong {
-      display: block;
-      font-size: 1.25rem;
-      line-height: 1.1;
-      color: #d9f6ff;
-      margin-bottom: 0.35rem;
-    }
-    .proof-grid .card span {
-      display: block;
-      font-size: 0.84rem;
-      color: var(--muted);
-    }
-    .muted-inline {
-      color: var(--muted);
-      font-size: 0.9rem;
     }
     .faq-list {
       display: grid;
@@ -824,12 +790,6 @@
       justify-self: start;
       border: 0;
       cursor: pointer;
-    }
-    .form-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.65rem;
-      align-items: center;
     }
     form input::placeholder,
     form textarea::placeholder {
@@ -1130,11 +1090,6 @@
       color: #10315b;
     }
 
-    html:not([data-theme]) .proof-grid .card strong,
-    html[data-theme="light"] .proof-grid .card strong {
-      color: #10315b;
-    }
-
     html[data-theme="light"] .contact-info .meta {
       color: #1d3156;
     }
@@ -1182,9 +1137,7 @@
       }
       .services,
       .capabilities-grid,
-      .proof-grid,
-      .process-grid,
-      .testimonials-grid {
+      .process-grid {
         grid-template-columns: 1fr 1fr;
       }
     }
@@ -1200,9 +1153,7 @@
       }
       .services,
       .capabilities-grid,
-      .proof-grid,
       .process-grid,
-      .testimonials-grid,
       .stat-grid {
         grid-template-columns: 1fr;
       }
@@ -1296,36 +1247,6 @@
           deliver innovative, tailor-made solutions. From product development to specialized systems for industry
           and research, each engagement is designed around your technical and operational requirements.
         </p>
-        <p id="industry-note" class="muted-inline">
-          Clarification: LW Technologies is an engineering consulting company and does not provide locksmith services.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <section id="proof">
-    <div class="container">
-      <div class="section-head">
-        <span class="pill" id="proof-pill">Proof</span>
-        <h2 id="proof-title">Why technical teams trust LW Technologies.</h2>
-      </div>
-      <div class="proof-grid">
-        <article class="card">
-          <strong id="proof-1-title">[PLACEHOLDER: YEARS OF EXPERIENCE]</strong>
-          <span id="proof-1-desc">Years delivering engineering projects in high-reliability environments.</span>
-        </article>
-        <article class="card">
-          <strong id="proof-2-title">[PLACEHOLDER: PROJECTS DELIVERED]</strong>
-          <span id="proof-2-desc">Completed projects from prototyping to production transfer.</span>
-        </article>
-        <article class="card">
-          <strong id="proof-3-title">Industrial • Medical • Railway • Space</strong>
-          <span id="proof-3-desc">Cross-sector engineering know-how applied to demanding constraints.</span>
-        </article>
-        <article class="card">
-          <strong id="proof-4-title">[PLACEHOLDER: RESPONSE TIME]</strong>
-          <span id="proof-4-desc">Typical response time for first technical discussion.</span>
-        </article>
       </div>
     </div>
   </section>
@@ -1343,7 +1264,6 @@
             Development of custom robotic and mechatronic solutions, from concept and prototyping to integration
             and deployment.
           </p>
-          <a class="inline-link" id="service-1-link" href="robotics-engineering-geneva.html?lang=en">Learn more</a>
         </article>
         <article class="card">
           <h3 id="service-2-title">Electronics Design</h3>
@@ -1351,7 +1271,6 @@
             Design and development of electronic hardware, including PCB layouts, embedded systems, and control
             software tailored to your requirements.
           </p>
-          <a class="inline-link" id="service-2-link" href="electronics-design-geneva.html?lang=en">Learn more</a>
         </article>
         <article class="card">
           <h3 id="service-3-title">Mechanical Design</h3>
@@ -1359,7 +1278,6 @@
             Engineering of structures, components, and systems with a focus on functionality, manufacturability,
             and durability using modern CAD and simulation tools.
           </p>
-          <a class="inline-link" id="service-3-link" href="mechanical-design-geneva.html?lang=en">Learn more</a>
         </article>
       </div>
     </div>
@@ -1403,8 +1321,7 @@
           <img id="img-project-1" src="vision-system.gif" alt="Autonomous machine vision system with Visual-SLAM and path planning" width="600" height="220" loading="lazy" decoding="async">
           <div class="content">
             <h3 id="project-1-title">Autonomous Vision System</h3>
-            <p id="project-1-desc"><strong>Problem:</strong> [PLACEHOLDER: CLIENT NEED]. <strong>Solution:</strong> Visual-SLAM and path planning for mobile inspection robots. <strong>Result:</strong> [PLACEHOLDER: MEASURABLE OUTCOME].</p>
-            <p id="project-1-media" class="muted-inline">Video: [PLACEHOLDER: LINK TO 20–40s DEMO VIDEO]</p>
+            <p id="project-1-desc">Visual-SLAM and path planning capabilities for mobile inspection robots.</p>
           </div>
         </article>
 
@@ -1412,8 +1329,7 @@
           <img id="img-project-2" src="driver.png" alt="Custom BLDC servo motor driver electronics" width="600" height="220" loading="lazy" decoding="async">
           <div class="content">
             <h3 id="project-2-title">Custom BLDC Servo Drivers</h3>
-            <p id="project-2-desc"><strong>Problem:</strong> [PLACEHOLDER: CLIENT NEED]. <strong>Solution:</strong> Custom BLDC servo drivers with precise torque, speed, and position control. <strong>Result:</strong> [PLACEHOLDER: MEASURABLE OUTCOME].</p>
-            <p id="project-2-media" class="muted-inline">Video: [PLACEHOLDER: LINK TO 20–40s DEMO VIDEO]</p>
+            <p id="project-2-desc">High-performance motor drivers with precise torque, speed, and position control.</p>
           </div>
         </article>
 
@@ -1421,36 +1337,8 @@
           <img id="img-project-3" src="gantry3.png" alt="Custom medical mechanical system for radiotherapy actuation" width="600" height="220" loading="lazy" decoding="async">
           <div class="content">
             <h3 id="project-3-title">Medical Mechanical System</h3>
-            <p id="project-3-desc"><strong>Problem:</strong> [PLACEHOLDER: CLIENT NEED]. <strong>Solution:</strong> Custom 15-ton medical mechanical structure for radiotherapy actuation. <strong>Result:</strong> [PLACEHOLDER: MEASURABLE OUTCOME].</p>
-            <p id="project-3-media" class="muted-inline">Video: [PLACEHOLDER: LINK TO 20–40s DEMO VIDEO]</p>
+            <p id="project-3-desc">Custom structure designed for a 15-ton payload with dedicated radiotherapy actuation.</p>
           </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section id="testimonials">
-    <div class="container">
-      <div class="section-head">
-        <span class="pill" id="testimonials-pill">References</span>
-        <h2 id="testimonials-title">What clients say.</h2>
-      </div>
-      <div class="testimonials-grid">
-        <article class="card">
-          <p id="testimonial-1-quote">“[PLACEHOLDER: SHORT CLIENT QUOTE ON DELIVERY QUALITY AND TECHNICAL RIGOR.]”</p>
-          <p id="testimonial-1-meta" class="muted-inline">[PLACEHOLDER: NAME, ROLE, COMPANY]</p>
-        </article>
-        <article class="card">
-          <p id="testimonial-2-quote">“[PLACEHOLDER: SHORT CLIENT QUOTE ON COLLABORATION SPEED OR SYSTEM PERFORMANCE.]”</p>
-          <p id="testimonial-2-meta" class="muted-inline">[PLACEHOLDER: NAME, ROLE, COMPANY]</p>
-        </article>
-        <article class="card">
-          <p id="testimonial-3-quote">[PLACEHOLDER: CLIENT LOGO SLOT OR CERTIFICATION BADGE]</p>
-          <p id="testimonial-3-meta" class="muted-inline">[PLACEHOLDER: OPTIONAL BRAND NAME]</p>
-        </article>
-        <article class="card">
-          <p id="testimonial-4-quote">[PLACEHOLDER: CLIENT LOGO SLOT OR CERTIFICATION BADGE]</p>
-          <p id="testimonial-4-meta" class="muted-inline">[PLACEHOLDER: OPTIONAL BRAND NAME]</p>
         </article>
       </div>
     </div>
@@ -1512,10 +1400,7 @@
           <label class="sr-only" id="label-contact-company" for="contact-company">Company</label>
           <input id="contact-company" type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none" />
 
-          <div class="form-actions">
-            <button class="btn btn-primary" id="contact-submit" type="submit">Send Message</button>
-            <a class="btn btn-secondary" id="contact-book-call" href="[PLACEHOLDER: CALENDLY_OR_BOOKING_LINK]" target="_blank" rel="noopener noreferrer">Book a 30-min Technical Call</a>
-          </div>
+          <button class="btn btn-primary" id="contact-submit" type="submit">Send Message</button>
         </form>
       </div>
     </div>
