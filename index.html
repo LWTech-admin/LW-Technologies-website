@@ -696,6 +696,18 @@
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 1rem;
     }
+    .process-card h3 {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+    .process-icon {
+      width: 1.7rem;
+      height: 1.7rem;
+      color: var(--accent);
+      flex-shrink: 0;
+      opacity: 0.95;
+    }
     .faq-list {
       display: grid;
       gap: 0.75rem;
@@ -1178,8 +1190,9 @@
       <div class="nav-controls">
         <ul class="nav-links">
           <li><a id="nav-about" href="#about">About</a></li>
-          <li><a id="nav-services" href="#services">Services</a></li>
+          <li><a id="nav-services" href="#services">Services &amp; Process</a></li>
           <li><a id="nav-work" href="#work">Projects</a></li>
+          <li><a id="nav-faq" href="#faq">FAQ</a></li>
           <li><a id="nav-contact" href="#contact">Contact</a></li>
         </ul>
         <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Theme mode: auto" title="Theme mode: auto">AUTO</button>
@@ -1254,7 +1267,7 @@
   <section id="services">
     <div class="container">
       <div class="section-head">
-        <span class="pill" id="services-pill">Services</span>
+        <span class="pill" id="services-pill">Services &amp; Process</span>
         <h2 id="services-title">Core expertise and execution.</h2>
       </div>
       <div class="services">
@@ -1286,24 +1299,52 @@
   <section id="process">
     <div class="container">
       <div class="section-head">
-        <span class="pill" id="process-pill">Process</span>
         <h2 id="process-title">A clear delivery process from scope to production.</h2>
       </div>
       <div class="process-grid">
-        <article class="card">
-          <h3 id="process-1-title">1) Scope</h3>
+        <article class="card process-card">
+          <h3>
+            <svg class="process-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <rect x="4.5" y="5.5" width="10" height="13" rx="1.7" fill="none" stroke="currentColor" stroke-width="1.6"></rect>
+              <path d="M7.2 9h4.6M7.2 12h4.6M7.2 15h3.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path>
+              <path d="M14 7.8l3.5-3.3 2 2-3.4 3.4-2.4.6z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path>
+            </svg>
+            <span id="process-1-title">1) Scope</span>
+          </h3>
           <p id="process-1-desc">Define requirements, constraints, interfaces, and success criteria.</p>
         </article>
-        <article class="card">
-          <h3 id="process-2-title">2) Design</h3>
+        <article class="card process-card">
+          <h3>
+            <svg class="process-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M7 18V6.5h3.3a3.2 3.2 0 1 1 6.4 0H20v2.55a3.2 3.2 0 1 0 0 6.4V18H7z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"></path>
+            </svg>
+            <span id="process-2-title">2) Design</span>
+          </h3>
           <p id="process-2-desc">Develop architecture and detailed design for mechanics, electronics, and control.</p>
         </article>
-        <article class="card">
-          <h3 id="process-3-title">3) Prototype</h3>
+        <article class="card process-card">
+          <h3>
+            <svg class="process-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <circle cx="12" cy="12" r="2.5" fill="none" stroke="currentColor" stroke-width="1.6"></circle>
+              <path d="M12 5.2v2M12 16.8v2M5.2 12h2M16.8 12h2M7.2 7.2l1.4 1.4M15.4 15.4l1.4 1.4M16.8 7.2l-1.4 1.4M8.6 15.4l-1.4 1.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path>
+              <circle cx="12" cy="12" r="6" fill="none" stroke="currentColor" stroke-width="1.4" opacity="0.75"></circle>
+            </svg>
+            <span id="process-3-title">3) Prototype</span>
+          </h3>
           <p id="process-3-desc">Build, test, and iterate with measurable performance targets.</p>
         </article>
-        <article class="card">
-          <h3 id="process-4-title">4) Transfer</h3>
+        <article class="card process-card">
+          <h3>
+            <svg class="process-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M4.5 8.8h12.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+              <path d="M14 6.3l2.7 2.5-2.7 2.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="M19.5 15.2H7.3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+              <path d="M10 12.7l-2.7 2.5 2.7 2.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+              <circle cx="6" cy="8.8" r="1" fill="currentColor" opacity="0.85"></circle>
+              <circle cx="18" cy="15.2" r="1" fill="currentColor" opacity="0.85"></circle>
+            </svg>
+            <span id="process-4-title">4) Transfer</span>
+          </h3>
           <p id="process-4-desc">Deliver documentation and support transfer to industrialization or internal teams.</p>
         </article>
       </div>
@@ -1360,12 +1401,8 @@
           <p id="faq-a2">Yes. Engagements can cover a full mechatronic system or a focused technical scope.</p>
         </details>
         <details class="faq-item">
-          <summary id="faq-q3">Do you provide documentation for certification and handover?</summary>
-          <p id="faq-a3">Yes. Project outputs can include design files, test reports, BOMs, and integration notes. [PLACEHOLDER: LIST YOUR STANDARD DELIVERABLES]</p>
-        </details>
-        <details class="faq-item">
-          <summary id="faq-q4">Can you work with existing suppliers or internal teams?</summary>
-          <p id="faq-a4">Yes. LW Technologies can collaborate with your internal engineering team and external partners for efficient delivery.</p>
+          <summary id="faq-q3">Can you work with existing suppliers or internal teams?</summary>
+          <p id="faq-a3">Yes. LW Technologies can collaborate with your internal engineering team and external partners for efficient delivery.</p>
         </details>
       </div>
     </div>
