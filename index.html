@@ -691,6 +691,37 @@
       color: var(--muted);
       font-size: 0.95rem;
     }
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+    }
+    .faq-list {
+      display: grid;
+      gap: 0.75rem;
+    }
+    .faq-item {
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 12px;
+      background: var(--card);
+      box-shadow: 0 16px 38px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+    .faq-item summary {
+      cursor: pointer;
+      padding: 0.85rem 1rem;
+      font-weight: 700;
+      list-style: none;
+    }
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+    .faq-item p {
+      margin: 0;
+      padding: 0 1rem 0.9rem;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
 
     .work-card {
       overflow: hidden;
@@ -1105,7 +1136,8 @@
         grid-template-columns: 1fr;
       }
       .services,
-      .capabilities-grid {
+      .capabilities-grid,
+      .process-grid {
         grid-template-columns: 1fr 1fr;
       }
     }
@@ -1121,6 +1153,7 @@
       }
       .services,
       .capabilities-grid,
+      .process-grid,
       .stat-grid {
         grid-template-columns: 1fr;
       }
@@ -1250,6 +1283,33 @@
     </div>
   </section>
 
+  <section id="process">
+    <div class="container">
+      <div class="section-head">
+        <span class="pill" id="process-pill">Process</span>
+        <h2 id="process-title">A clear delivery process from scope to production.</h2>
+      </div>
+      <div class="process-grid">
+        <article class="card">
+          <h3 id="process-1-title">1) Scope</h3>
+          <p id="process-1-desc">Define requirements, constraints, interfaces, and success criteria.</p>
+        </article>
+        <article class="card">
+          <h3 id="process-2-title">2) Design</h3>
+          <p id="process-2-desc">Develop architecture and detailed design for mechanics, electronics, and control.</p>
+        </article>
+        <article class="card">
+          <h3 id="process-3-title">3) Prototype</h3>
+          <p id="process-3-desc">Build, test, and iterate with measurable performance targets.</p>
+        </article>
+        <article class="card">
+          <h3 id="process-4-title">4) Transfer</h3>
+          <p id="process-4-desc">Deliver documentation and support transfer to industrialization or internal teams.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <section id="work">
     <div class="container">
       <div class="section-head">
@@ -1280,6 +1340,33 @@
             <p id="project-3-desc">Custom structure designed for a 15-ton payload with dedicated radiotherapy actuation.</p>
           </div>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="container">
+      <div class="section-head">
+        <span class="pill" id="faq-pill">FAQ</span>
+        <h2 id="faq-title">Answers to common project questions.</h2>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary id="faq-q1">What information should I provide to start a project?</summary>
+          <p id="faq-a1">Share your objective, constraints, target timeline, budget range, and available technical documentation. [PLACEHOLDER: ADD YOUR IDEAL FIRST-CALL CHECKLIST]</p>
+        </details>
+        <details class="faq-item">
+          <summary id="faq-q2">Can you support only one discipline (mechanical, electronics, or robotics)?</summary>
+          <p id="faq-a2">Yes. Engagements can cover a full mechatronic system or a focused technical scope.</p>
+        </details>
+        <details class="faq-item">
+          <summary id="faq-q3">Do you provide documentation for certification and handover?</summary>
+          <p id="faq-a3">Yes. Project outputs can include design files, test reports, BOMs, and integration notes. [PLACEHOLDER: LIST YOUR STANDARD DELIVERABLES]</p>
+        </details>
+        <details class="faq-item">
+          <summary id="faq-q4">Can you work with existing suppliers or internal teams?</summary>
+          <p id="faq-a4">Yes. LW Technologies can collaborate with your internal engineering team and external partners for efficient delivery.</p>
+        </details>
       </div>
     </div>
   </section>
