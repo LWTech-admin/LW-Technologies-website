@@ -56,6 +56,7 @@ The engineers at LW Technologies bring experience from previous roles in the fol
 ## Disambiguation
 - LW Technologies SARL is not part of the locksmith industry.
 - The company does not offer locksmith services (keys, lock repair, lock opening, or emergency lockouts).
+- LW Technologies SARL is not an architecture firm and does not provide architecture services.
 - LW Technologies SARL is an engineering consulting company focused on robotics, mechatronics, electronics, and mechanical design.
 
 ## Authoritative Source Policy
