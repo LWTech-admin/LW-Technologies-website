@@ -1,181 +1,21 @@
-(function () {
-  var STORAGE_KEY = "lwtech_lang";
-  var THEME_STORAGE_KEY = "lwtech_theme";
-  var themeMode = "auto";
+/*
+  LW Technologies — site text in every language.
 
-  function getStoredLanguage() {
-    try {
-      return localStorage.getItem(STORAGE_KEY);
-    } catch (error) {
-      return null;
-    }
-  }
-
-  function setStoredLanguage(lang) {
-    try {
-      localStorage.setItem(STORAGE_KEY, lang);
-    } catch (error) {
-      return;
-    }
-  }
-
-  function getStoredThemeMode() {
-    try {
-      var mode = localStorage.getItem(THEME_STORAGE_KEY);
-      if (mode === "light" || mode === "dark") {
-        return mode;
-      }
-      return "auto";
-    } catch (error) {
-      return "auto";
-    }
-  }
-
-  function setStoredThemeMode(mode) {
-    try {
-      if (mode === "light" || mode === "dark") {
-        localStorage.setItem(THEME_STORAGE_KEY, mode);
-        return;
-      }
-      localStorage.removeItem(THEME_STORAGE_KEY);
-    } catch (error) {
-      return;
-    }
-  }
-
-  function setThemeToggleUi(mode, lang) {
-    var toggle = document.getElementById("theme-toggle");
-    if (!toggle) {
-      return;
-    }
-
-    var selectedLanguage = normalizeLanguage(String(lang || document.documentElement.getAttribute("lang") || "en").toLowerCase());
-    var dictionary = translations[selectedLanguage] || translations.en;
-    var fallback = translations.en;
-    var normalizedMode = mode === "light" || mode === "dark" ? mode : "auto";
-
-    var modeTextKey = "themeAuto";
-    if (normalizedMode === "light") {
-      modeTextKey = "themeLight";
-    }
-    if (normalizedMode === "dark") {
-      modeTextKey = "themeDark";
-    }
-
-    var modeText = dictionary[modeTextKey] || fallback[modeTextKey] || normalizedMode.toUpperCase();
-    var modeLabel = dictionary.themeModeLabel || fallback.themeModeLabel || "Theme mode";
-    var modeIconSvg = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 4A8 8 0 0 0 12 20L12 4Z" style="fill:#ffffff;stroke:none"></path><circle cx="12" cy="12" r="8"></circle><path d="M12 4v16"></path></svg>';
-    if (normalizedMode === "light") {
-      modeIconSvg = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2" style="fill:#ff8a3d;stroke:#ff8a3d"></circle><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1" style="stroke:#ff8a3d"></path></svg>';
-    }
-    if (normalizedMode === "dark") {
-      modeIconSvg = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.6 14.3A8.5 8.5 0 1 1 9.7 3.4a7.1 7.1 0 1 0 10.9 10.9z" style="fill:#ffd34d;stroke:#ffd34d"></path></svg>';
-    }
-
-    toggle.innerHTML = modeIconSvg;
-    toggle.setAttribute("aria-label", modeLabel + ": " + modeText);
-    toggle.setAttribute("title", modeLabel + ": " + modeText);
-  }
-
-  function isSystemLightMode() {
-    if (!window.matchMedia) {
-      return false;
-    }
-    return window.matchMedia("(prefers-color-scheme: light)").matches;
-  }
-
-  function updateLogoForTheme(mode) {
-    var logo = document.getElementById("img-logo");
-    if (!logo) {
-      return;
-    }
-
-    var normalizedMode = mode === "light" || mode === "dark" ? mode : "auto";
-    var effectiveMode = normalizedMode === "auto" ? (isSystemLightMode() ? "light" : "dark") : normalizedMode;
-
-    if (effectiveMode === "light") {
-      logo.setAttribute("src", "logo-black.png");
-      return;
-    }
-    logo.setAttribute("src", "logo.png");
-  }
-
-  function applyThemeMode(mode) {
-    var normalizedMode = mode === "light" || mode === "dark" ? mode : "auto";
-    themeMode = normalizedMode;
-    if (normalizedMode === "auto") {
-      document.documentElement.removeAttribute("data-theme");
-    } else {
-      document.documentElement.setAttribute("data-theme", normalizedMode);
-    }
-    setThemeToggleUi(normalizedMode);
-    updateLogoForTheme(normalizedMode);
-  }
-
-  function getNextThemeMode(mode) {
-    if (mode === "auto") {
-      return "light";
-    }
-    if (mode === "light") {
-      return "dark";
-    }
-    return "auto";
-  }
-
-  function getBrowserLanguage() {
-    var language = "en";
-    if (navigator.languages && navigator.languages.length > 0) {
-      language = navigator.languages[0];
-    } else if (navigator.language) {
-      language = navigator.language;
-    }
-    return String(language || "en").toLowerCase();
-  }
-
-  function normalizeLanguage(lang) {
-    if (lang === "fr" || lang === "it" || lang === "de") {
-      return lang;
-    }
-    return "en";
-  }
-
-  function detectLanguageFromBrowser() {
-    var browser = getBrowserLanguage();
-    if (browser.indexOf("fr") === 0) {
-      return "fr";
-    }
-    if (browser.indexOf("it") === 0) {
-      return "it";
-    }
-    if (browser.indexOf("de") === 0) {
-      return "de";
-    }
-    return "en";
-  }
-
-  function getLanguageFromQuery() {
-    try {
-      var params = new URLSearchParams(window.location.search);
-      var lang = params.get("lang");
-      if (!lang) {
-        return null;
-      }
-      return normalizeLanguage(String(lang).toLowerCase());
-    } catch (error) {
-      return null;
-    }
-  }
-
-var translations = {
+  - Each key is used in index.html via data-i18n="key" (text) or data-i18n-attr="attribute:key" (attributes).
+  - Keep the same set of keys in all four languages; English is the fallback when a key is missing.
+  - The English values should match the fallback text written in index.html (what crawlers see without JavaScript).
+  - title / description / og* / twitter* update the page metadata.
+*/
+window.LWTECH_I18N = {
   en: {
     navAria: "Main",
-    title: "LW Technologies | Engineering Consulting in Robotics, Electronics & Mechanical Design",
-    description: "LW Technologies is a Geneva, Switzerland engineering consultancy specialized in robotics, mechatronics, electronics, and mechanical design, with expertise in medical technology, railway, and space engineering.",
+    title: "LW Technologies | Engineering Office in Geneva for Robotics, Electronics & Mechanical Design",
+    description: "LW Technologies is an engineering office in Geneva (bureau d’ingénierie / bureau d’ingénieur) specialized in robotics, mechatronics, electronics, and mechanical design for industrial, medical, railway, and space projects.",
     ogLocale: "en_CH",
-    ogTitle: "LW Technologies | Engineering Consulting in Robotics, Electronics & Mechanical Design",
-    ogDescription: "Engineering consulting in robotics, mechatronics, electronics, and mechanical design in Geneva, Switzerland.",
-    twitterTitle: "LW Technologies | Engineering Consulting in Robotics, Electronics & Mechanical Design",
-    twitterDescription: "Engineering consulting in robotics, mechatronics, electronics, and mechanical design in Geneva, Switzerland.",
+    ogTitle: "LW Technologies | Engineering Office in Geneva",
+    ogDescription: "Engineering office in Geneva (bureau d’ingénierie) for robotics, electronics, and mechanical design.",
+    twitterTitle: "LW Technologies | Engineering Office in Geneva",
+    twitterDescription: "Engineering office in Geneva (bureau d’ingénierie) for robotics, electronics, and mechanical design.",
     navAbout: "About",
     navServices: "Services & Process",
     navWork: "Projects",
@@ -183,7 +23,7 @@ var translations = {
     navContact: "Contact",
     heroPill: "Engineering on Demand",
     heroTitle: "Custom Robotics, Electronics & Mechanical Design.",
-    heroDesc: "From Geneva, 🇨🇭 Switzerland, LW Technologies delivers precision engineering by combining mechatronics, embedded electronics, and mechanical design for industrial, product development, and research applications.",
+    heroDesc: "From Geneva, Switzerland, LW Technologies delivers precision engineering by combining mechatronics, embedded electronics, and mechanical design for industrial, product development, and research applications.",
     heroCtaPrimary: "Start a Project",
     heroCtaSecondary: "View Our Work",
     capPill: "Capabilities",
@@ -207,15 +47,14 @@ var translations = {
     service2Desc: "Design and development of electronic hardware, including PCB layouts, embedded systems, and control software tailored to your requirements.",
     service3Title: "Mechanical Design",
     service3Desc: "Engineering of structures, components, and systems with a focus on functionality, manufacturability, and durability using modern CAD and simulation tools.",
-    processPill: "Process",
     processTitle: "A clear process from definition to production.",
-    process1Title: "1) Definition",
+    process1Title: "Definition",
     process1Desc: "Definition of the specifications: functions, requirements, constraints, performances, and success criteria.",
-    process2Title: "2) Design",
+    process2Title: "Design",
     process2Desc: "R&D: mechanics (CAD), electronics (ECAD), simulations, and software and firmware development.",
-    process3Title: "3) Prototype",
+    process3Title: "Prototype",
     process3Desc: "From concept to reality: manufacturing, assembly, testing, and system verification.",
-    process4Title: "4) Transfer",
+    process4Title: "Transfer",
     process4Desc: "Delivery of documentation and products: manufacturing plans, design files, bills of materials, and test reports.",
     projectsPill: "Projects",
     projectsTitle: "Previous Work",
@@ -240,28 +79,37 @@ var translations = {
     contactPill: "Contact",
     contactTitle: "Let’s build your next system.",
     contactDesc: "For project inquiries, use the form or contact us directly.",
-    contactEmailLabel: "Email:",
-    contactAddressLabel: "Address:",
+    contactEmailLabel: "Email",
+    contactAddressLabel: "Address",
     labelContactName: "Your Name",
     labelContactEmail: "Your Email",
-    labelContactSubject: "Subject",
     labelContactMessage: "Your Message",
-    labelContactCompany: "Company",
-    placeholderName: "Your Name",
-    placeholderEmail: "Your Email",
     placeholderSubject: "Subject (optional)",
-    placeholderMessage: "Your Message",
     submit: "Send Message",
-    privacyPill: "Privacy",
-    privacyTitle: "Privacy & Analytics",
-    privacyDesc: "This website uses Google Analytics to measure traffic, such as visits, pages viewed, device type (mobile/desktop), browser, and approximate location (city/country).",
-    privacyOwner: "Analytics reports are accessible only to the website owner through a protected Google account. No direct personal contact information is collected through analytics alone.",
     privacyLink: "Privacy & Analytics",
     consentText: "We use analytics cookies only with your consent. See our",
     consentPolicyLink: "Privacy Policy",
     consentAccept: "Accept cookies",
     consentReject: "Reject",
+    consentSettings: "Cookie settings",
     footerCopy: "© 2026 LW Technologies Sàrl | All rights reserved",
+    skipLink: "Skip to content",
+    langLabel: "Language",
+    menuOpen: "Open menu",
+    menuClose: "Close menu",
+    heroLocation: "Geneva, Switzerland",
+    sectorsLabel: "Sectors",
+    sector1: "Industrial",
+    sector2: "Medical",
+    sector3: "Railway",
+    sector4: "Space",
+    formSending: "Sending…",
+    formSuccess: "Thank you, your message has been sent.",
+    formError: "The message could not be sent. Please email contact@lwtech.ch.",
+    footerTagline: "Engineering office in Geneva for robotics, electronics, and mechanical design.",
+    footerNavLabel: "Navigation",
+    footerLegalLabel: "Legal",
+    consentAria: "Cookie and analytics preferences",
     themeModeLabel: "Theme mode",
     themeAuto: "AUTO",
     themeLight: "LIGHT",
@@ -284,7 +132,7 @@ var translations = {
     navContact: "Contact",
     heroPill: "Ingénierie sur demande",
     heroTitle: "Robotique, électronique et conception mécanique sur mesure.",
-    heroDesc: "Depuis Genève, 🇨🇭 Suisse, LW Technologies fournit une ingénierie de précision en combinant mécatronique, électronique embarquée et conception mécanique pour des applications industrielles, le développement de produits et la recherche.",
+    heroDesc: "Depuis Genève, Suisse, LW Technologies fournit une ingénierie de précision en combinant mécatronique, électronique embarquée et conception mécanique pour des applications industrielles, le développement de produits et la recherche.",
     heroCtaPrimary: "Démarrer un projet",
     heroCtaSecondary: "Voir nos réalisations",
     capPill: "Compétences",
@@ -308,15 +156,14 @@ var translations = {
     service2Desc: "Conception et développement de matériel électronique, incluant PCB, systèmes embarqués et logiciels de contrôle adaptés à vos besoins.",
     service3Title: "Conception mécanique",
     service3Desc: "Ingénierie de structures, composants et systèmes avec un focus sur la fonctionnalité, la fabricabilité et la durabilité à l’aide d’outils CAD et de simulation modernes.",
-    processPill: "Processus",
     processTitle: "Un processus clair, de la définition à la production.",
-    process1Title: "1) Définition",
+    process1Title: "Définition",
     process1Desc: "Définition du cahier des charges : Fonctions, exigences, contraintes, performances et critères de succès.",
-    process2Title: "2) Conception",
+    process2Title: "Conception",
     process2Desc: "R&D : Mécanique (CAD), électronique (ECAD), simulations et développement logiciel.",
-    process3Title: "3) Prototype",
+    process3Title: "Prototype",
     process3Desc: "Passage du concept à la réalité : Production, montage, tests et vérification des systèmes.",
-    process4Title: "4) Transfert",
+    process4Title: "Transfert",
     process4Desc: "Livraison de la documentation et des produits : Plans de fabrication, fichiers de conception, nomenclatures et rapports de test.",
     projectsPill: "Projets",
     projectsTitle: "Réalisations précédentes",
@@ -341,28 +188,37 @@ var translations = {
     contactPill: "Contact",
     contactTitle: "Construisons votre prochain système.",
     contactDesc: "Pour toute demande de projet, utilisez le formulaire ou contactez-nous directement.",
-    contactEmailLabel: "Email :",
-    contactAddressLabel: "Adresse :",
+    contactEmailLabel: "Email",
+    contactAddressLabel: "Adresse",
     labelContactName: "Votre nom",
     labelContactEmail: "Votre email",
-    labelContactSubject: "Sujet",
     labelContactMessage: "Votre message",
-    labelContactCompany: "Société",
-    placeholderName: "Votre nom",
-    placeholderEmail: "Votre email",
     placeholderSubject: "Sujet (optionnel)",
-    placeholderMessage: "Votre message",
     submit: "Envoyer le message",
-    privacyPill: "Confidentialité",
-    privacyTitle: "Confidentialité et analyses",
-    privacyDesc: "Ce site utilise Google Analytics pour mesurer le trafic, notamment les visites, les pages consultées, le type d’appareil (mobile/ordinateur), le navigateur et la localisation approximative (ville/pays).",
-    privacyOwner: "Les rapports d’analyse sont accessibles uniquement au propriétaire du site via un compte Google protégé. Aucune information de contact personnelle directe n’est collectée par l’analyse seule.",
     privacyLink: "Confidentialité et analyses",
     consentText: "Nous utilisons des cookies d’analyse uniquement avec votre consentement. Voir notre",
     consentPolicyLink: "Politique de confidentialité",
     consentAccept: "Accepter les cookies",
     consentReject: "Refuser",
+    consentSettings: "Paramètres des cookies",
     footerCopy: "© 2026 LW Technologies Sàrl | Tous droits réservés",
+    skipLink: "Aller au contenu",
+    langLabel: "Langue",
+    menuOpen: "Ouvrir le menu",
+    menuClose: "Fermer le menu",
+    heroLocation: "Genève, Suisse",
+    sectorsLabel: "Secteurs",
+    sector1: "Industrie",
+    sector2: "Médical",
+    sector3: "Ferroviaire",
+    sector4: "Spatial",
+    formSending: "Envoi…",
+    formSuccess: "Merci, votre message a bien été envoyé.",
+    formError: "Le message n’a pas pu être envoyé. Veuillez écrire à contact@lwtech.ch.",
+    footerTagline: "Bureau d’ingénierie à Genève pour la robotique, l’électronique et la conception mécanique.",
+    footerNavLabel: "Navigation",
+    footerLegalLabel: "Mentions légales",
+    consentAria: "Préférences cookies et analyses",
     themeModeLabel: "Mode d’affichage",
     themeAuto: "AUTO",
     themeLight: "CLAIR",
@@ -385,7 +241,7 @@ var translations = {
     navContact: "Contatti",
     heroPill: "Ingegneria su richiesta",
     heroTitle: "Robotica, elettronica e progettazione meccanica su misura.",
-    heroDesc: "Da Ginevra, 🇨🇭 Svizzera, LW Technologies offre ingegneria di precisione combinando meccatronica, elettronica embedded e progettazione meccanica per applicazioni industriali, sviluppo prodotto e ricerca.",
+    heroDesc: "Da Ginevra, Svizzera, LW Technologies offre ingegneria di precisione combinando meccatronica, elettronica embedded e progettazione meccanica per applicazioni industriali, sviluppo prodotto e ricerca.",
     heroCtaPrimary: "Avvia un progetto",
     heroCtaSecondary: "Scopri i nostri progetti",
     capPill: "Competenze",
@@ -409,15 +265,14 @@ var translations = {
     service2Desc: "Progettazione e sviluppo di hardware elettronico, inclusi layout PCB, sistemi embedded e software di controllo su misura.",
     service3Title: "Progettazione meccanica",
     service3Desc: "Ingegneria di strutture, componenti e sistemi con focus su funzionalità, producibilità e durabilità, supportata da strumenti CAD e simulazione moderni.",
-    processPill: "Processo",
     processTitle: "Un processo chiaro, dalla definizione alla produzione.",
-    process1Title: "1) Definizione",
+    process1Title: "Definizione",
     process1Desc: "Definizione del capitolato: funzioni, requisiti, vincoli, obiettivi prestazionali e criteri di successo.",
-    process2Title: "2) Design",
+    process2Title: "Design",
     process2Desc: "R&S: meccanica (CAD), elettronica (ECAD), simulazioni e sviluppo software.",
-    process3Title: "3) Prototipo",
+    process3Title: "Prototipo",
     process3Desc: "Dal concetto alla realtà: produzione, assemblaggio, test e verifica dei sistemi.",
-    process4Title: "4) Trasferimento",
+    process4Title: "Trasferimento",
     process4Desc: "Consegna di documentazione e prodotti: piani di fabbricazione, file di progettazione, distinte base e rapporti di test.",
     projectsPill: "Progetti",
     projectsTitle: "Progetti realizzati",
@@ -442,28 +297,37 @@ var translations = {
     contactPill: "Contatti",
     contactTitle: "Costruiamo il tuo prossimo sistema.",
     contactDesc: "Per richieste di progetto, utilizza il modulo oppure contattaci direttamente.",
-    contactEmailLabel: "Email:",
-    contactAddressLabel: "Indirizzo:",
+    contactEmailLabel: "Email",
+    contactAddressLabel: "Indirizzo",
     labelContactName: "Il tuo nome",
     labelContactEmail: "La tua email",
-    labelContactSubject: "Oggetto",
     labelContactMessage: "Il tuo messaggio",
-    labelContactCompany: "Azienda",
-    placeholderName: "Il tuo nome",
-    placeholderEmail: "La tua email",
     placeholderSubject: "Oggetto (opzionale)",
-    placeholderMessage: "Il tuo messaggio",
     submit: "Invia messaggio",
-    privacyPill: "Privacy",
-    privacyTitle: "Privacy e analisi",
-    privacyDesc: "Questo sito utilizza Google Analytics per misurare il traffico, come visite, pagine visualizzate, tipo di dispositivo (mobile/desktop), browser e posizione approssimativa (città/paese).",
-    privacyOwner: "I report di analisi sono accessibili solo al proprietario del sito tramite un account Google protetto. I soli dati di analisi non raccolgono informazioni di contatto personali dirette.",
     privacyLink: "Privacy e analisi",
     consentText: "Utilizziamo cookie di analisi solo con il tuo consenso. Consulta la nostra",
     consentPolicyLink: "Informativa sulla privacy",
     consentAccept: "Accetta i cookie",
     consentReject: "Rifiuta",
+    consentSettings: "Impostazioni cookie",
     footerCopy: "© 2026 LW Technologies Sàrl | Tutti i diritti riservati",
+    skipLink: "Vai al contenuto",
+    langLabel: "Lingua",
+    menuOpen: "Apri il menu",
+    menuClose: "Chiudi il menu",
+    heroLocation: "Ginevra, Svizzera",
+    sectorsLabel: "Settori",
+    sector1: "Industriale",
+    sector2: "Medicale",
+    sector3: "Ferroviario",
+    sector4: "Spaziale",
+    formSending: "Invio…",
+    formSuccess: "Grazie, il tuo messaggio è stato inviato.",
+    formError: "Non è stato possibile inviare il messaggio. Scrivi a contact@lwtech.ch.",
+    footerTagline: "Studio di ingegneria a Ginevra per robotica, elettronica e progettazione meccanica.",
+    footerNavLabel: "Navigazione",
+    footerLegalLabel: "Note legali",
+    consentAria: "Preferenze cookie e analisi",
     themeModeLabel: "Modalità tema",
     themeAuto: "AUTO",
     themeLight: "CHIARO",
@@ -486,7 +350,7 @@ var translations = {
     navContact: "Kontakt",
     heroPill: "Engineering auf Abruf",
     heroTitle: "Robotik, Elektronik und mechanische Konstruktion nach Maß.",
-    heroDesc: "Von Genf, 🇨🇭 Schweiz aus liefert LW Technologies präzises Engineering durch die Kombination von Mechatronik, Embedded-Elektronik und mechanischer Konstruktion für industrielle Anwendungen, Produktentwicklung und Forschung.",
+    heroDesc: "Von Genf, Schweiz aus liefert LW Technologies präzises Engineering durch die Kombination von Mechatronik, Embedded-Elektronik und mechanischer Konstruktion für industrielle Anwendungen, Produktentwicklung und Forschung.",
     heroCtaPrimary: "Projekt starten",
     heroCtaSecondary: "Unsere Projekte ansehen",
     capPill: "Kompetenzen",
@@ -510,15 +374,14 @@ var translations = {
     service2Desc: "Entwicklung elektronischer Hardware inklusive PCB Layouts, Embedded Systemen und maßgeschneiderter Steuerungssoftware.",
     service3Title: "Mechanische Konstruktion",
     service3Desc: "Engineering von Strukturen, Komponenten und Systemen mit Fokus auf Funktionalität, Fertigbarkeit und Langlebigkeit, unterstützt durch moderne CAD und Simulationswerkzeuge.",
-    processPill: "Prozess",
     processTitle: "Ein klarer Prozess von der Definition bis zur Produktion.",
-    process1Title: "1) Definition",
+    process1Title: "Definition",
     process1Desc: "Definition des Lastenhefts: Funktionen, Anforderungen, Randbedingungen, Leistungsziele und Erfolgskriterien.",
-    process2Title: "2) Design",
+    process2Title: "Design",
     process2Desc: "F&E: Mechanik (CAD), Elektronik (ECAD), Simulationen und Softwareentwicklung.",
-    process3Title: "3) Prototyp",
+    process3Title: "Prototyp",
     process3Desc: "Vom Konzept zur Realität: Fertigung, Montage, Tests und Systemverifikation.",
-    process4Title: "4) Transfer",
+    process4Title: "Transfer",
     process4Desc: "Lieferung von Dokumentation und Produkten: Fertigungspläne, Konstruktionsdaten, Stücklisten und Testberichte.",
     projectsPill: "Projekte",
     projectsTitle: "Referenzprojekte",
@@ -543,284 +406,40 @@ var translations = {
     contactPill: "Kontakt",
     contactTitle: "Lassen Sie uns Ihr nächstes System entwickeln.",
     contactDesc: "Für Projektanfragen nutzen Sie das Formular oder kontaktieren Sie uns direkt.",
-    contactEmailLabel: "E-Mail:",
-    contactAddressLabel: "Adresse:",
+    contactEmailLabel: "E-Mail",
+    contactAddressLabel: "Adresse",
     labelContactName: "Ihr Name",
     labelContactEmail: "Ihre E-Mail",
-    labelContactSubject: "Betreff",
     labelContactMessage: "Ihre Nachricht",
-    labelContactCompany: "Unternehmen",
-    placeholderName: "Ihr Name",
-    placeholderEmail: "Ihre E-Mail",
     placeholderSubject: "Betreff (optional)",
-    placeholderMessage: "Ihre Nachricht",
     submit: "Nachricht senden",
-    privacyPill: "Datenschutz",
-    privacyTitle: "Datenschutz und Analysen",
-    privacyDesc: "Diese Website verwendet Google Analytics zur Messung des Traffics, z. B. Besuche, aufgerufene Seiten, Gerätetyp (Mobil/Desktop), Browser und ungefähren Standort (Stadt/Land).",
-    privacyOwner: "Analyseberichte sind nur für den Website-Eigentümer über ein geschütztes Google-Konto zugänglich. Durch die Analyse allein werden keine direkten persönlichen Kontaktdaten erfasst.",
     privacyLink: "Datenschutz und Analysen",
     consentText: "Wir verwenden Analyse-Cookies nur mit Ihrer Einwilligung. Siehe unsere",
     consentPolicyLink: "Datenschutzerklärung",
     consentAccept: "Cookies akzeptieren",
     consentReject: "Ablehnen",
+    consentSettings: "Cookie-Einstellungen",
     footerCopy: "© 2026 LW Technologies Sàrl | Alle Rechte vorbehalten",
+    skipLink: "Zum Inhalt springen",
+    langLabel: "Sprache",
+    menuOpen: "Menü öffnen",
+    menuClose: "Menü schließen",
+    heroLocation: "Genf, Schweiz",
+    sectorsLabel: "Branchen",
+    sector1: "Industrie",
+    sector2: "Medizintechnik",
+    sector3: "Bahntechnik",
+    sector4: "Raumfahrt",
+    formSending: "Wird gesendet…",
+    formSuccess: "Vielen Dank, Ihre Nachricht wurde gesendet.",
+    formError: "Die Nachricht konnte nicht gesendet werden. Bitte schreiben Sie an contact@lwtech.ch.",
+    footerTagline: "Ingenieurbüro in Genf für Robotik, Elektronik und mechanische Konstruktion.",
+    footerNavLabel: "Navigation",
+    footerLegalLabel: "Rechtliches",
+    consentAria: "Cookie- und Analyseeinstellungen",
     themeModeLabel: "Designmodus",
     themeAuto: "AUTO",
     themeLight: "HELL",
     themeDark: "DUNKEL"
   }
 };
-
-  var textTargets = {
-    navAbout: "nav-about",
-    navServices: "nav-services",
-    navWork: "nav-work",
-    navFaq: "nav-faq",
-    navContact: "nav-contact",
-    heroPill: "hero-pill",
-    heroTitle: "hero-title",
-    heroDesc: "hero-desc",
-    heroCtaPrimary: "hero-cta-primary",
-    heroCtaSecondary: "hero-cta-secondary",
-    capPill: "cap-pill",
-    stat1Title: "stat-1-title",
-    stat1Desc: "stat-1-desc",
-    stat2Title: "stat-2-title",
-    stat2Desc: "stat-2-desc",
-    stat3Title: "stat-3-title",
-    stat3Desc: "stat-3-desc",
-    stat4Title: "stat-4-title",
-    stat4Desc: "stat-4-desc",
-    aboutPill: "about-pill",
-    aboutTitle: "about-title",
-    aboutDesc: "about-desc",
-    industryNote: "industry-note",
-    servicesPill: "services-pill",
-    servicesTitle: "services-title",
-    service1Title: "service-1-title",
-    service1Desc: "service-1-desc",
-    service2Title: "service-2-title",
-    service2Desc: "service-2-desc",
-    service3Title: "service-3-title",
-    service3Desc: "service-3-desc",
-    processPill: "process-pill",
-    processTitle: "process-title",
-    process1Title: "process-1-title",
-    process1Desc: "process-1-desc",
-    process2Title: "process-2-title",
-    process2Desc: "process-2-desc",
-    process3Title: "process-3-title",
-    process3Desc: "process-3-desc",
-    process4Title: "process-4-title",
-    process4Desc: "process-4-desc",
-    projectsPill: "projects-pill",
-    projectsTitle: "projects-title",
-    project1Title: "project-1-title",
-    project1Desc: "project-1-desc",
-    project2Title: "project-2-title",
-    project2Desc: "project-2-desc",
-    project3Title: "project-3-title",
-    project3Desc: "project-3-desc",
-    faqPill: "faq-pill",
-    faqTitle: "faq-title",
-    faqQ1: "faq-q1",
-    faqA1: "faq-a1",
-    faqQ2: "faq-q2",
-    faqA2: "faq-a2",
-    faqQ3: "faq-q3",
-    faqA3: "faq-a3",
-    contactPill: "contact-pill",
-    contactTitle: "contact-title",
-    contactDesc: "contact-desc",
-    contactEmailLabel: "contact-email-label",
-    contactAddressLabel: "contact-address-label",
-    labelContactName: "label-contact-name",
-    labelContactEmail: "label-contact-email",
-    labelContactSubject: "label-contact-subject",
-    labelContactMessage: "label-contact-message",
-    labelContactCompany: "label-contact-company",
-    submit: "contact-submit",
-    privacyPill: "privacy-pill",
-    privacyTitle: "privacy-title",
-    privacyDesc: "privacy-desc",
-    privacyOwner: "privacy-owner",
-    privacyLink: "privacy-link",
-    consentText: "consent-text",
-    consentPolicyLink: "consent-policy-link",
-    consentAccept: "consent-accept",
-    consentReject: "consent-reject",
-    footerCopy: "footer-copy"
-  };
-
-  function setTextById(id, value) {
-    var node = document.getElementById(id);
-    if (node) {
-      node.textContent = value;
-    }
-  }
-
-  function setContentById(id, value) {
-    var node = document.getElementById(id);
-    if (node) {
-      node.setAttribute("content", value);
-    }
-  }
-
-  function setAttributeById(id, attributeName, value) {
-    var node = document.getElementById(id);
-    if (node) {
-      node.setAttribute(attributeName, value);
-    }
-  }
-
-  function setLanguageDropdownState(isOpen) {
-    var root = document.getElementById("lang-switch");
-    var trigger = document.getElementById("lang-trigger");
-    if (!root || !trigger) {
-      return;
-    }
-    if (isOpen) {
-      root.classList.add("open");
-      trigger.setAttribute("aria-expanded", "true");
-    } else {
-      root.classList.remove("open");
-      trigger.setAttribute("aria-expanded", "false");
-    }
-  }
-
-  function applyLanguage(lang) {
-    var selected = normalizeLanguage(lang);
-    var current = translations[selected];
-    document.documentElement.setAttribute("lang", selected);
-
-    document.title = current.title;
-    setContentById("meta-description", current.description);
-    setContentById("meta-og-locale", current.ogLocale);
-    setContentById("meta-og-title", current.ogTitle);
-    setContentById("meta-og-description", current.ogDescription);
-    setContentById("meta-og-image-alt", current.logoAlt);
-    setContentById("meta-twitter-title", current.twitterTitle);
-    setContentById("meta-twitter-description", current.twitterDescription);
-    setContentById("meta-twitter-image-alt", current.logoAlt);
-
-    setAttributeById("img-logo", "alt", current.logoAlt);
-    setAttributeById("img-project-1", "alt", current.project1Alt);
-    setAttributeById("img-project-2", "alt", current.project2Alt);
-    setAttributeById("img-project-3", "alt", current.project3Alt);
-
-    var nav = document.getElementById("nav-main");
-    if (nav) {
-      nav.setAttribute("aria-label", current.navAria);
-    }
-
-    Object.keys(textTargets).forEach(function (key) {
-      if (current[key] !== undefined) {
-        setTextById(textTargets[key], current[key]);
-      }
-    });
-
-    var nameInput = document.getElementById("contact-name");
-    var emailInput = document.getElementById("contact-email");
-    var subjectInput = document.getElementById("contact-subject");
-    var messageInput = document.getElementById("contact-message");
-    if (nameInput) {
-      nameInput.placeholder = current.placeholderName;
-    }
-    if (emailInput) {
-      emailInput.placeholder = current.placeholderEmail;
-    }
-    if (subjectInput) {
-      subjectInput.placeholder = current.placeholderSubject;
-    }
-    if (messageInput) {
-      messageInput.placeholder = current.placeholderMessage;
-    }
-
-    var switchLinks = document.querySelectorAll("[data-lang-switch]");
-    switchLinks.forEach(function (link) {
-      var linkLang = normalizeLanguage(link.getAttribute("data-lang-switch"));
-      if (linkLang === selected) {
-        link.setAttribute("aria-current", "true");
-        link.classList.add("active");
-      } else {
-        link.removeAttribute("aria-current");
-        link.classList.remove("active");
-      }
-    });
-
-    setTextById("lang-current", selected.toUpperCase());
-    setThemeToggleUi(themeMode, selected);
-  }
-
-  var stored = getStoredLanguage();
-  var queryLanguage = getLanguageFromQuery();
-  if (queryLanguage) {
-    setStoredLanguage(queryLanguage);
-  }
-  var initialLanguage = queryLanguage || (stored ? normalizeLanguage(stored) : detectLanguageFromBrowser());
-  themeMode = getStoredThemeMode();
-  applyLanguage(initialLanguage);
-  applyThemeMode(themeMode);
-
-  var themeToggle = document.getElementById("theme-toggle");
-  if (themeToggle) {
-    themeToggle.addEventListener("click", function () {
-      themeMode = getNextThemeMode(themeMode);
-      setStoredThemeMode(themeMode);
-      applyThemeMode(themeMode);
-    });
-  }
-
-  if (window.matchMedia) {
-    var colorSchemeMedia = window.matchMedia("(prefers-color-scheme: light)");
-    if (typeof colorSchemeMedia.addEventListener === "function") {
-      colorSchemeMedia.addEventListener("change", function () {
-        if (themeMode === "auto") {
-          updateLogoForTheme("auto");
-        }
-      });
-    } else if (typeof colorSchemeMedia.addListener === "function") {
-      colorSchemeMedia.addListener(function () {
-        if (themeMode === "auto") {
-          updateLogoForTheme("auto");
-        }
-      });
-    }
-  }
-
-  var switchLinks = document.querySelectorAll("[data-lang-switch]");
-  switchLinks.forEach(function (link) {
-    var linkLang = normalizeLanguage(link.getAttribute("data-lang-switch"));
-    link.addEventListener("click", function (event) {
-      event.preventDefault();
-      setStoredLanguage(linkLang);
-      applyLanguage(linkLang);
-      if (document.activeElement && typeof document.activeElement.blur === "function") {
-        document.activeElement.blur();
-      }
-      setLanguageDropdownState(false);
-    });
-  });
-
-  var languageRoot = document.getElementById("lang-switch");
-  var languageTrigger = document.getElementById("lang-trigger");
-  if (languageRoot && languageTrigger) {
-    languageTrigger.addEventListener("click", function () {
-      var isOpen = languageRoot.classList.contains("open");
-      setLanguageDropdownState(!isOpen);
-    });
-
-    document.addEventListener("click", function (event) {
-      if (!languageRoot.contains(event.target)) {
-        setLanguageDropdownState(false);
-      }
-    });
-
-    document.addEventListener("keydown", function (event) {
-      if (event.key === "Escape") {
-        setLanguageDropdownState(false);
-      }
-    });
-  }
-})();

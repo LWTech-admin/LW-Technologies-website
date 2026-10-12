@@ -9,6 +9,23 @@
   <meta name="geo.region" content="CH-GE" />
   <meta name="geo.placename" content="Geneva" />
   <meta name="color-scheme" content="dark light" />
+  <script>
+    // Resolve the theme before first paint to avoid a flash of the wrong theme.
+    (function () {
+      var mode = null;
+      try {
+        mode = localStorage.getItem("lwtech_theme");
+      } catch (error) {
+      }
+      if (mode !== "light" && mode !== "dark") {
+        mode = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      }
+      document.documentElement.setAttribute("data-theme", mode);
+    })();
+  </script>
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-S06YB8KGYX"></script>
   <script>
@@ -66,7 +83,7 @@
       }
     };
   </script>
-  <link rel="canonical" href="https://lwtechnologies.ch/" />
+  <link id="link-canonical" rel="canonical" href="https://lwtechnologies.ch/" />
   <link rel="alternate" hreflang="x-default" href="https://lwtechnologies.ch/" />
   <link rel="alternate" hreflang="en-CH" href="https://lwtechnologies.ch/?lang=en" />
   <link rel="alternate" hreflang="fr-CH" href="https://lwtechnologies.ch/?lang=fr" />
@@ -78,7 +95,7 @@
   <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://lwtechnologies.ch/" />
+  <meta id="meta-og-url" property="og:url" content="https://lwtechnologies.ch/" />
   <meta id="meta-og-locale" property="og:locale" content="en_CH" />
   <meta property="og:locale:alternate" content="fr_CH" />
   <meta property="og:locale:alternate" content="it_CH" />
@@ -264,1252 +281,407 @@
       ]
     }
   </script>
-  <style>
-    :root {
-      color-scheme: dark;
-      --bg-0: #05070d;
-      --bg-1: #090f1f;
-      --bg-2: #101a33;
-      --line: rgba(255, 255, 255, 0.12);
-      --text: #eaf1ff;
-      --muted: #b8c4df;
-      --accent: #4fd8ff;
-      --accent-2: #7a7bff;
-      --accent-3: #42f5b9;
-      --accent-red: #ff4d67;
-      --accent-red-soft: rgba(255, 77, 103, 0.28);
-      --card: rgba(17, 28, 54, 0.62);
-      --glow-soft: 0 0 0 1px rgba(79, 216, 255, 0.24), 0 14px 34px rgba(66, 245, 185, 0.09);
-    }
-    * {
-      box-sizing: border-box;
-    }
-    html {
-      scroll-behavior: smooth;
-    }
-    body {
-      margin: 0;
-      font-family: "Segoe UI", "Inter", Arial, sans-serif;
-      color: var(--text);
-      line-height: 1.65;
-      background:
-        radial-gradient(520px 280px at 22% 78%, rgba(255, 77, 103, 0.12), transparent 72%),
-        radial-gradient(400px 260px at 86% 66%, rgba(255, 77, 103, 0.1), transparent 72%),
-        radial-gradient(900px 500px at 8% -5%, rgba(79, 216, 255, 0.18), transparent 70%),
-        radial-gradient(800px 600px at 95% 2%, rgba(122, 123, 255, 0.16), transparent 68%),
-        linear-gradient(165deg, var(--bg-0) 0%, var(--bg-1) 45%, var(--bg-2) 100%);
-      min-height: 100vh;
-      position: relative;
-      isolation: isolate;
-    }
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
-      background-size: 46px 46px;
-      mask-image: radial-gradient(circle at center, black 35%, transparent 100%);
-      opacity: 0.2;
-      z-index: 0;
-    }
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background:
-        linear-gradient(124deg, transparent 0 50.2%, rgba(255, 77, 103, 0.17) 56.2%, transparent 62.2%),
-        linear-gradient(109deg, transparent 0 66.1%, rgba(255, 77, 103, 0.13) 72.1%, transparent 78.1%),
-        radial-gradient(380px 220px at 18% 82%, rgba(255, 77, 103, 0.13), transparent 72%);
-      opacity: 0.42;
-      mask-image: radial-gradient(120% 95% at 50% 50%, black 40%, transparent 100%);
-      z-index: 0;
-    }
-    .site-nav,
-    .hero,
-    section,
-    footer {
-      position: relative;
-      z-index: 1;
-    }
-    a {
-      color: inherit;
-    }
-    .container {
-      width: min(1140px, 92vw);
-      margin: 0 auto;
-    }
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.35rem 0.8rem;
-      border: 1px solid rgba(79, 216, 255, 0.45);
-      border-radius: 999px;
-      background: rgba(79, 216, 255, 0.08);
-      color: #c9f5ff;
-      font-size: 0.82rem;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-      font-weight: 700;
-      box-shadow: 0 0 20px rgba(79, 216, 255, 0.18);
-    }
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
-    }
-
-    .site-nav {
-      position: sticky;
-      top: 0;
-      z-index: 25;
-      backdrop-filter: blur(10px);
-      background: rgba(4, 7, 16, 0.72);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.09);
-    }
-    .site-nav .container {
-      min-height: 68px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1.25rem;
-    }
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 0.7rem;
-      text-decoration: none;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-    }
-    .brand span {
-      white-space: nowrap;
-    }
-    .brand img {
-      width: 36px;
-      height: 36px;
-      object-fit: contain;
-      transform: translateY(1px);
-    }
-    .nav-links {
-      display: flex;
-      gap: 1.1rem;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      font-size: 0.95rem;
-    }
-    .nav-links a {
-      text-decoration: none;
-      color: var(--muted);
-      transition: color 0.2s ease;
-    }
-    .nav-links a:hover {
-      color: #e7fbff;
-    }
-    .nav-controls {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-    .theme-toggle {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 34px;
-      height: 34px;
-      border-radius: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.26);
-      background: rgba(255, 255, 255, 0.03);
-      color: #f0f6ff;
-      cursor: pointer;
-      font-size: 0.95rem;
-      font-weight: 700;
-      padding: 0;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-    }
-    .theme-toggle svg {
-      width: 16px;
-      height: 16px;
-      display: block;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 1.8;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-    .theme-toggle:hover {
-      border-color: rgba(79, 216, 255, 0.45);
-      box-shadow: 0 8px 20px rgba(79, 216, 255, 0.12);
-    }
-    .lang-switch {
-      position: relative;
-      display: inline-block;
-      border: 1px solid rgba(255, 255, 255, 0.26);
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.03);
-      min-width: 56px;
-    }
-    .lang-trigger {
-      display: inline-flex;
-      width: 100%;
-      align-items: center;
-      justify-content: center;
-      gap: 0;
-      background: transparent;
-      color: #f0f6ff;
-      border: 0;
-      cursor: pointer;
-      padding: 0.38rem 0.34rem;
-      font-size: 0.78rem;
-      letter-spacing: 0.04em;
-      font-weight: 700;
-    }
-    .lang-switch a {
-      text-decoration: none;
-      color: var(--muted);
-      font-size: 0.8rem;
-      letter-spacing: 0.04em;
-      font-weight: 700;
-      padding: 0.42rem 0.62rem;
-      transition: color 0.2s ease, background 0.2s ease;
-      display: block;
-      text-align: center;
-    }
-    .lang-menu {
-      position: absolute;
-      top: calc(100% + 0.42rem);
-      right: 0;
-      width: 100%;
-      min-width: 56px;
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      border-radius: 10px;
-      background: rgba(8, 13, 28, 0.94);
-      backdrop-filter: blur(8px);
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
-      overflow: hidden;
-      opacity: 0;
-      transform: translateY(-4px);
-      pointer-events: none;
-      transition: opacity 0.2s ease, transform 0.2s ease;
-      z-index: 30;
-    }
-    .lang-switch.open .lang-menu,
-    .lang-switch:focus-within .lang-menu {
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
-    }
-    .lang-switch a.active,
-    .lang-switch a:hover {
-      color: #ffffff;
-      background: linear-gradient(135deg, rgba(79, 216, 255, 0.24), rgba(122, 123, 255, 0.22));
-    }
-
-    .hero {
-      padding: 5.8rem 0 4rem;
-    }
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 2.2rem;
-      align-items: center;
-    }
-    .hero h1 {
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      line-height: 1.12;
-      margin: 0.9rem 0 0.9rem;
-      letter-spacing: -0.01em;
-    }
-    .hero p {
-      color: var(--muted);
-      margin: 0 0 1.5rem;
-      max-width: 60ch;
-    }
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 44px;
-      padding: 0.65rem 1rem;
-      border-radius: 10px;
-      border: 1px solid transparent;
-      text-decoration: none;
-      font-weight: 700;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-    }
-    .btn-primary {
-      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
-      color: #050814;
-      box-shadow: 0 12px 30px rgba(79, 216, 255, 0.3), 0 0 0 1px rgba(122, 123, 255, 0.25);
-    }
-    .btn-secondary {
-      border-color: rgba(255, 255, 255, 0.28);
-      background: rgba(255, 255, 255, 0.03);
-      color: #f2f7ff;
-    }
-    .btn-secondary:hover {
-      border-color: rgba(79, 216, 255, 0.45);
-      box-shadow: 0 8px 24px rgba(79, 216, 255, 0.12);
-    }
-    .btn:hover {
-      transform: translateY(-2px);
-    }
-    .hero-panel,
-    .card,
-    .work-card,
-    .contact-panel {
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: 14px;
-      background: var(--card);
-      backdrop-filter: blur(6px);
-      box-shadow: 0 16px 38px rgba(0, 0, 0, 0.28);
-      position: relative;
-      overflow: hidden;
-    }
-    .hero-panel::before,
-    .card::before,
-    .work-card::before,
-    .contact-panel::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(90deg, rgba(79, 216, 255, 0.6), rgba(122, 123, 255, 0.45), rgba(66, 245, 185, 0.5));
-      opacity: 0.45;
-      pointer-events: none;
-    }
-    .hero-panel {
-      padding: 1.25rem;
-    }
-    .stat-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.75rem;
-      margin-top: 1rem;
-    }
-    .stat {
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      padding: 0.8rem;
-      background: rgba(255, 255, 255, 0.02);
-      box-shadow: inset 0 0 0 1px rgba(122, 123, 255, 0.08);
-    }
-    .stat strong {
-      display: block;
-      font-size: 1.3rem;
-      color: #d9f6ff;
-      line-height: 1.15;
-    }
-    .stat span {
-      font-size: 0.84rem;
-      color: var(--muted);
-    }
-
-    section {
-      padding: 2.1rem 0;
-    }
-    #privacy {
-      padding-top: 0.3rem;
-      padding-bottom: 0.05rem;
-    }
-    #privacy .section-head {
-      margin-bottom: 0.1rem;
-    }
-    #privacy h2 {
-      margin: 0;
-      font-size: clamp(0.76rem, 0.85vw, 0.84rem);
-      color: var(--muted);
-      letter-spacing: 0;
-      font-weight: 500;
-      opacity: 0.7;
-    }
-    #privacy p {
-      margin: 0 0 0.12rem;
-      color: var(--muted);
-      font-size: 0.7rem;
-      line-height: 1.3;
-      max-width: none;
-      opacity: 0.5;
-    }
-    #privacy p:last-child {
-      margin-bottom: 0;
-    }
-    #privacy-policy-note {
-      font-size: 0.64rem;
-      opacity: 0.5;
-    }
-    .section-head {
-      margin-bottom: 1.2rem;
-    }
-    h2 {
-      margin: 0.35rem 0 0.4rem;
-      font-size: clamp(1.5rem, 2.2vw, 2rem);
-      letter-spacing: -0.01em;
-    }
-    .section-head p {
-      margin: 0;
-      color: var(--muted);
-      max-width: 70ch;
-    }
-
-    .services,
-    .capabilities-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1rem;
-    }
-    .card {
-      padding: 1rem;
-      transition: border-color 0.25s ease, box-shadow 0.25s ease;
-    }
-    .card:hover {
-      border-color: rgba(79, 216, 255, 0.38);
-      box-shadow: var(--glow-soft);
-    }
-    .card h3 {
-      margin: 0 0 0.5rem;
-      font-size: 1.05rem;
-    }
-    .card p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-    .process-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 1rem;
-    }
-    .process-card h3 {
-      display: flex;
-      align-items: center;
-      gap: 0.55rem;
-    }
-    .process-icon {
-      width: 1.7rem;
-      height: 1.7rem;
-      color: var(--accent);
-      flex-shrink: 0;
-      opacity: 0.95;
-    }
-    .faq-list {
-      display: grid;
-      gap: 0.75rem;
-    }
-    .faq-item {
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: 12px;
-      background: var(--card);
-      box-shadow: 0 16px 38px rgba(0, 0, 0, 0.2);
-      overflow: hidden;
-    }
-    .faq-item summary {
-      cursor: pointer;
-      padding: 0.85rem 1rem;
-      font-weight: 700;
-      list-style: none;
-    }
-    .faq-item summary::-webkit-details-marker {
-      display: none;
-    }
-    .faq-item p {
-      margin: 0;
-      padding: 0 1rem 0.9rem;
-      color: var(--muted);
-      font-size: 0.94rem;
-    }
-
-    .work-card {
-      overflow: hidden;
-    }
-    .work-card img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      display: block;
-      filter: saturate(1.05);
-      transition: transform 0.35s ease, filter 0.35s ease;
-    }
-    .work-card:hover img {
-      transform: scale(1.02);
-      filter: saturate(1.12);
-    }
-    .work-card .content {
-      padding: 0.95rem 1rem 1.1rem;
-    }
-    .work-card h3 {
-      margin: 0 0 0.42rem;
-      font-size: 1.02rem;
-    }
-    .work-card p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.93rem;
-    }
-
-    .contact-panel {
-      padding: 1.1rem;
-      display: grid;
-      grid-template-columns: 0.95fr 1.05fr;
-      gap: 1rem;
-      align-items: start;
-    }
-    .contact-info p {
-      margin: 0 0 0.9rem;
-      color: var(--muted);
-    }
-    .contact-info .meta {
-      display: grid;
-      gap: 0.5rem;
-      font-size: 0.93rem;
-      color: #dbe6ff;
-    }
-    form {
-      display: grid;
-      gap: 0.75rem;
-    }
-    form input,
-    form textarea {
-      width: 100%;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.04);
-      color: #f4f8ff;
-      padding: 0.72rem 0.82rem;
-      font: inherit;
-    }
-    form textarea {
-      resize: vertical;
-      min-height: 130px;
-    }
-    form button {
-      justify-self: start;
-      border: 0;
-      cursor: pointer;
-    }
-    form input::placeholder,
-    form textarea::placeholder {
-      color: #a8b4d2;
-    }
-    .btn:focus-visible,
-    .theme-toggle:focus-visible,
-    .lang-trigger:focus-visible,
-    .nav-links a:focus-visible,
-    form input:focus-visible,
-    form textarea:focus-visible,
-    form button:focus-visible {
-      outline: 3px solid rgba(79, 216, 255, 0.7);
-      outline-offset: 2px;
-    }
-
-    footer {
-      margin-top: 2.8rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      background: rgba(2, 5, 12, 0.62);
-      text-align: center;
-      color: #c0cae3;
-    }
-    footer .container {
-      padding: 1.3rem 0 1.5rem;
-      font-size: 0.92rem;
-    }
-    footer p {
-      margin: 0.2rem 0;
-    }
-    .consent-banner {
-      position: fixed;
-      left: 0.85rem;
-      right: 0.85rem;
-      bottom: 0.85rem;
-      z-index: 60;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 12px;
-      background: rgba(8, 13, 28, 0.8);
-      color: #dfe9ff;
-      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.34);
-      padding: 0.54rem 0.65rem;
-      display: none;
-    }
-    .consent-banner.show {
-      display: block;
-    }
-    .consent-banner p {
-      margin: 0;
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-    .consent-banner a {
-      color: #cbe9ff;
-      text-decoration: underline;
-    }
-    .consent-actions {
-      margin-top: 0.42rem;
-      display: flex;
-      gap: 0.38rem;
-      flex-wrap: wrap;
-    }
-    .consent-actions button {
-      border: 1px solid rgba(255, 255, 255, 0.28);
-      background: rgba(255, 255, 255, 0.04);
-      color: #f2f7ff;
-      border-radius: 10px;
-      padding: 0.32rem 0.54rem;
-      font: inherit;
-      font-size: 0.78rem;
-      cursor: pointer;
-    }
-    .consent-actions .accept {
-      border-color: rgba(79, 216, 255, 0.42);
-      background: rgba(79, 216, 255, 0.14);
-      color: #dff7ff;
-    }
-
-    @media (prefers-color-scheme: light) {
-      :root:not([data-theme]) {
-        color-scheme: light;
-        --bg-0: #f7f9ff;
-        --bg-1: #eef3ff;
-        --bg-2: #e2ebff;
-        --line: rgba(8, 20, 43, 0.09);
-        --text: #13203b;
-        --muted: #445272;
-        --card: rgba(255, 255, 255, 0.74);
-        --glow-soft: 0 0 0 1px rgba(79, 216, 255, 0.2), 0 14px 34px rgba(66, 245, 185, 0.08);
-      }
-
-      html:not([data-theme]) body {
-        background:
-          radial-gradient(520px 280px at 22% 78%, rgba(255, 77, 103, 0.08), transparent 72%),
-          radial-gradient(400px 260px at 86% 66%, rgba(255, 77, 103, 0.07), transparent 72%),
-          radial-gradient(900px 500px at 8% -5%, rgba(79, 216, 255, 0.13), transparent 70%),
-          radial-gradient(800px 600px at 95% 2%, rgba(122, 123, 255, 0.12), transparent 68%),
-          linear-gradient(165deg, var(--bg-0) 0%, var(--bg-1) 45%, var(--bg-2) 100%);
-      }
-
-      html:not([data-theme]) body::after {
-        opacity: 0.24;
-      }
-
-      html:not([data-theme]) .site-nav {
-        background: rgba(255, 255, 255, 0.78);
-        border-bottom: 1px solid rgba(19, 32, 59, 0.14);
-      }
-
-      html:not([data-theme]) .nav-links a:hover {
-        color: #10284d;
-      }
-
-      html:not([data-theme]) .pill {
-        color: #123d5a;
-        background: rgba(79, 216, 255, 0.12);
-      }
-
-      html:not([data-theme]) .theme-toggle,
-      html:not([data-theme]) .lang-switch {
-        border-color: rgba(19, 32, 59, 0.2);
-        background: rgba(255, 255, 255, 0.6);
-      }
-
-      html:not([data-theme]) .theme-toggle,
-      html:not([data-theme]) .lang-trigger {
-        color: #13203b;
-      }
-
-      html:not([data-theme]) .lang-menu {
-        border-color: rgba(19, 32, 59, 0.2);
-        background: rgba(255, 255, 255, 0.96);
-        box-shadow: 0 12px 24px rgba(8, 20, 43, 0.12);
-      }
-
-      html:not([data-theme]) .lang-switch a.active,
-      html:not([data-theme]) .lang-switch a:hover {
-        color: #0f2f57;
-        background: linear-gradient(135deg, rgba(79, 216, 255, 0.18), rgba(122, 123, 255, 0.14));
-      }
-
-      html:not([data-theme]) .btn-secondary {
-        border-color: rgba(19, 32, 59, 0.24);
-        background: rgba(255, 255, 255, 0.62);
-        color: #13203b;
-      }
-
-      html:not([data-theme]) .btn-secondary:hover {
-        border-color: rgba(79, 216, 255, 0.48);
-      }
-
-      html:not([data-theme]) .hero-panel,
-      html:not([data-theme]) .card,
-      html:not([data-theme]) .work-card,
-      html:not([data-theme]) .contact-panel {
-        border-color: rgba(19, 32, 59, 0.14);
-        box-shadow: 0 14px 30px rgba(8, 20, 43, 0.09);
-      }
-
-      html:not([data-theme]) .stat {
-        border-color: rgba(19, 32, 59, 0.14);
-        background: rgba(255, 255, 255, 0.66);
-        box-shadow: inset 0 0 0 1px rgba(122, 123, 255, 0.1);
-      }
-
-      html:not([data-theme]) .stat strong {
-        color: #10315b;
-      }
-
-      html:not([data-theme]) .contact-info .meta {
-        color: #1d3156;
-      }
-
-      html:not([data-theme]) form input,
-      html:not([data-theme]) form textarea {
-        border-color: rgba(19, 32, 59, 0.2);
-        background: rgba(255, 255, 255, 0.86);
-        color: #13203b;
-      }
-
-      html:not([data-theme]) form input::placeholder,
-      html:not([data-theme]) form textarea::placeholder {
-        color: #68799b;
-      }
-
-      html:not([data-theme]) footer {
-        border-top: 1px solid rgba(19, 32, 59, 0.14);
-        background: rgba(255, 255, 255, 0.72);
-        color: #425277;
-      }
-      html:not([data-theme]) .consent-banner {
-        border-color: rgba(19, 32, 59, 0.2);
-        background: rgba(255, 255, 255, 0.8);
-        color: #1d3156;
-      }
-      html:not([data-theme]) .consent-banner a {
-        color: #1b4f8b;
-      }
-      html:not([data-theme]) .consent-actions button {
-        border-color: rgba(19, 32, 59, 0.24);
-        background: rgba(255, 255, 255, 0.86);
-        color: #13203b;
-      }
-      html:not([data-theme]) .consent-actions .accept {
-        border-color: rgba(79, 216, 255, 0.48);
-        background: rgba(79, 216, 255, 0.2);
-        color: #0f2f57;
-      }
-    }
-
-    :root[data-theme="light"] {
-      color-scheme: light;
-      --bg-0: #f7f9ff;
-      --bg-1: #eef3ff;
-      --bg-2: #e2ebff;
-      --line: rgba(8, 20, 43, 0.09);
-      --text: #13203b;
-      --muted: #445272;
-      --card: rgba(255, 255, 255, 0.74);
-      --glow-soft: 0 0 0 1px rgba(79, 216, 255, 0.2), 0 14px 34px rgba(66, 245, 185, 0.08);
-    }
-
-    html[data-theme="light"] body {
-      background:
-        radial-gradient(520px 280px at 22% 78%, rgba(255, 77, 103, 0.08), transparent 72%),
-        radial-gradient(400px 260px at 86% 66%, rgba(255, 77, 103, 0.07), transparent 72%),
-        radial-gradient(900px 500px at 8% -5%, rgba(79, 216, 255, 0.13), transparent 70%),
-        radial-gradient(800px 600px at 95% 2%, rgba(122, 123, 255, 0.12), transparent 68%),
-        linear-gradient(165deg, var(--bg-0) 0%, var(--bg-1) 45%, var(--bg-2) 100%);
-    }
-
-    html[data-theme="light"] body::after {
-      opacity: 0.24;
-    }
-
-    html[data-theme="light"] .site-nav {
-      background: rgba(255, 255, 255, 0.78);
-      border-bottom: 1px solid rgba(19, 32, 59, 0.14);
-    }
-
-    html[data-theme="light"] .nav-links a:hover {
-      color: #10284d;
-    }
-
-    html[data-theme="light"] .pill {
-      color: #123d5a;
-      background: rgba(79, 216, 255, 0.12);
-    }
-
-    html[data-theme="light"] .theme-toggle,
-    html[data-theme="light"] .lang-switch {
-      border-color: rgba(19, 32, 59, 0.2);
-      background: rgba(255, 255, 255, 0.6);
-    }
-
-    html[data-theme="light"] .theme-toggle,
-    html[data-theme="light"] .lang-trigger {
-      color: #13203b;
-    }
-
-    html[data-theme="light"] .lang-menu {
-      border-color: rgba(19, 32, 59, 0.2);
-      background: rgba(255, 255, 255, 0.96);
-      box-shadow: 0 12px 24px rgba(8, 20, 43, 0.12);
-    }
-
-    html[data-theme="light"] .lang-switch a.active,
-    html[data-theme="light"] .lang-switch a:hover {
-      color: #0f2f57;
-      background: linear-gradient(135deg, rgba(79, 216, 255, 0.18), rgba(122, 123, 255, 0.14));
-    }
-
-    html[data-theme="light"] .btn-secondary {
-      border-color: rgba(19, 32, 59, 0.24);
-      background: rgba(255, 255, 255, 0.62);
-      color: #13203b;
-    }
-
-    html[data-theme="light"] .btn-secondary:hover {
-      border-color: rgba(79, 216, 255, 0.48);
-    }
-
-    html[data-theme="light"] .hero-panel,
-    html[data-theme="light"] .card,
-    html[data-theme="light"] .work-card,
-    html[data-theme="light"] .contact-panel {
-      border-color: rgba(19, 32, 59, 0.14);
-      box-shadow: 0 14px 30px rgba(8, 20, 43, 0.09);
-    }
-
-    html[data-theme="light"] .stat {
-      border-color: rgba(19, 32, 59, 0.14);
-      background: rgba(255, 255, 255, 0.66);
-      box-shadow: inset 0 0 0 1px rgba(122, 123, 255, 0.1);
-    }
-
-    html[data-theme="light"] .stat strong {
-      color: #10315b;
-    }
-
-    html[data-theme="light"] .contact-info .meta {
-      color: #1d3156;
-    }
-
-    html[data-theme="light"] form input,
-    html[data-theme="light"] form textarea {
-      border-color: rgba(19, 32, 59, 0.2);
-      background: rgba(255, 255, 255, 0.86);
-      color: #13203b;
-    }
-
-    html[data-theme="light"] form input::placeholder,
-    html[data-theme="light"] form textarea::placeholder {
-      color: #68799b;
-    }
-
-    html[data-theme="light"] footer {
-      border-top: 1px solid rgba(19, 32, 59, 0.14);
-      background: rgba(255, 255, 255, 0.72);
-      color: #425277;
-    }
-    html[data-theme="light"] .consent-banner {
-      border-color: rgba(19, 32, 59, 0.2);
-      background: rgba(255, 255, 255, 0.7);
-      color: #1d3156;
-    }
-    html[data-theme="light"] .consent-banner a {
-      color: #1b4f8b;
-    }
-    html[data-theme="light"] .consent-actions button {
-      border-color: rgba(19, 32, 59, 0.24);
-      background: rgba(255, 255, 255, 0.86);
-      color: #13203b;
-    }
-    html[data-theme="light"] .consent-actions .accept {
-      border-color: rgba(79, 216, 255, 0.48);
-      background: rgba(79, 216, 255, 0.2);
-      color: #0f2f57;
-    }
-
-    @media (max-width: 960px) {
-      .hero-grid,
-      .contact-panel {
-        grid-template-columns: 1fr;
-      }
-      .services,
-      .capabilities-grid,
-      .process-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-    @media (max-width: 720px) {
-      .site-nav .container {
-        min-height: 62px;
-      }
-      .nav-links {
-        display: none;
-      }
-      .hero {
-        padding-top: 4.6rem;
-      }
-      .services,
-      .capabilities-grid,
-      .process-grid,
-      .stat-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-    @media (max-width: 300px) {
-      .brand {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.25rem;
-      }
-    }
-  </style>
+  <link rel="preload" href="fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/ibm-plex-sans-500.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="styles.css?v=20261013-2" />
 </head>
 <body>
+  <!--
+    Content editing:
+    - Visible text lives in i18n.js (one entry per language). Elements reference it with data-i18n="key".
+      The English text written in this file is the no-JavaScript / crawler fallback: keep it in sync with i18n.js.
+    - Attributes use data-i18n-attr="attribute:key;attribute:key" (e.g. alt, placeholder, aria-label).
+    - Templates for future content (projects, partners, team) are kept as HTML comments next to where they belong.
+  -->
+  <a class="skip-link" href="#main" data-i18n="skipLink">Skip to content</a>
 
-  <nav class="site-nav" id="nav-main" aria-label="Main">
+  <header class="site-header" id="site-header">
     <div class="container">
-      <a class="brand" href="#top">
-        <img id="img-logo" src="logo.png" alt="LW Technologies logo" width="36" height="36" fetchpriority="high" />
+      <a class="brand" href="#top" aria-label="LW Technologies">
+        <img class="logo-on-light" src="logo-black.png" alt="" width="46" height="22" />
+        <img class="logo-on-dark" src="logo.png" alt="" width="46" height="22" />
         <span>LW Technologies</span>
       </a>
-      <div class="nav-controls">
-        <ul class="nav-links">
-          <li><a id="nav-about" href="#about">About</a></li>
-          <li><a id="nav-services" href="#services">Services &amp; Process</a></li>
-          <li><a id="nav-work" href="#work">Projects</a></li>
-          <li><a id="nav-faq" href="#faq">FAQ</a></li>
-          <li><a id="nav-contact" href="#contact">Contact</a></li>
-        </ul>
-        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Theme mode: auto" title="Theme mode: auto">AUTO</button>
-        <div class="lang-switch" id="lang-switch" aria-label="Language switch">
-          <button class="lang-trigger" id="lang-trigger" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="lang-menu">
-            <span id="lang-current">EN</span>
-          </button>
-          <div class="lang-menu" id="lang-menu" role="menu">
-            <a href="?lang=en" data-lang-switch="en" role="menuitem">EN</a>
-            <a href="?lang=fr" data-lang-switch="fr" role="menuitem">FR</a>
-            <a href="?lang=it" data-lang-switch="it" role="menuitem">IT</a>
-            <a href="?lang=de" data-lang-switch="de" role="menuitem">DE</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </nav>
 
-  <header id="top" class="hero">
-    <div class="container hero-grid">
-      <div>
-        <span class="pill" id="hero-pill">Engineering on Demand</span>
-        <h1 id="hero-title">Engineering Office in Geneva for Robotics, Electronics, and Mechanical Design.</h1>
-        <p id="hero-desc">
-          LW Technologies is a Geneva engineering office delivering precision solutions by combining
-          mechatronics, embedded electronics, and mechanical design for high-reliability industrial and
-          research systems.
-        </p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" id="hero-cta-primary" href="#contact">Start a Project</a>
-          <a class="btn btn-secondary" id="hero-cta-secondary" href="#work">View Our Work</a>
+      <nav class="primary-nav" id="primary-nav" aria-label="Main" data-i18n-attr="aria-label:navAria">
+        <ul>
+          <li><a href="#about" data-i18n="navAbout">About</a></li>
+          <li><a href="#services" data-i18n="navServices">Services &amp; Process</a></li>
+          <li><a href="#work" data-i18n="navWork">Projects</a></li>
+          <li><a href="#faq" data-i18n="navFaq">FAQ</a></li>
+          <li><a href="#contact" data-i18n="navContact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-controls">
+        <div class="lang-switch" id="lang-switch">
+          <button class="icon-button lang-trigger" id="lang-trigger" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="lang-menu" aria-label="Language" data-i18n-attr="aria-label:langLabel">
+            <span id="lang-current">EN</span>
+            <svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5"></path></svg>
+          </button>
+          <ul class="lang-menu" id="lang-menu" role="menu">
+            <li role="none"><a href="?lang=en" data-lang-switch="en" role="menuitem" lang="en">English <span>EN</span></a></li>
+            <li role="none"><a href="?lang=fr" data-lang-switch="fr" role="menuitem" lang="fr">Français <span>FR</span></a></li>
+            <li role="none"><a href="?lang=it" data-lang-switch="it" role="menuitem" lang="it">Italiano <span>IT</span></a></li>
+            <li role="none"><a href="?lang=de" data-lang-switch="de" role="menuitem" lang="de">Deutsch <span>DE</span></a></li>
+          </ul>
         </div>
+        <button class="icon-button" id="theme-toggle" type="button" aria-label="Theme mode: auto" title="Theme mode: auto"></button>
+        <button class="icon-button menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu" data-i18n-attr="aria-label:menuOpen">
+          <svg class="icon-open" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 8h16M4 16h16"></path></svg>
+          <svg class="icon-close" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"></path></svg>
+        </button>
       </div>
-      <aside class="hero-panel" aria-label="Highlights">
-        <span class="pill" id="cap-pill">Capabilities</span>
-        <div class="stat-grid">
-          <div class="stat">
-            <strong id="stat-1-title">Robotics</strong>
-            <span id="stat-1-desc">Autonomous and mechatronic systems</span>
-          </div>
-          <div class="stat">
-            <strong id="stat-2-title">Electronics</strong>
-            <span id="stat-2-desc">Custom PCB, drivers, and embedded control</span>
-          </div>
-          <div class="stat">
-            <strong id="stat-3-title">Mechanical</strong>
-            <span id="stat-3-desc">High-load structures and precision design</span>
-          </div>
-          <div class="stat">
-            <strong id="stat-4-title">Cross-Sector</strong>
-            <span id="stat-4-desc">Industrial, Medical, railway, and space engineering</span>
-          </div>
-        </div>
-      </aside>
     </div>
   </header>
 
-  <section id="about">
-    <div class="container">
-      <div class="section-head">
-        <span class="pill" id="about-pill">About</span>
-        <h2 id="about-title">Built for complex engineering challenges.</h2>
-        <p id="about-desc">
-          At LW Technologies, we draw on our background in industrial, medical, railway, and space engineering to
-          deliver innovative, tailor-made solutions. From product development to specialized systems for industry
-          and research, each engagement is designed around your technical and operational requirements.
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="container">
+        <p class="hero-eyebrow label">
+          <span class="dot" aria-hidden="true"></span>
+          <span data-i18n="heroPill">Engineering on Demand</span>
+          <span aria-hidden="true">/</span>
+          <span data-i18n="heroLocation">Geneva, Switzerland</span>
         </p>
-      </div>
-    </div>
-  </section>
+        <h1 id="hero-title" data-i18n="heroTitle">Custom Robotics, Electronics &amp; Mechanical Design.</h1>
 
-  <section id="services">
-    <div class="container">
-      <div class="section-head">
-        <span class="pill" id="services-pill">Services &amp; Process</span>
-        <h2 id="services-title">Core expertise and execution.</h2>
-      </div>
-      <div class="services">
-        <article class="card">
-          <h3 id="service-1-title">Robotic &amp; Mechatronic Systems</h3>
-          <p id="service-1-desc">
-            Development of custom robotic and mechatronic solutions, from concept and prototyping to integration
-            and deployment.
-          </p>
-        </article>
-        <article class="card">
-          <h3 id="service-2-title">Electronics Design</h3>
-          <p id="service-2-desc">
-            Design and development of electronic hardware, including PCB layouts, embedded systems, and control
-            software tailored to your requirements.
-          </p>
-        </article>
-        <article class="card">
-          <h3 id="service-3-title">Mechanical Design</h3>
-          <p id="service-3-desc">
-            Engineering of structures, components, and systems with a focus on functionality, manufacturability,
-            and durability using modern CAD and simulation tools.
-          </p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section id="process">
-    <div class="container">
-      <div class="section-head">
-        <h2 id="process-title">A clear delivery process from scope to production.</h2>
-      </div>
-      <div class="process-grid">
-        <article class="card process-card">
-          <h3>
-            <svg class="process-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <rect x="4.5" y="5.5" width="10" height="13" rx="1.7" fill="none" stroke="currentColor" stroke-width="1.6"></rect>
-              <path d="M7.2 9h4.6M7.2 12h4.6M7.2 15h3.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path>
-              <path d="M14 7.8l3.5-3.3 2 2-3.4 3.4-2.4.6z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path>
-            </svg>
-            <span id="process-1-title">1) Scope</span>
-          </h3>
-          <p id="process-1-desc">Define requirements, constraints, interfaces, and success criteria.</p>
-        </article>
-        <article class="card process-card">
-          <h3>
-            <svg class="process-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <path d="M7 18V6.5h3.3a3.2 3.2 0 1 1 6.4 0H20v2.55a3.2 3.2 0 1 0 0 6.4V18H7z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"></path>
-            </svg>
-            <span id="process-2-title">2) Design</span>
-          </h3>
-          <p id="process-2-desc">Develop architecture and detailed design for mechanics, electronics, and control.</p>
-        </article>
-        <article class="card process-card">
-          <h3>
-            <svg class="process-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <circle cx="12" cy="12" r="2.5" fill="none" stroke="currentColor" stroke-width="1.6"></circle>
-              <path d="M12 5.2v2M12 16.8v2M5.2 12h2M16.8 12h2M7.2 7.2l1.4 1.4M15.4 15.4l1.4 1.4M16.8 7.2l-1.4 1.4M8.6 15.4l-1.4 1.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path>
-              <circle cx="12" cy="12" r="6" fill="none" stroke="currentColor" stroke-width="1.4" opacity="0.75"></circle>
-            </svg>
-            <span id="process-3-title">3) Prototype</span>
-          </h3>
-          <p id="process-3-desc">Build, test, and iterate with measurable performance targets.</p>
-        </article>
-        <article class="card process-card">
-          <h3>
-            <svg class="process-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <path d="M4.5 8.8h12.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
-              <path d="M14 6.3l2.7 2.5-2.7 2.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
-              <path d="M19.5 15.2H7.3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
-              <path d="M10 12.7l-2.7 2.5 2.7 2.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
-              <circle cx="6" cy="8.8" r="1" fill="currentColor" opacity="0.85"></circle>
-              <circle cx="18" cy="15.2" r="1" fill="currentColor" opacity="0.85"></circle>
-            </svg>
-            <span id="process-4-title">4) Transfer</span>
-          </h3>
-          <p id="process-4-desc">Deliver documentation and support transfer to industrialization or internal teams.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section id="work">
-    <div class="container">
-      <div class="section-head">
-        <span class="pill" id="projects-pill">Projects</span>
-        <h2 id="projects-title">Selected work.</h2>
-      </div>
-      <div class="capabilities-grid">
-        <article class="work-card">
-          <img id="img-project-1" src="vision-system.gif" alt="Autonomous machine vision system with Visual-SLAM and path planning" width="600" height="220" loading="lazy" decoding="async">
-          <div class="content">
-            <h3 id="project-1-title">Autonomous Vision System</h3>
-            <p id="project-1-desc">Visual-SLAM and path planning capabilities for mobile inspection robots.</p>
-          </div>
-        </article>
-
-        <article class="work-card">
-          <img id="img-project-2" src="driver.png" alt="Custom BLDC servo motor driver electronics" width="600" height="220" loading="lazy" decoding="async">
-          <div class="content">
-            <h3 id="project-2-title">Custom BLDC Servo Drivers</h3>
-            <p id="project-2-desc">High-performance motor drivers with precise torque, speed, and position control.</p>
-          </div>
-        </article>
-
-        <article class="work-card">
-          <img id="img-project-3" src="gantry3.png" alt="Custom medical mechanical system for radiotherapy actuation" width="600" height="220" loading="lazy" decoding="async">
-          <div class="content">
-            <h3 id="project-3-title">Medical Mechanical System</h3>
-            <p id="project-3-desc">Custom structure designed for a 15-ton payload with dedicated radiotherapy actuation.</p>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section id="faq">
-    <div class="container">
-      <div class="section-head">
-        <span class="pill" id="faq-pill">FAQ</span>
-        <h2 id="faq-title">Answers to common project questions.</h2>
-      </div>
-      <div class="faq-list">
-        <details class="faq-item">
-          <summary id="faq-q1">What information should I provide to start a project?</summary>
-          <p id="faq-a1">Share your objective, constraints, target timeline, budget range, and available technical documentation. [PLACEHOLDER: ADD YOUR IDEAL FIRST-CALL CHECKLIST]</p>
-        </details>
-        <details class="faq-item">
-          <summary id="faq-q2">Can you support only one discipline (mechanical, electronics, or robotics)?</summary>
-          <p id="faq-a2">Yes. Engagements can cover a full mechatronic system or a focused technical scope.</p>
-        </details>
-        <details class="faq-item">
-          <summary id="faq-q3">Can you work with existing suppliers or internal teams?</summary>
-          <p id="faq-a3">Yes. LW Technologies can collaborate with your internal engineering team and external partners for efficient delivery.</p>
-        </details>
-      </div>
-    </div>
-  </section>
-
-  <section id="contact">
-    <div class="container">
-      <div class="contact-panel">
-        <div class="contact-info">
-          <span class="pill" id="contact-pill">Contact</span>
-          <h2 id="contact-title">Let’s build your next system.</h2>
-          <p id="contact-desc">For project inquiries, use the form or contact us directly.</p>
-          <div class="meta">
-            <div><strong id="contact-email-label">Email:</strong> contact@lwtech.ch</div>
-            <div><strong id="contact-address-label">Address:</strong> Esplanade de Pont-Rouge 2, 1212 Lancy, Switzerland</div>
+        <div class="hero-body">
+          <p class="hero-desc" data-i18n="heroDesc">From Geneva, Switzerland, LW Technologies delivers precision engineering by combining mechatronics, embedded electronics, and mechanical design for industrial, product development, and research applications.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contact">
+              <span data-i18n="heroCtaPrimary">Start a Project</span>
+              <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4"></path></svg>
+            </a>
+            <a class="btn btn-outline" href="#work" data-i18n="heroCtaSecondary">View Our Work</a>
           </div>
         </div>
 
-        <form action="https://formspree.io/f/myzdwzdg" method="POST">
-          <label class="sr-only" id="label-contact-name" for="contact-name">Your Name</label>
-          <input id="contact-name" type="text" name="name" placeholder="Your Name" autocomplete="name" required />
+        <figure class="hero-media">
+          <img src="hero-gantry-1600.webp" srcset="hero-gantry-800.webp 800w, hero-gantry-1600.webp 1600w" sizes="(max-width: 1320px) 100vw, 1240px" width="1600" height="800" alt="Custom medical mechanical system for radiotherapy" data-i18n-attr="alt:project3Alt" fetchpriority="high" />
+          <figcaption class="label">
+            <span>03</span>
+            <a href="#work" data-i18n="project3Title">Medical Mechanical System</a>
+          </figcaption>
+        </figure>
 
-          <label class="sr-only" id="label-contact-email" for="contact-email">Your Email</label>
-          <input id="contact-email" type="email" name="_replyto" placeholder="Your Email" autocomplete="email" required />
-
-          <label class="sr-only" id="label-contact-subject" for="contact-subject">Subject</label>
-          <input id="contact-subject" type="text" name="subject" placeholder="Subject (optional)" autocomplete="off" />
-
-          <label class="sr-only" id="label-contact-message" for="contact-message">Your Message</label>
-          <textarea id="contact-message" name="message" rows="5" placeholder="Your Message" required></textarea>
-
-          <label class="sr-only" id="label-contact-company" for="contact-company">Company</label>
-          <input id="contact-company" type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none" />
-
-          <button class="btn btn-primary" id="contact-submit" type="submit">Send Message</button>
-        </form>
+        <ul class="facts" aria-label="Capabilities" data-i18n-attr="aria-label:capPill">
+          <li>
+            <span class="label">01</span>
+            <strong data-i18n="stat1Title">Robotics</strong>
+            <span data-i18n="stat1Desc">Autonomous and mechatronic systems</span>
+          </li>
+          <li>
+            <span class="label">02</span>
+            <strong data-i18n="stat2Title">Electronics</strong>
+            <span data-i18n="stat2Desc">Custom PCB layouts, drivers, and embedded control</span>
+          </li>
+          <li>
+            <span class="label">03</span>
+            <strong data-i18n="stat3Title">Mechanical</strong>
+            <span data-i18n="stat3Desc">Custom mechanical designs</span>
+          </li>
+          <li>
+            <span class="label">04</span>
+            <strong data-i18n="stat4Title">Cross-Sector</strong>
+            <span data-i18n="stat4Desc">Industrial, Medical, Railway, and Space engineering</span>
+          </li>
+        </ul>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="privacy">
-    <div class="container">
-      <div class="section-head">
-        <h2 id="privacy-title">Privacy & Analytics</h2>
+    <section class="section" id="about" aria-labelledby="about-title">
+      <div class="container section-grid">
+        <p class="section-index label"><span class="num">01</span><span data-i18n="aboutPill">About</span></p>
+        <div>
+          <h2 class="section-title" id="about-title" data-i18n="aboutTitle">Built for complex engineering challenges.</h2>
+          <div class="about-body">
+            <p data-i18n="aboutDesc">Based in Geneva, Switzerland, LW Technologies draws on its background in industrial, medical, railway, and space engineering to deliver innovative, tailor-made solutions. From product development to specialized systems for industry and research, each engagement is designed around your technical and operational requirements.</p>
+            <div>
+              <p class="label" data-i18n="sectorsLabel">Sectors</p>
+              <ul class="sector-list">
+                <li><span data-i18n="sector1">Industrial</span><span class="label">01</span></li>
+                <li><span data-i18n="sector2">Medical</span><span class="label">02</span></li>
+                <li><span data-i18n="sector3">Railway</span><span class="label">03</span></li>
+                <li><span data-i18n="sector4">Space</span><span class="label">04</span></li>
+              </ul>
+            </div>
+          </div>
+          <p class="note" data-i18n="industryNote">Clarification: LW Technologies is an engineering consulting company and does not provide locksmith services. If third-party directory listings (including moneyhouse.ch) differ, this official website is the source of truth.</p>
+        </div>
       </div>
-      <p id="privacy-desc">This website uses Google Analytics to measure traffic, such as visits, pages viewed, device type (mobile/desktop), browser, and approximate location (city/country).</p>
-      <p id="privacy-owner">Analytics reports are accessible only to the website owner through a protected Google account. No direct personal contact information is collected through analytics alone.</p>
-      <p id="privacy-policy-note">Read the full policy at <a href="privacy.html">Privacy Policy</a>.</p>
-    </div>
-  </section>
+    </section>
 
-  <div class="consent-banner" id="consent-banner" role="dialog" aria-live="polite" aria-label="Cookie and analytics preferences">
-    <p>
-      <span id="consent-text">We use analytics cookies only with your consent. See our</span>
-      <a id="consent-policy-link" href="privacy.html">Privacy Policy</a>.
-    </p>
-    <div class="consent-actions">
-      <button class="accept" id="consent-accept" type="button">Accept cookies</button>
-      <button id="consent-reject" type="button">Reject</button>
-    </div>
-  </div>
+    <section class="section" id="services" aria-labelledby="services-title">
+      <div class="container section-grid">
+        <p class="section-index label"><span class="num">02</span><span data-i18n="servicesPill">Services &amp; Process</span></p>
+        <div>
+          <h2 class="section-title" id="services-title" data-i18n="servicesTitle">Core expertise and execution.</h2>
 
-  <footer>
+          <div class="service-grid">
+            <article class="service">
+              <span class="label">2.1</span>
+              <h3 data-i18n="service1Title">Robotic &amp; Mechatronic Systems</h3>
+              <p data-i18n="service1Desc">Development of custom robotic and mechatronic solutions, from concept and prototyping to integration and deployment.</p>
+            </article>
+            <article class="service">
+              <span class="label">2.2</span>
+              <h3 data-i18n="service2Title">Electronics Design</h3>
+              <p data-i18n="service2Desc">Design and development of electronic hardware, including PCB layouts, embedded systems, and control software tailored to your requirements.</p>
+            </article>
+            <article class="service">
+              <span class="label">2.3</span>
+              <h3 data-i18n="service3Title">Mechanical Design</h3>
+              <p data-i18n="service3Desc">Engineering of structures, components, and systems with a focus on functionality, manufacturability, and durability using modern CAD and simulation tools.</p>
+            </article>
+          </div>
+
+          <div class="subsection" id="process">
+            <h3 class="subsection-title" data-i18n="processTitle">A clear process from definition to production.</h3>
+            <ol class="process">
+              <li>
+                <div class="process-marker"><span class="num">01</span></div>
+                <h4 data-i18n="process1Title">Definition</h4>
+                <p data-i18n="process1Desc">Definition of the specifications: functions, requirements, constraints, performances, and success criteria.</p>
+              </li>
+              <li>
+                <div class="process-marker"><span class="num">02</span></div>
+                <h4 data-i18n="process2Title">Design</h4>
+                <p data-i18n="process2Desc">R&amp;D: mechanics (CAD), electronics (ECAD), simulations, and software and firmware development.</p>
+              </li>
+              <li>
+                <div class="process-marker"><span class="num">03</span></div>
+                <h4 data-i18n="process3Title">Prototype</h4>
+                <p data-i18n="process3Desc">From concept to reality: manufacturing, assembly, testing, and system verification.</p>
+              </li>
+              <li>
+                <div class="process-marker"><span class="num">04</span></div>
+                <h4 data-i18n="process4Title">Transfer</h4>
+                <p data-i18n="process4Desc">Delivery of documentation and products: manufacturing plans, design files, bills of materials, and test reports.</p>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="work" aria-labelledby="projects-title">
+      <div class="container section-grid">
+        <p class="section-index label"><span class="num">03</span><span data-i18n="projectsPill">Projects</span></p>
+        <div>
+          <h2 class="section-title" id="projects-title" data-i18n="projectsTitle">Previous Work</h2>
+
+          <div class="project-grid">
+            <article class="project">
+              <div class="project-media">
+                <img src="vision-system.webp" alt="Autonomous machine vision system with Visual-SLAM and path planning" data-i18n-attr="alt:project1Alt" width="600" height="450" loading="lazy" decoding="async" />
+              </div>
+              <div class="project-meta label"><span class="tag" data-i18n="stat1Title">Robotics</span><span>P01</span></div>
+              <h3 data-i18n="project1Title">Autonomous Vision System</h3>
+              <p data-i18n="project1Desc">Visual-SLAM and path planning capabilities for mobile inspection robots.</p>
+            </article>
+
+            <article class="project">
+              <div class="project-media">
+                <img src="driver.webp" alt="Custom BLDC servo motor driver electronics" data-i18n-attr="alt:project2Alt" width="800" height="600" loading="lazy" decoding="async" />
+              </div>
+              <div class="project-meta label"><span class="tag" data-i18n="stat2Title">Electronics</span><span>P02</span></div>
+              <h3 data-i18n="project2Title">Custom BLDC Servo Drivers</h3>
+              <p data-i18n="project2Desc">High-performance motor drivers with precise torque, speed, and position control.</p>
+            </article>
+
+            <article class="project">
+              <div class="project-media">
+                <img src="gantry3.webp" alt="Custom medical mechanical system for radiotherapy" data-i18n-attr="alt:project3Alt" width="800" height="600" loading="lazy" decoding="async" />
+              </div>
+              <div class="project-meta label"><span class="tag" data-i18n="stat3Title">Mechanical</span><span>P03</span></div>
+              <h3 data-i18n="project3Title">Medical Mechanical System</h3>
+              <p data-i18n="project3Desc">Custom actuated structure designed for a 15-ton payload dedicated to a radiotherapy system.</p>
+            </article>
+
+            <!-- Template: new project. Add the keys (projectNTitle, projectNDesc, projectNAlt) to every language in i18n.js.
+            <article class="project">
+              <div class="project-media">
+                <img src="project-name.webp" alt="" data-i18n-attr="alt:project4Alt" width="800" height="600" loading="lazy" decoding="async" />
+              </div>
+              <div class="project-meta label"><span class="tag" data-i18n="stat2Title">Electronics</span><span>P04</span></div>
+              <h3 data-i18n="project4Title"></h3>
+              <p data-i18n="project4Desc"></p>
+            </article>
+            -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Template: clients / partners strip (enable once logos and permission to display them are available).
+    <section class="section" id="partners" aria-labelledby="partners-title">
+      <div class="container section-grid">
+        <p class="section-index label"><span class="num">—</span><span data-i18n="partnersPill"></span></p>
+        <div>
+          <h2 class="section-title" id="partners-title" data-i18n="partnersTitle"></h2>
+          <ul class="partner-logos">
+            <li><img src="partner-name.svg" alt="Partner name" width="160" height="48" loading="lazy" /></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    -->
+
+    <!-- Template: team section.
+    <section class="section" id="team" aria-labelledby="team-title">
+      <div class="container section-grid">
+        <p class="section-index label"><span class="num">—</span><span data-i18n="teamPill"></span></p>
+        <div>
+          <h2 class="section-title" id="team-title" data-i18n="teamTitle"></h2>
+          <div class="project-grid">
+            <article class="project">
+              <div class="project-media"><img src="team-name.webp" alt="" width="600" height="450" loading="lazy" /></div>
+              <h3>Full name</h3>
+              <p data-i18n="teamMember1Role"></p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+    -->
+
+    <section class="section" id="faq" aria-labelledby="faq-title">
+      <div class="container section-grid">
+        <p class="section-index label"><span class="num">04</span><span data-i18n="faqPill">FAQ</span></p>
+        <div>
+          <h2 class="section-title" id="faq-title" data-i18n="faqTitle">Answers to common project questions.</h2>
+          <div class="faq-list">
+            <details class="faq-item">
+              <summary><span data-i18n="faqQ1">What information should I provide to start a project?</span><span class="faq-icon" aria-hidden="true"></span></summary>
+              <p data-i18n="faqA1">Share your objective, constraints, target timeline, budget range, and available technical documentation.</p>
+            </details>
+            <details class="faq-item">
+              <summary><span data-i18n="faqQ2">Can you support only one discipline (mechanical, electronics, or robotics)?</span><span class="faq-icon" aria-hidden="true"></span></summary>
+              <p data-i18n="faqA2">Yes. Engagements can cover a full mechatronic system or a focused technical scope.</p>
+            </details>
+            <details class="faq-item">
+              <summary><span data-i18n="faqQ3">Can you work with existing suppliers or internal teams?</span><span class="faq-icon" aria-hidden="true"></span></summary>
+              <p data-i18n="faqA3">Yes. LW Technologies can collaborate with your internal engineering team and external partners for efficient delivery, whether Swiss based or international.</p>
+            </details>
+            <!-- Template: new question. Add faqQN / faqAN to every language in i18n.js.
+            <details class="faq-item">
+              <summary><span data-i18n="faqQ4"></span><span class="faq-icon" aria-hidden="true"></span></summary>
+              <p data-i18n="faqA4"></p>
+            </details>
+            -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-invert" id="contact" aria-labelledby="contact-title">
+      <div class="container">
+        <p class="section-index label"><span class="num">05</span><span data-i18n="contactPill">Contact</span></p>
+        <div class="contact-grid">
+          <div>
+            <h2 class="section-title" id="contact-title" data-i18n="contactTitle">Let’s build your next system.</h2>
+            <p class="section-lede" data-i18n="contactDesc">For project inquiries, use the form or contact us directly.</p>
+            <dl class="contact-details">
+              <div>
+                <dt class="label" data-i18n="contactEmailLabel">Email</dt>
+                <dd><a href="mailto:contact@lwtech.ch">contact@lwtech.ch</a></dd>
+              </div>
+              <div>
+                <dt class="label" data-i18n="contactAddressLabel">Address</dt>
+                <dd>LW Technologies Sàrl<br />Esplanade de Pont-Rouge 2<br />1212 Lancy, Switzerland</dd>
+              </div>
+            </dl>
+          </div>
+
+          <form class="contact-form" id="contact-form" action="https://formspree.io/f/myzdwzdg" method="POST">
+            <div class="field">
+              <label class="label" for="contact-name" data-i18n="labelContactName">Your Name</label>
+              <input id="contact-name" type="text" name="name" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label class="label" for="contact-email" data-i18n="labelContactEmail">Your Email</label>
+              <input id="contact-email" type="email" name="_replyto" autocomplete="email" required />
+            </div>
+            <div class="field field-full">
+              <label class="label" for="contact-subject" data-i18n="placeholderSubject">Subject (optional)</label>
+              <input id="contact-subject" type="text" name="subject" autocomplete="off" />
+            </div>
+            <div class="field field-full">
+              <label class="label" for="contact-message" data-i18n="labelContactMessage">Your Message</label>
+              <textarea id="contact-message" name="message" rows="6" required></textarea>
+            </div>
+            <div class="honeypot" aria-hidden="true">
+              <label for="contact-company">Company</label>
+              <input id="contact-company" type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+            </div>
+            <div class="form-footer">
+              <button class="btn btn-primary" id="contact-submit" type="submit">
+                <span data-i18n="submit">Send Message</span>
+                <svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4"></path></svg>
+              </button>
+              <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
     <div class="container">
-      <p id="footer-copy">© 2026 LW Technologies Sàrl | All rights reserved</p>
-      <p>Esplanade de Pont-Rouge 2, 1212 Lancy, Switzerland</p>
-      <p><a id="privacy-link" href="privacy.html">Privacy & Analytics</a></p>
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="#top" aria-label="LW Technologies">
+            <img class="logo-on-light" src="logo-black.png" alt="" width="46" height="22" loading="lazy" />
+            <img class="logo-on-dark" src="logo.png" alt="" width="46" height="22" loading="lazy" />
+            <span>LW Technologies</span>
+          </a>
+          <p data-i18n="footerTagline">Engineering office in Geneva for robotics, electronics, and mechanical design.</p>
+        </div>
+        <div class="footer-col">
+          <h2 class="label" data-i18n="footerNavLabel">Navigation</h2>
+          <ul>
+            <li><a href="#about" data-i18n="navAbout">About</a></li>
+            <li><a href="#services" data-i18n="navServices">Services &amp; Process</a></li>
+            <li><a href="#work" data-i18n="navWork">Projects</a></li>
+            <li><a href="#faq" data-i18n="navFaq">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2 class="label" data-i18n="navContact">Contact</h2>
+          <ul>
+            <li><a href="mailto:contact@lwtech.ch">contact@lwtech.ch</a></li>
+            <li><address>Esplanade de Pont-Rouge 2<br />1212 Lancy, Switzerland</address></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2 class="label" data-i18n="footerLegalLabel">Legal</h2>
+          <ul>
+            <li><a href="privacy.html" data-i18n="privacyLink">Privacy &amp; Analytics</a></li>
+            <li><button class="link-button" id="consent-settings" type="button" data-i18n="consentSettings">Cookie settings</button></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p data-i18n="footerCopy">© 2026 LW Technologies Sàrl | All rights reserved</p>
+        <p data-i18n="heroLocation">Geneva, Switzerland</p>
+      </div>
     </div>
   </footer>
 
-  <script>
-    (function () {
-      var banner = document.getElementById("consent-banner");
-      var accept = document.getElementById("consent-accept");
-      var reject = document.getElementById("consent-reject");
-      if (!banner || !accept || !reject) {
-        return;
-      }
+  <div class="consent-banner" id="consent-banner" role="dialog" aria-live="polite" aria-label="Cookie and analytics preferences" data-i18n-attr="aria-label:consentAria">
+    <p>
+      <span data-i18n="consentText">We use analytics cookies only with your consent. See our</span>
+      <a href="privacy.html" data-i18n="consentPolicyLink">Privacy Policy</a>.
+    </p>
+    <div class="consent-actions">
+      <button class="btn btn-primary" id="consent-accept" type="button" data-i18n="consentAccept">Accept cookies</button>
+      <button class="btn btn-outline" id="consent-reject" type="button" data-i18n="consentReject">Reject</button>
+    </div>
+  </div>
 
-      var decision = null;
-      try {
-        decision = localStorage.getItem("lwtech_analytics_consent");
-      } catch (error) {
-        decision = null;
-      }
-
-      if (decision !== "granted" && decision !== "denied") {
-        banner.classList.add("show");
-      }
-
-      accept.addEventListener("click", function () {
-        if (typeof window.lwtechSetAnalyticsConsent === "function") {
-          window.lwtechSetAnalyticsConsent("granted");
-        }
-        banner.classList.remove("show");
-      });
-
-      reject.addEventListener("click", function () {
-        if (typeof window.lwtechSetAnalyticsConsent === "function") {
-          window.lwtechSetAnalyticsConsent("denied");
-        }
-        banner.classList.remove("show");
-      });
-    })();
-  </script>
-
-  <script src="lang-switch.js?v=20260304-10" defer></script>
-
+  <script src="i18n.js?v=20261013-2" defer></script>
+  <script src="site.js?v=20261013-2" defer></script>
 </body>
 </html>

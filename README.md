@@ -1,0 +1,54 @@
+# LW Technologies website
+
+Static site for [lwtechnologies.ch](https://lwtechnologies.ch/), served by GitHub Pages (see `CNAME`). No build step.
+
+## Files
+
+| File | Purpose |
+| --- | --- |
+| `index.html` | Home page: markup, SEO metadata, structured data (JSON-LD), analytics consent setup |
+| `privacy.html` | Privacy policy (English only) |
+| `styles.css` | Shared styles and design tokens (light/dark) |
+| `i18n.js` | All visible text in EN / FR / IT / DE |
+| `site.js` | Language switching, theme toggle, menus, consent banner, contact form |
+| `fonts/` | Self-hosted IBM Plex Sans / Mono (SIL OFL, see `fonts/OFL.txt`) |
+| `llms.txt`, `robots.txt`, `sitemap.xml` | Crawler / LLM context |
+
+## Preview locally
+
+```sh
+python3 -m http.server 8000
+# open http://localhost:8000/  (add ?lang=fr|it|de to test languages)
+```
+
+## Editing text
+
+1. Change the value in `i18n.js` for **every** language (keys must stay identical across languages).
+2. If you changed English, update the same text in `index.html` too — it is what search engines and
+   visitors without JavaScript see.
+
+Elements use `data-i18n="key"` for text and `data-i18n-attr="alt:key;aria-label:key"` for attributes.
+
+## Adding content
+
+Commented templates live in `index.html` where each item belongs:
+
+- **Project**: copy the project template in `#work`, add `projectNTitle`, `projectNDesc`, `projectNAlt` to
+  `i18n.js`, and add a WebP image (about 800×600, 4:3).
+- **FAQ entry**: copy the template at the end of the FAQ list and add `faqQN` / `faqAN`.
+  Consider adding the question to the `FAQPage` JSON-LD in `<head>` as well.
+- **Partners / clients** and **Team**: full section templates, ready to uncomment once content exists
+  (they need a few extra keys and, for partner logos, a small style block).
+
+## Images
+
+Use WebP. Example with ImageMagick:
+
+```sh
+magick input.png -resize 800x -quality 80 output.webp
+```
+
+## Releasing
+
+After changing `styles.css`, `i18n.js` or `site.js`, bump the `?v=` query string where they are referenced in
+`index.html` / `privacy.html` so browsers fetch the new version. Update `<lastmod>` in `sitemap.xml`.
