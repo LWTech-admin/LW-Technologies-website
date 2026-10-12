@@ -130,7 +130,7 @@ window.LWTECH_I18N = {
     navFaq: "FAQ",
     navContact: "Contact",
     heroPill: "Ingénierie sur demande",
-    heroTitle: "Robotique, électronique et conception mécanique sur mesure.",
+    heroTitle: "Robotique, électronique et mécanique sur mesure.",
     heroDesc: "Depuis Genève, Suisse, LW Technologies fournit une ingénierie de précision en combinant mécatronique, électronique embarquée et conception mécanique pour des applications industrielles, le développement de produits et la recherche.",
     heroCtaPrimary: "Démarrer un projet",
     heroCtaSecondary: "Voir nos réalisations",
