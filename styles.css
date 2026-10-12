@@ -548,79 +548,6 @@ main > section,
   border-top: 1px solid var(--line);
 }
 
-/* ---------- Services diagram ---------- */
-
-.diagram {
-  margin: clamp(2.5rem, 5vw, 3.5rem) 0 0;
-  padding: clamp(1rem, 3vw, 2rem);
-  border: 1px solid var(--line);
-  background: var(--surface);
-}
-.diagram figcaption {
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--line);
-  font-size: 0.92rem;
-  color: var(--muted);
-}
-.diagram-svg {
-  display: block;
-  width: 100%;
-  height: auto;
-  font-family: var(--font-mono);
-}
-.diagram-tall {
-  display: none;
-  max-width: 420px;
-  margin: 0 auto;
-}
-
-/* Drawing styles: everything follows the theme tokens */
-.diagram-svg .hatch { stroke: var(--line-strong); stroke-width: 1; }
-.diagram-svg .thin { fill: none; stroke: var(--muted); stroke-width: 1; }
-.diagram-svg .thin-fill { fill: var(--surface); stroke: var(--muted); stroke-width: 1; }
-.diagram-svg .ink { fill: none; stroke: var(--ink); stroke-width: 1.5; }
-.diagram-svg .ink-fill { fill: var(--ink); }
-.diagram-svg .part,
-.diagram-svg .link,
-.diagram-svg .gear { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; stroke-linejoin: round; }
-.diagram-svg .link { stroke-width: 2; }
-.diagram-svg .hole { fill: var(--bg); stroke: var(--ink); stroke-width: 1.2; }
-.diagram-svg .cl { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 18 4 3 4; }
-.diagram-svg .accent { fill: none; stroke: var(--accent); stroke-width: 1.5; }
-.diagram-svg .accent-dash { stroke: var(--accent); stroke-width: 1.2; stroke-dasharray: 6 5; }
-
-.diagram-svg .board { fill: var(--bg); stroke: var(--ink); stroke-width: 1.5; }
-.diagram-svg .trace { fill: none; stroke: var(--line-strong); stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; }
-.diagram-svg .trace.power { stroke-width: 5; }
-.diagram-svg .pad-ring,
-.diagram-svg .via { fill: var(--surface); stroke: var(--ink-2); stroke-width: 1.5; }
-.diagram-svg .chip { fill: var(--ink); stroke: none; }
-.diagram-svg .pin,
-.diagram-svg .smd-pad { fill: var(--ink-2); }
-.diagram-svg .mark { fill: var(--surface); }
-.diagram-svg .cable { fill: none; stroke: var(--ink-2); stroke-width: 2.5; stroke-linecap: round; }
-
-.diagram-svg text { fill: var(--ink-2); font-size: 13px; letter-spacing: 0.06em; }
-.diagram-svg .tz { fill: var(--muted); font-size: 11px; }
-.diagram-svg .t-silk { fill: var(--surface); font-size: 16px; font-weight: 500; }
-.diagram-svg .t-silk-sm { fill: var(--surface); font-size: 11px; }
-
-.diagram-svg .pulse { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round; }
-.diagram-svg .pulse-power { stroke-width: 3.5; }
-.diagram-svg .legend { fill: var(--ink); font-size: 15px; letter-spacing: 0.04em; }
-.diagram-svg .legend-num { fill: var(--accent); font-weight: 500; }
-.diagram-svg .legend-rule { stroke: var(--ink-2); stroke-width: 1; }
-.diagram-svg .code-panel { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; }
-.diagram-svg .code-head { fill: var(--bg); stroke: var(--ink); stroke-width: 1.5; }
-.diagram-svg .code { fill: var(--ink-2); letter-spacing: 0; }
-.diagram-svg .code-kw { fill: var(--accent); }
-.diagram-svg .code-num { fill: var(--muted); letter-spacing: 0; }
-.diagram-svg .flash { fill: none; stroke: var(--ink-2); stroke-width: 2; stroke-dasharray: 6 5; }
-.diagram-wide .legend { font-size: 19px; }
-.diagram-tall .legend { font-size: 26px; }
-.diagram-tall .legend-rule { stroke-width: 1.5; }
-
 .facts {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1232,14 +1159,8 @@ main > section,
   .brand span {
     display: none;
   }
-  .diagram-wide {
-    display: none;
-  }
   .hero-eyebrow .sep {
     display: none;
-  }
-  .diagram-tall {
-    display: block;
   }
   .facts,
   .service-grid,

@@ -347,32 +347,6 @@
     });
   }
 
-  // ---------- Services diagram: play the motion once when it scrolls into view ----------
-
-  function initDiagram() {
-    var figure = document.getElementById("diagram");
-    if (!figure || !("IntersectionObserver" in window)) {
-      return;
-    }
-    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      return;
-    }
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) {
-          return;
-        }
-        observer.disconnect();
-        figure.querySelectorAll('animate[id$="-start"]').forEach(function (trigger) {
-          if (typeof trigger.beginElement === "function") {
-            trigger.beginElement();
-          }
-        });
-      });
-    }, { threshold: 0.5 });
-    observer.observe(figure);
-  }
-
   // ---------- Consent banner ----------
 
   function initConsent() {
@@ -464,7 +438,6 @@
   initLanguageMenu();
   initMobileMenu();
   initScrollSpy();
-  initDiagram();
   initConsent();
   initContactForm();
 })();
