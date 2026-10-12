@@ -533,104 +533,87 @@ main > section,
   justify-content: flex-end;
 }
 
-.hero-art {
+.hero-photo {
   margin: clamp(3rem, 6vw, 4.5rem) 0 0;
   border: 1px solid var(--line);
-  background: var(--surface);
   overflow: hidden;
 }
-.hero-art-svg {
+.hero-photo img {
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  object-fit: cover;
+}
+.hero .facts {
+  margin-top: clamp(3rem, 6vw, 4.5rem);
+  border-top: 1px solid var(--line);
+}
+
+/* ---------- Services diagram ---------- */
+
+.diagram {
+  margin: clamp(2.5rem, 5vw, 3.5rem) 0 0;
+  padding: clamp(1rem, 3vw, 2rem);
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+.diagram figcaption {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+.diagram-svg {
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 2 / 1;
   font-family: var(--font-mono);
+}
+.diagram-tall {
+  display: none;
+  max-width: 420px;
+  margin: 0 auto;
 }
 
 /* Drawing styles: everything follows the theme tokens */
-.hero-art-svg .sheet { fill: var(--surface); }
-.hero-art-svg .grid { fill: url(#ha-dots); }
-.hero-art-svg .dot { fill: var(--line-strong); }
-.hero-art-svg .hatch { stroke: var(--line-strong); stroke-width: 1; }
-.hero-art-svg .frame-outer { fill: none; stroke: var(--line-strong); stroke-width: 1; }
-.hero-art-svg .frame { fill: none; stroke: var(--ink); stroke-width: 1.5; }
-.hero-art-svg .tb { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; }
-.hero-art-svg .thin { fill: none; stroke: var(--muted); stroke-width: 1; }
-.hero-art-svg .thin-fill { fill: var(--surface); stroke: var(--muted); stroke-width: 1; }
-.hero-art-svg .ink { fill: none; stroke: var(--ink); stroke-width: 1.5; }
-.hero-art-svg .ink-fill,
-.hero-art-svg .arrowhead { fill: var(--ink); }
-.hero-art-svg .part,
-.hero-art-svg .link,
-.hero-art-svg .gear { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; stroke-linejoin: round; }
-.hero-art-svg .link { stroke-width: 2; }
-.hero-art-svg .hole { fill: var(--bg); stroke: var(--ink); stroke-width: 1.2; }
-.hero-art-svg .cl { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 18 4 3 4; }
-.hero-art-svg .dim,
-.hero-art-svg .leader { fill: none; stroke: var(--ink-2); stroke-width: 1; }
-.hero-art-svg .accent { fill: none; stroke: var(--accent); stroke-width: 1.5; }
-.hero-art-svg .accent-fill { fill: var(--accent); }
-.hero-art-svg .accent-dash { stroke: var(--accent); stroke-width: 1.2; stroke-dasharray: 6 5; }
+.diagram-svg .hatch { stroke: var(--line-strong); stroke-width: 1; }
+.diagram-svg .thin { fill: none; stroke: var(--muted); stroke-width: 1; }
+.diagram-svg .thin-fill { fill: var(--surface); stroke: var(--muted); stroke-width: 1; }
+.diagram-svg .ink { fill: none; stroke: var(--ink); stroke-width: 1.5; }
+.diagram-svg .ink-fill { fill: var(--ink); }
+.diagram-svg .part,
+.diagram-svg .link,
+.diagram-svg .gear { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; stroke-linejoin: round; }
+.diagram-svg .link { stroke-width: 2; }
+.diagram-svg .hole { fill: var(--bg); stroke: var(--ink); stroke-width: 1.2; }
+.diagram-svg .cl { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 18 4 3 4; }
+.diagram-svg .accent { fill: none; stroke: var(--accent); stroke-width: 1.5; }
+.diagram-svg .accent-dash { stroke: var(--accent); stroke-width: 1.2; stroke-dasharray: 6 5; }
 
-.hero-art-svg .board { fill: var(--bg); stroke: var(--ink); stroke-width: 1.5; }
-.hero-art-svg .trace { fill: none; stroke: var(--line-strong); stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; }
-.hero-art-svg .trace.power { stroke-width: 5; }
-.hero-art-svg .pad-ring,
-.hero-art-svg .via { fill: var(--surface); stroke: var(--ink-2); stroke-width: 1.5; }
-.hero-art-svg .chip { fill: var(--ink); stroke: none; }
-.hero-art-svg .pin,
-.hero-art-svg .smd-pad { fill: var(--ink-2); }
-.hero-art-svg .mark { fill: var(--surface); }
-.hero-art-svg .cable { fill: none; stroke: var(--ink-2); stroke-width: 2.5; stroke-linecap: round; }
+.diagram-svg .board { fill: var(--bg); stroke: var(--ink); stroke-width: 1.5; }
+.diagram-svg .trace { fill: none; stroke: var(--line-strong); stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; }
+.diagram-svg .trace.power { stroke-width: 5; }
+.diagram-svg .pad-ring,
+.diagram-svg .via { fill: var(--surface); stroke: var(--ink-2); stroke-width: 1.5; }
+.diagram-svg .chip { fill: var(--ink); stroke: none; }
+.diagram-svg .pin,
+.diagram-svg .smd-pad { fill: var(--ink-2); }
+.diagram-svg .mark { fill: var(--surface); }
+.diagram-svg .cable { fill: none; stroke: var(--ink-2); stroke-width: 2.5; stroke-linecap: round; }
 
-.hero-art-svg text { fill: var(--ink-2); font-size: 13px; letter-spacing: 0.06em; }
-.hero-art-svg .tz { fill: var(--muted); font-size: 11px; }
-.hero-art-svg .t-strong { fill: var(--ink); font-size: 15px; font-weight: 500; letter-spacing: 0.12em; }
-.hero-art-svg .t-silk { fill: var(--surface); font-size: 16px; font-weight: 500; }
-.hero-art-svg .t-silk-sm { fill: var(--surface); font-size: 11px; }
+.diagram-svg text { fill: var(--ink-2); font-size: 13px; letter-spacing: 0.06em; }
+.diagram-svg .tz { fill: var(--muted); font-size: 11px; }
+.diagram-svg .t-silk { fill: var(--surface); font-size: 16px; font-weight: 500; }
+.diagram-svg .t-silk-sm { fill: var(--surface); font-size: 11px; }
 
-/* Motion: signal pulses, and the gear train driving the arm */
-.hero-art-svg .pulse {
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 2.5;
-  stroke-linecap: round;
-  stroke-dasharray: 3 97;
-  animation: ha-pulse 3.2s linear infinite;
-}
-.hero-art-svg .pulse-power { stroke-width: 3.5; animation-duration: 2.6s; }
-.hero-art-svg .ha-upper,
-.hero-art-svg .ha-fore,
-.hero-art-svg .ha-pinion {
-  animation: ha-upper 10s ease-in-out infinite;
-}
-.hero-art-svg .ha-fore { animation-name: ha-fore; }
-.hero-art-svg .ha-pinion { animation-name: ha-pinion; }
-
-@keyframes ha-pulse {
-  from { stroke-dashoffset: 100; }
-  to { stroke-dashoffset: 0; }
-}
-/* pinion: 12 teeth, gear: 24 teeth, so the pinion turns twice as far in the opposite direction */
-@keyframes ha-upper {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(-7deg); }
-}
-@keyframes ha-pinion {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(14deg); }
-}
-@keyframes ha-fore {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(16deg); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-art-svg .pulse { display: none; }
-  .hero-art-svg .ha-upper,
-  .hero-art-svg .ha-fore,
-  .hero-art-svg .ha-pinion { animation: none; }
-}
+.diagram-svg .pulse { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round; }
+.diagram-svg .pulse-power { stroke-width: 3.5; }
+.diagram-svg .legend { fill: var(--ink); font-size: 15px; letter-spacing: 0.04em; }
+.diagram-svg .legend-num { fill: var(--accent); font-weight: 500; }
+.diagram-svg .legend-rule { stroke: var(--ink-2); stroke-width: 1; }
+.diagram-wide .legend { font-size: 19px; }
+.diagram-tall .legend { font-size: 26px; }
+.diagram-tall .legend-rule { stroke-width: 1.5; }
 
 .facts {
   display: grid;
@@ -1210,8 +1193,14 @@ main > section,
   .brand span {
     display: none;
   }
-  .hero-art-svg {
-    aspect-ratio: 3 / 2;
+  .diagram-wide {
+    display: none;
+  }
+  .hero-eyebrow .sep {
+    display: none;
+  }
+  .diagram-tall {
+    display: block;
   }
   .facts,
   .service-grid,

@@ -43,6 +43,7 @@ LW Technologies SARL is an engineering consultancy / engineering office in Genev
 - Robotics engineering
 - Mechatronics engineering
 - Electronics engineering
+- BLDC and PMSM motor control, including field-oriented control (FOC)
 - Mechanical engineering design
 - End-to-end custom engineering development
 
