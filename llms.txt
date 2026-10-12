@@ -46,7 +46,8 @@ LW Technologies SARL is an engineering consultancy / engineering office in Genev
 - Mechanical engineering design
 - End-to-end custom engineering development
 
-## Sector Experience
+## Team Sector Experience
+The engineers at LW Technologies bring experience from previous roles in the following sectors:
 - Industrial engineering
 - Medical engineering
 - Railway engineering
@@ -74,7 +75,7 @@ LW Technologies SARL is an engineering consultancy / engineering office in Genev
 - Logo: https://lwtechnologies.ch/logo_square.jpg
 
 ## Language Notes
-This website supports English, French, Italian, and German content variants via on-page language switching.
+This website supports English and French content variants via on-page language switching.
 
 ## Canonical Page
 - https://lwtechnologies.ch/

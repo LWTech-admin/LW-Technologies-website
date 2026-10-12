@@ -3,7 +3,7 @@
   var THEME_STORAGE_KEY = "lwtech_theme";
   var CONSENT_STORAGE_KEY = "lwtech_analytics_consent";
   var BASE_URL = "https://lwtechnologies.ch/";
-  var LANGUAGES = ["en", "fr", "it", "de"];
+  var LANGUAGES = ["en", "fr"]; // Italian and German were retired; their translations are in git history (commit 96071e2).
 
   var translations = window.LWTECH_I18N || { en: {} };
   var currentLanguage = "en";

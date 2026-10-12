@@ -9,7 +9,7 @@ Static site for [lwtechnologies.ch](https://lwtechnologies.ch/), served by GitHu
 | `index.html` | Home page: markup, SEO metadata, structured data (JSON-LD), analytics consent setup |
 | `privacy.html` | Privacy policy (English only) |
 | `styles.css` | Shared styles and design tokens (light/dark) |
-| `i18n.js` | All visible text in EN / FR / IT / DE |
+| `i18n.js` | All visible text in EN / FR (Italian and German were retired; see git history) |
 | `site.js` | Language switching, theme toggle, menus, consent banner, contact form |
 | `fonts/` | Self-hosted IBM Plex Sans / Mono (SIL OFL, see `fonts/OFL.txt`) |
 | `llms.txt`, `robots.txt`, `sitemap.xml` | Crawler / LLM context |
@@ -18,7 +18,7 @@ Static site for [lwtechnologies.ch](https://lwtechnologies.ch/), served by GitHu
 
 ```sh
 python3 -m http.server 8000
-# open http://localhost:8000/  (add ?lang=fr|it|de to test languages)
+# open http://localhost:8000/  (add ?lang=fr to test French)
 ```
 
 ## Editing text

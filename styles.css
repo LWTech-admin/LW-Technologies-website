@@ -626,14 +626,6 @@ main > section,
 .sector-list li .label {
   font-weight: 400;
 }
-.note {
-  margin-top: 2rem;
-  padding-left: 1rem;
-  border-left: 2px solid var(--line-strong);
-  font-size: 0.85rem;
-  color: var(--muted);
-  max-width: 70ch;
-}
 
 /* ---------- Services ---------- */
 
