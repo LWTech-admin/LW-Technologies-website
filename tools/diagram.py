@@ -85,14 +85,16 @@ class Svg:
         for k in range(n):
             self.circle(pt(c, r, start + k * 360 / n), hole, 'hole')
 
-    def pulse(self, d, idx, power=False):
+    def trigger(self):
+        """Invisible timing anchor; site.js starts it, every animation is timed from its begin."""
+        self.add('<rect width="0" height="0"><animate id="%s-start" attributeName="x" from="0" to="0" '
+                 'dur="0.01s" begin="indefinite"/></rect>' % self.p)
+
+    def pulse(self, d, delay, power=False, dur=1.1):
         """A signal dash that travels the path once (hidden at rest)."""
-        delay = idx * 0.08
-        begin = '%s-start.begin+%ss' % (self.p, f(delay)) if idx else 'indefinite'
-        aid = ' id="%s-start"' % self.p if idx == 0 else ''
         self.add('<path class="pulse%s" d="%s" pathLength="100" stroke-dasharray="4 200" stroke-dashoffset="4">'
-                 '<animate%s attributeName="stroke-dashoffset" from="4" to="-100" dur="1.1s" begin="%s" fill="freeze"/>'
-                 '</path>' % (' pulse-power' if power else '', d, aid, begin))
+                 '<animate attributeName="stroke-dashoffset" from="4" to="-100" dur="%ss" begin="%s-start.begin+%ss" '
+                 'fill="freeze"/></path>' % (' pulse-power' if power else '', d, f(dur), self.p, f(delay)))
 
     def rotate(self, c, peak, start):
         """One smooth out-and-back rotation around c, starting `start` seconds after the trigger."""
@@ -121,6 +123,40 @@ P = pt(S, GEAR_R + PIN_R, PHI)
 E = (1180, 330)            # elbow
 WR = (1340, 390)           # wrist
 J1_PINS = (368, 396, 424)  # connector pins (y), x = 565
+HEADER = (495, 172)        # programming header, top centre (board coordinates)
+
+# Timeline (seconds after the trigger): firmware -> board -> cable -> motion
+T_SIGNALS, T_POWER, T_CABLE, T_MOTION = 0.9, 1.5, 1.9, 2.5
+
+CODE = [
+    ('void', ' foc_step(void) {'),
+    ('', '  i_ab = clarke(i_abc);'),
+    ('', '  i_dq = park(i_ab, theta);'),
+    ('', '  v_dq = pi(i_ref - i_dq);'),
+    ('', '  pwm(svm(ipark(v_dq, theta)));'),
+    ('', '}'),
+]
+
+
+def draw_code(g, x, y, w, font, line_h, head_h):
+    """Firmware panel: a short field-oriented control loop. Returns the panel's bottom/left anchor points."""
+    h = head_h + len(CODE) * line_h + line_h * 0.6
+    g.rect(x, y, w, h, 'code-panel')
+    g.rect(x, y, w, head_h, 'code-head')
+    g.add('<text class="legend" x="%s" y="%s"><tspan class="legend-num">2.2</tspan>'
+          '<tspan dx="12" data-i18n="firmwareLabel">Firmware &amp; software</tspan></text>' % (
+              f(x + font * 0.9), f(y + head_h * 0.66)))
+    gutter = x + font * 2.2
+    g.line(gutter, y + head_h, gutter, y + h, 'thin')
+    for i, (kw, rest) in enumerate(CODE):
+        ty = y + head_h + line_h * (i + 1)
+        g.add('<text class="code-num" x="%s" y="%s" text-anchor="end" style="font-size:%spx">%d</text>' % (
+            f(gutter - font * 0.6), f(ty), f(font * 0.8), i + 1))
+        g.add('<text class="code" x="%s" y="%s" style="font-size:%spx" xml:space="preserve">'
+              '%s<tspan class="code-text">%s</tspan></text>' % (
+                  f(gutter + font * 0.7), f(ty), f(font),
+                  ('<tspan class="code-kw">%s</tspan>' % kw) if kw else '', rest))
+    return h
 
 
 def draw_pcb(g):
@@ -198,10 +234,16 @@ def draw_pcb(g):
     for k in range(3):
         g.rect(430 + k * 30, 586, 12, 28, 'smd-pad')
 
+    # programming header (firmware is flashed here)
+    g.rect(468, 172, 54, 30, 'part', 2)
+    for x in (481, 495, 509):
+        for y in (181, 193):
+            g.circle((x, y), 3.2, 'ink-fill')
+
     for i, d in enumerate(signals):
-        g.pulse(d, i)
+        g.pulse(d, T_SIGNALS + i * 0.08)
     for i, d in enumerate(power):
-        g.pulse(d, 6 + i, power=True)
+        g.pulse(d, T_POWER + i * 0.08, power=True)
 
 
 def draw_mech(g, surface=(860, 1420)):
@@ -223,7 +265,7 @@ def draw_mech(g, surface=(860, 1420)):
     g.rect(P[0] - 42, P[1] - 42, 84, 84, 'part', 6)
     g.bolt_circle(P, 46, 4, 4, 45)
     g.add('<g>')
-    g.rotate(P, 14, 0.9)
+    g.rotate(P, 14, T_MOTION)
     g.path(gear_path(P, PIN_Z, PIN_R, PHI + 180), 'gear')
     g.circle(P, 10, 'part')
     g.circle(P, 3, 'ink-fill')
@@ -232,7 +274,7 @@ def draw_mech(g, surface=(860, 1420)):
 
     # arm: upper link carries the 24-tooth gear, forearm is nested inside it
     g.add('<g>')
-    g.rotate(S, -7, 0.9)
+    g.rotate(S, -7, T_MOTION)
     g.path(gear_path(S, GEAR_Z, GEAR_R, PHI + 180 / GEAR_Z), 'gear')
     g.path(link_path(S, 40, E, 30), 'link')
     ux, uy = E[0] - S[0], E[1] - S[1]
@@ -243,7 +285,7 @@ def draw_mech(g, surface=(860, 1420)):
     g.bolt_circle(S, 21, 6, 3)
     g.circle(S, 9, 'part')
     g.add('<g>')
-    g.rotate(E, 16, 0.9)
+    g.rotate(E, 16, T_MOTION)
     g.path(link_path(E, 26, WR, 18), 'link')
     g.circle(E, 22, 'part')
     g.bolt_circle(E, 15, 4, 2.5, 45)
@@ -260,6 +302,7 @@ def draw_mech(g, surface=(860, 1420)):
 
 
 def defs(g):
+    g.trigger()
     g.add('<defs><pattern id="%s-hatch" width="10" height="10" patternUnits="userSpaceOnUse" '
           'patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="10" class="hatch"/></pattern></defs>' % g.p)
 
@@ -277,10 +320,15 @@ def wide():
     g.add('<g>')
     draw_pcb(g)
     g.add('</g>')
+    # firmware panel, flashed to the board through the programming header
+    flash = 'M610 187 H522'
+    g.path(flash, 'flash')
+    g.pulse(flash, 0.1, dur=0.8)
+    draw_code(g, 610, 128, 400, 17, 26, 38)
     for i, (y0, y1) in enumerate(zip(J1_PINS, (497, 515, 533))):
         d = 'M585 %s C720 %s 745 %s 863 %s' % (y0, y0, y1, y1)
         g.path(d, 'cable')
-        g.pulse(d, 9 + i, power=True)
+        g.pulse(d, T_CABLE + i * 0.08, power=True)
     draw_mech(g)
     g.legend(110, 580, 712, *LABELS['electronics'])
     g.legend(866, 1100, 712, *LABELS['mechanical'])
@@ -291,31 +339,37 @@ def wide():
 def tall():
     g = Svg('dgt')
     defs(g)
-    pcb_dx, pcb_dy = -60, -40
-    mech_dx, mech_dy = -780, 440
+    pcb_dx, pcb_dy = -60, 220
+    mech_dx, mech_dy = -780, 700
     g.add('<g transform="translate(%d %d)">' % (pcb_dx, pcb_dy))
     draw_pcb(g)
     g.add('</g>')
+    # firmware panel above the board, flashed down into the programming header
+    code_h = draw_code(g, 50, 40, 470, 20, 30, 50)
+    hx = HEADER[0] + pcb_dx
+    flash = 'M%s %s V%s' % (f(hx), f(40 + code_h), f(HEADER[1] + pcb_dy))
+    g.path(flash, 'flash')
+    g.pulse(flash, 0.1, dur=0.8)
     # cable: from the connector, down the right side, then left and down into the top of the motor
     flange_top = P[1] + mech_dy - 42
     for i, y0 in enumerate(J1_PINS):
         y0 += pcb_dy
         xl = 640 - 14 * i
-        yl = 650 + 14 * (2 - i)
+        yl = 910 + 14 * (2 - i)
         xt = P[0] + mech_dx + 14 - 14 * i
         r = 22
         d = ('M525 %s H%s Q%s %s %s %s V%s Q%s %s %s %s H%s Q%s %s %s %s V%s' % (
             f(y0), f(xl - r), f(xl), f(y0), f(xl), f(y0 + r), f(yl - r), f(xl), f(yl), f(xl - r), f(yl),
             f(xt + r), f(xt), f(yl), f(xt), f(yl + r), f(flange_top)))
         g.path(d, 'cable')
-        g.pulse(d, 9 + i, power=True)
+        g.pulse(d, T_CABLE + i * 0.08, power=True)
     g.add('<g transform="translate(%d %d)">' % (mech_dx, mech_dy))
     draw_mech(g, surface=(860, 1420))
     g.add('</g>')
-    g.legend(50, 520, 82, *LABELS['electronics'], anchor_up=True)
-    g.legend(86, 320, 1156, *LABELS['mechanical'])
-    g.legend(380, 640, 1156, *LABELS['robotics'])
-    return g, '20 30 690 1180'
+    g.legend(50, 520, 342, *LABELS['electronics'], anchor_up=True)
+    g.legend(86, 320, 1416, *LABELS['mechanical'])
+    g.legend(380, 640, 1416, *LABELS['robotics'])
+    return g, '20 20 690 1440'
 
 
 def render(builder, cls):
