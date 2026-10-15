@@ -347,6 +347,68 @@
     });
   }
 
+  // ---------- Reveal on scroll ----------
+
+  var REVEAL_GROUPS = [
+    ".section-index",
+    ".section-title",
+    ".about-body",
+    ".service-grid > .service",
+    ".subsection-title",
+    ".process > li",
+    ".project-grid > .project",
+    ".faq-list",
+    ".contact-grid",
+    ".footer-grid > *"
+  ];
+
+  function initReveal() {
+    if (!("IntersectionObserver" in window)) {
+      return;
+    }
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+
+    // Enter: animate in once the element is comfortably inside the viewport.
+    var enter = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting && entry.target.classList.contains("reveal")) {
+          entry.target.classList.add("is-visible");
+        }
+      });
+    }, { rootMargin: "0px 0px -8% 0px" });
+
+    // Leave: reset only when fully off screen, remembering which side it left from,
+    // so it comes back from that direction (rises when scrolling down, settles when scrolling up).
+    var leave = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          return;
+        }
+        var node = entry.target;
+        node.setAttribute("data-from", entry.boundingClientRect.top < 0 ? "above" : "below");
+        node.classList.add("reveal");
+        node.classList.remove("is-visible");
+      });
+    }, { rootMargin: "0px" });
+
+    REVEAL_GROUPS.forEach(function (selector) {
+      document.querySelectorAll(selector).forEach(function (node) {
+        // Stagger siblings in a row (service columns, process steps, project cards).
+        var index = Array.prototype.indexOf.call(node.parentNode.children, node);
+        node.style.setProperty("--reveal-delay", Math.min(index, 4) * 0.08 + "s");
+        // Anything already on screen at load stays visible; it joins in once it has scrolled away.
+        if (node.getBoundingClientRect().top >= window.innerHeight) {
+          node.setAttribute("data-from", "below");
+          node.classList.add("reveal");
+        }
+        enter.observe(node);
+        leave.observe(node);
+      });
+    });
+  }
+
   // ---------- Consent banner ----------
 
   function initConsent() {
@@ -425,6 +487,20 @@
     });
   }
 
+  // ---------- Hero drawing: respect reduced motion (SMIL ignores the CSS media query) ----------
+
+  function initHeroArt() {
+    if (!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches)) {
+      return;
+    }
+    document.querySelectorAll(".hero-art").forEach(function (svg) {
+      if (typeof svg.pauseAnimations === "function") {
+        svg.pauseAnimations();
+        svg.setCurrentTime(0);
+      }
+    });
+  }
+
   // ---------- Init ----------
 
   var queryLanguage = getLanguageFromQuery();
@@ -438,6 +514,8 @@
   initLanguageMenu();
   initMobileMenu();
   initScrollSpy();
+  initReveal();
+  initHeroArt();
   initConsent();
   initContactForm();
 })();
