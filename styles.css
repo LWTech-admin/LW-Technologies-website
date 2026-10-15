@@ -533,7 +533,6 @@ main > section,
 .hero-art .section { stroke: var(--ink); stroke-width: 1.5; stroke-linejoin: round; }
 .hero-art .hatch { stroke: var(--line-strong); stroke-width: 1; }
 .hero-art .outline { fill: none; stroke: var(--ink); stroke-width: 1.3; stroke-linejoin: round; }
-.hero-art .cl { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 18 4 3 4; }
 .hero-art .ink-fill { fill: var(--ink); }
 .hero-art .stream { fill: none; stroke: var(--line-strong); stroke-width: 1; }
 .hero-art .particle,

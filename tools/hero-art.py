@@ -258,8 +258,10 @@ def blade_outline(phi_deg, n=9):
         c = 50 * math.sin(math.pi * (0.16 + 0.84 * u)) + 2
         beta = math.atan(TH_PITCH / (2 * math.pi * r))
         for s, out in ((-c / 2, le), (c / 2, te)):
+            # chord direction: aft (+x) and against the rotation, so the leading edge (s < 0) is forward and
+            # ahead in the direction of rotation (phi increasing): the blades push water aft
             x = TH_XP + s * math.sin(beta)
-            y = r * math.cos(phi) - s * math.cos(beta) * math.sin(phi)
+            y = r * math.cos(phi) + s * math.cos(beta) * math.sin(phi)
             out.append((x, y))
         zs.append(r * math.sin(phi))
     return le + te[::-1], sum(zs) / len(zs)
@@ -374,7 +376,6 @@ def thruster_drawing(g, hatch_id):
     g.add('<path class="pulse-line" d="%s" pathLength="100" stroke-dasharray="5 300" stroke-dashoffset="-100">'
           '<animate attributeName="stroke-dashoffset" values="-100;5;5" keyTimes="0;0.35;1" dur="5s" begin="2s" '
           'repeatCount="indefinite"/></path>' % cable)
-    g.line(TH_X0 - 70, AX, 560, AX, 'cl')
 
 
 def corner_mask(mask_id, vb):
